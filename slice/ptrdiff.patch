@@ -1,0 +1,10 @@
+--- build/generated/xlog.h	2011-12-21 14:55:35.814245062 +0800
++++ build/generated/xlog.h1	2011-12-21 14:56:06.318245677 +0800
+@@ -13,6 +13,7 @@
+ #ifndef __build_generated_xlog_h__
+ #define __build_generated_xlog_h__
+ 
++#include <cstddef>
+ #include <Ice/LocalObjectF.h>
+ #include <Ice/ProxyF.h>
+ #include <Ice/ObjectF.h>
