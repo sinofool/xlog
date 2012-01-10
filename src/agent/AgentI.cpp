@@ -1,5 +1,4 @@
-
-#include "src/agent/AgentI.h"
+#include <src/agent/AgentI.h>
 
 namespace xlog {
 
@@ -23,8 +22,22 @@ void AgentI::addFailedLogDatas(const LogDataSeq& datas, const ::Ice::Current& cu
 
 ::Ice::StringSeq AgentI::getAgents(const ::Ice::Current& current)
 {
-	::IceUtil::Mutex::Lock lock(agentsMutex_);
-	return agents_;
+  if(agentConfigCM_)
+  {
+      return agentConfigCM_->getConfig();
+  }
+
+  return ::Ice::StringSeq();
+}
+
+void AgentI::setAgentConfigManager(const AgentConfigManagerPtr& agentConfigCM)
+{
+    agentConfigCM_ = agentConfigCM;
+}
+
+void AgentI::setDispatcherAdapter(const DispatcherAdapterPtr& dispatcher)
+{
+    dispatcher_ = dispatcher;
 }
 
 void SendWorker::add(const LogDataSeq& datas)
@@ -47,22 +60,22 @@ void SendWorker::run()
 			}
 			datas.swap(datas_);
 		}
-		if(!send(datas))
-		{
-			add(datas);
-		}
+
+    send(datas);
 	}
 }
 
 bool NormalSendWorker::send(const LogDataSeq& datas)
 {
-	//TODO
+  //TODO
+  //dispatcher_->send(datas);
 	return true;
 }
 
 bool FailedSendWorker::send(const LogDataSeq& datas)
 {
-	//TODO
+  //TODO
+  //dispatcher_->sendFailedLogDatas(datas);
 	return true;
 }
 

@@ -1,5 +1,8 @@
 #include <Ice/Ice.h>
-#include "src/agent/AgentI.h"
+#include <src/agent/AgentI.h>
+#include <src/common/ZkManager.h>
+#include <src/common/AgentConfigManager.h>
+#include <src/common/DispatcherConfigManager.h>
 
 using namespace std;
 using namespace xlog;
@@ -9,12 +12,29 @@ public:
 	virtual int run(int, char*[]) {
 		shutdownOnInterrupt();
 
-		Ice::ObjectAdapterPtr adapter =
+    //TODO
+    ZkManagerPtr zm = new ZkManager;
+    if(!zm->init(""))
+    {
+			cerr << appName() << ": can not init zk, exit" << endl;
+      return 0;
+    }
+    
+    AgentConfigManagerPtr agentCM = new AgentConfigManager;
+    agentCM->setZkManager(zm);
+    if(!agentCM->init())
+    {
+			cerr << appName() << ": can not init agent config, exit" << endl;
+    }
+	
+    Ice::ObjectAdapterPtr adapter =
 				communicator()->createObjectAdapterWithEndpoints("XlogAgent",
 						"default -p 10000");
-		AgentPtr agent = new AgentI;
+		AgentIPtr agent = new AgentI;
 		adapter->add(agent, communicator()->stringToIdentity("A"));
 		adapter->activate();
+
+    agent->setAgentConfigManager(agentCM);
 
 		communicator()->waitForShutdown();
 		if (interrupted()) {
