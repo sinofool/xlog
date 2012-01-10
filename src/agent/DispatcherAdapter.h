@@ -13,8 +13,10 @@ namespace xlog
 class DispatcherAdapter : public Ice::Object
 {
 public:
+    
+    DispatcherAdapter(const DispatcherConfigManagerPtr& dispatcherCM);
 
-    void setDispatcherConfigManager(const DispatcherConfigManagerPtr& dispatcherCM);
+public:
 
     bool send(const LogDataSeq& datas);
     

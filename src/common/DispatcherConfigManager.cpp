@@ -4,26 +4,26 @@
 namespace xlog
 {
 
+DispatcherConfigManager::DispatcherConfigManager(const ZkManagerPtr& zm) : zm_(zm)
+{
+}
+
 bool DispatcherConfigManager::init()
 {
     //TODO
     return true;
 }
 
-bool DispatcherConfigManager::subscribe()
+bool DispatcherConfigManager::handle()
 {
     //TODO
     return true;
 }
 
-std::vector<std::string> DispatcherConfigManager::update()
+std::vector<DispatcherPrx> DispatcherConfigManager::getConfig()
 {
-    //TODO
-    return std::vector<std::string>();
-}
-
-void DispatcherConfigManager::setConfig(const std::vector<std::string>& config)
-{
+    ::IceUtil::RWRecMutex::RLock lock(configMutex_);
+    return config_;
 }
 
 }

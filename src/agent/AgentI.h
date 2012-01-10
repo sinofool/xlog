@@ -6,8 +6,7 @@
 #include <IceUtil/Mutex.h>
 #include <IceUtil/Monitor.h>
 
-#include <src/agent/DispatcherAdapter.h>
-#include <src/common/AgentConfigManager.h>
+#include <src/common/common.h>
 
 namespace xlog
 {
@@ -22,7 +21,7 @@ class AgentI : virtual public Agent
 {
 public:
 
-	AgentI();
+	AgentI(const AgentConfigManagerPtr& agentConfigCM, const DispatcherAdapterPtr& dispatcher);
 
 public:
 
@@ -43,21 +42,15 @@ public:
 	 */
 	virtual ::Ice::StringSeq getAgents(const ::Ice::Current& current);
 
-public:
-
-  void setAgentConfigManager(const AgentConfigManagerPtr& agentConfigCM);
-  
-  void setDispatcherAdapter(const DispatcherAdapterPtr& dispatcher);
-
 private:
 
 	NormalSendWorkerPtr normalSendWorker_; /**发送正常数据的worker*/
 	
 	FailedSendWorkerPtr failedSendWorker_; /**发送失败数据的worker*/
 
-  DispatcherAdapterPtr dispatcher_;
-
   AgentConfigManagerPtr agentConfigCM_;
+  
+  DispatcherAdapterPtr dispatcher_;
 	
 };
 

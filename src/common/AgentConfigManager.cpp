@@ -6,17 +6,27 @@
 namespace xlog
 {
 
+AgentConfigManager::AgentConfigManager(const std::string& prx, const ZkManagerPtr& zm) :
+                                        prx_(prx), zm_(zm)
+{
+}
+
 bool AgentConfigManager::init()
+{
+    return handle();
+}
+
+bool AgentConfigManager::handle()
 {
     if(!zm_ )
     {
-        std::cerr<<"AgentConfigManager::init failed, because zkmananager is null!"<<std::endl;
+        std::cerr<<"AgentConfigManager::handle failed, because zkmananager is null!"<<std::endl;
         return false;
     }
     
     if(prx_ == "")
     {
-        std::cerr<<"AgentConfigManager::init failed, because prx_ is null!"<<std::endl;
+        std::cerr<<"AgentConfigManager::handle failed, because prx_ is null!"<<std::endl;
         return false;
     }
 
@@ -24,7 +34,7 @@ bool AgentConfigManager::init()
 
     if(newConfig.empty())
     {
-        std::cerr<<"AgentConfigManager::init can not get agents config from zk!"<<std::endl;
+        std::cerr<<"AgentConfigManager::handle can not get agents config from zk!"<<std::endl;
         return false;
     }
 
@@ -69,6 +79,18 @@ std::vector<std::string> AgentConfigManager::update()
     }
 
     return zm_->getChildren(AGENTS_PATH);
+}
+
+void AgentConfigManager::setConfig(const std::vector<std::string>& config)
+{
+    ::IceUtil::RWRecMutex::WLock lock(configMutex_);
+    config_ = config;
+}
+
+std::vector<std::string> AgentConfigManager::getConfig()
+{
+    ::IceUtil::RWRecMutex::RLock lock(configMutex_);
+    return config_;
 }
 
 }

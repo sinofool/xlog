@@ -16,6 +16,11 @@
 namespace xlog 
 {
 
+/**
+ * 用来设置全局的ZkManager
+ */
+void setZkManager(const ZkManagerPtr& zm);
+
 class ZkManager : public ::Ice::Object
 {
 public:
@@ -32,16 +37,10 @@ public:
     bool init(const std::string& zkAdress);
 
     /**
-     * 为agentCM_赋值，需要在初始化时进行一次赋值
-     * param agentCM 初始化好的AgentConfigManager实例
+     * 添加listener赋值，需要在初始化时调用，因为调用没有加锁，不是线程安全的
+     * param listener 初始化好的ZooKeeperListener实例
      */
-    void setAgentConfigManager(const AgentConfigManagerPtr& agentCM);
-
-    /**
-     * 为dispatcherCM_赋值，需要在初始化时进行一次赋值
-     * param dispatcherCM 初始化好的AgentConfigManager实例
-     */
-    void setDispatcherConfigManager(const DispatcherConfigManagerPtr& dispatcherCM);
+    void addListener(const ZooKeeperListenerPtr& listener);
 
     /**
      * 创建zookeeper临时节点，临时节点没有数据，只会创建目录
@@ -76,10 +75,8 @@ private:
 
     std::string zkAddress_; /*zookeeper连接的地址*/
 
-    AgentConfigManagerPtr agentCM_; /*负责agent的配置管理*/
+    std::vector<ZooKeeperListenerPtr> listeners_; /*所有listeneragent的配置管理*/
     
-    DispatcherConfigManagerPtr dispatcherCM_; /*负责dispatcher的配置管理*/
-
     ::IceUtil::Monitor< ::IceUtil::Mutex> zhMonitor_; /*zh_的锁*/
 
     zhandle_t* zh_; /*zookeeper的连接*/

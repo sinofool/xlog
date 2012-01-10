@@ -1,5 +1,4 @@
-#include <src/common/AgentConfigManager.h>
-#include <src/common/DispatcherConfigManager.h>
+#include <src/common/ZooKeeperListener.h>
 #include <src/common/ZkManager.h>
 
 namespace xlog
@@ -100,21 +99,12 @@ ZkManager::ZkManager()
 {
     zkAddress_ = "";
 
-    agentCM_ = NULL;
-    
-    dispatcherCM_ = NULL;
-
     zhandle_t* zh_ = NULL;
 }
 
-void ZkManager::setAgentConfigManager(const AgentConfigManagerPtr& agentCM)
+void ZkManager::addListener(const ZooKeeperListenerPtr& listener)
 {
-    agentCM_ = agentCM;
-}
-
-void ZkManager::setDispatcherConfigManager(const DispatcherConfigManagerPtr& dispatcherCM)
-{
-    dispatcherCM_ = dispatcherCM;
+    listeners_.push_back(listener);
 }
 
 bool ZkManager::createEphemeralNode(const std::string& path)
@@ -217,15 +207,9 @@ void ZkManager::reInit()
 
 void ZkManager::notifyChange()
 {
-    //需要对智能指针进行判断，因为ZkManager可以只针对agent或dispatcher使用
-    if(agentCM_)
+    for(std::vector<ZooKeeperListenerPtr>::const_iterator it = listeners_.begin(); it != listeners_.end(); ++it)
     {
-        agentCM_->init();
-    }
-
-    if(dispatcherCM_)
-    {
-        dispatcherCM_->init();
+        (*it)->handle();
     }
 }
 

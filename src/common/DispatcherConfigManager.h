@@ -1,24 +1,38 @@
 #ifndef __DISPATCHER_CONFIGMANAGER_H__
 #define __DISPATCHER_CONFIGMANAGER_H__
 
-#include <src/common/ConfigManager.h>
+#include <xlog.h>
+#include <IceUtil/RWRecMutex.h>
+
+#include <src/common/common.h>
+#include <src/common/ZooKeeperListener.h>
 
 namespace xlog
 {
 
-class DispatcherConfigManager : public ConfigManager
+class DispatcherConfigManager : public ZooKeeperListener
 {
 public:
 
-    virtual bool init();
+    DispatcherConfigManager(const ZkManagerPtr& zm);
 
-protected:
+public:
 
-    virtual bool subscribe();
+    bool init();
 
-    virtual std::vector<std::string> update();
+    std::vector<DispatcherPrx> getConfig();
 
-    virtual void setConfig(const std::vector<std::string>& config);
+public:
+
+    virtual bool handle();
+
+private:
+
+    ZkManagerPtr zm_;
+
+    ::IceUtil::RWRecMutex configMutex_;
+    
+    std::vector<DispatcherPrx> config_;
 };
 
 }

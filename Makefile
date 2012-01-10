@@ -13,14 +13,11 @@ build/libXlogSlice.a: slice/xlog.ice
 	$(CC) -c -o build/generated/xlog.o -I$(ICE_HOME)/include -Ibuild/generated build/generated/xlog.cpp
 	$(AR) cr build/libXlogSlice.a build/generated/xlog.o
 
-build/agent: build/libXlogSlice.a build/agent.o build/AgentI.o build/ZkManager.o build/ConfigManager.o build/AgentConfigManager.o build/DispatcherConfigManager.o build/DispatcherAdapter.o
-	$(CC) -o $@ build/ZkManager.o build/ConfigManager.o build/AgentConfigManager.o build/DispatcherConfigManager.o build/DispatcherAdapter.o build/AgentI.o build/agent.o -Lbuild -lXlogSlice -L$(ICE_HOME)/lib -L$(ZOOKEEPER_HOME)/lib -lIce -lIceUtil -lzookeeper_mt
+build/agent: build/libXlogSlice.a build/agent.o build/AgentI.o build/ZkManager.o build/AgentConfigManager.o build/DispatcherConfigManager.o build/DispatcherAdapter.o
+	$(CC) -o $@ build/ZkManager.o build/AgentConfigManager.o build/DispatcherConfigManager.o build/DispatcherAdapter.o build/AgentI.o build/agent.o -Lbuild -lXlogSlice -L$(ICE_HOME)/lib -L$(ZOOKEEPER_HOME)/lib -lIce -lIceUtil -lzookeeper_mt
 
 build/ZkManager.o: src/common/ZkManager.cpp src/common/ZkManager.h
 	$(CC) -c -o $@ -I. -I$(ICE_HOME)/include -I$(ZOOKEEPER_HOME)/include -Ibuild/generated src/common/ZkManager.cpp
-
-build/ConfigManager.o: src/common/ConfigManager.cpp src/common/ConfigManager.h
-	$(CC) -c -o $@ -I. -I$(ICE_HOME)/include -I$(ZOOKEEPER_HOME)/include -Ibuild/generated src/common/ConfigManager.cpp
 
 build/AgentConfigManager.o: src/common/AgentConfigManager.cpp src/common/AgentConfigManager.h
 	$(CC) -c -o $@ -I. -I$(ICE_HOME)/include -I$(ZOOKEEPER_HOME)/include -Ibuild/generated src/common/AgentConfigManager.cpp

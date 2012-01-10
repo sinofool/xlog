@@ -3,9 +3,8 @@
 namespace xlog
 {
 
-void DispatcherAdapter::setDispatcherConfigManager(const DispatcherConfigManagerPtr& dispatcherCM)
+DispatcherAdapter::DispatcherAdapter(const DispatcherConfigManagerPtr& dispatcherCM) : dispatcherCM_(dispatcherCM)
 {
-    dispatcherCM_ = dispatcherCM;
 }
 
 bool DispatcherAdapter::send(const LogDataSeq& datas)

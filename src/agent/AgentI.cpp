@@ -1,8 +1,11 @@
+#include <src/common/AgentConfigManager.h>
+#include <src/agent/DispatcherAdapter.h>
 #include <src/agent/AgentI.h>
 
 namespace xlog {
 
-AgentI::AgentI() 
+AgentI::AgentI(const AgentConfigManagerPtr& agentConfigCM, const DispatcherAdapterPtr& dispatcher) : Agent(), 
+                agentConfigCM_(agentConfigCM), dispatcher_(dispatcher)
 {
 	normalSendWorker_ = new NormalSendWorker;
 	normalSendWorker_->start().detach();
@@ -28,16 +31,6 @@ void AgentI::addFailedLogDatas(const LogDataSeq& datas, const ::Ice::Current& cu
   }
 
   return ::Ice::StringSeq();
-}
-
-void AgentI::setAgentConfigManager(const AgentConfigManagerPtr& agentConfigCM)
-{
-    agentConfigCM_ = agentConfigCM;
-}
-
-void AgentI::setDispatcherAdapter(const DispatcherAdapterPtr& dispatcher)
-{
-    dispatcher_ = dispatcher;
 }
 
 void SendWorker::add(const LogDataSeq& datas)
