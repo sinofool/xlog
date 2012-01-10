@@ -7,13 +7,13 @@ DispatcherAdapter::DispatcherAdapter(const DispatcherConfigManagerPtr& dispatche
 {
 }
 
-bool DispatcherAdapter::send(const LogDataSeq& datas)
+bool DispatcherAdapter::send(const LogDataSeq& data)
 {
     //TODO
     return true;
 }
 
-bool DispatcherAdapter::sendFailedLogDatas(const LogDataSeq& datas)
+bool DispatcherAdapter::sendFailedLogData(const LogDataSeq& data)
 {
     //TODO
     return true;

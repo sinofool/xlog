@@ -9,8 +9,8 @@ module xlog {
   sequence<LogData> LogDataSeq;
 
   interface Agent {
-    void add(LogDataSeq datas);
-    void addFailedLogDatas(LogDataSeq datas);
+    void add(LogDataSeq data);
+    void addFailedLogData(LogDataSeq data);
 	Ice::StringSeq getAgents();
   };
 

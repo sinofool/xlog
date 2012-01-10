@@ -18,9 +18,9 @@ public:
 
 public:
 
-    bool send(const LogDataSeq& datas);
+    bool send(const LogDataSeq& data);
     
-    bool sendFailedLogDatas(const LogDataSeq& datas);
+    bool sendFailedLogData(const LogDataSeq& data);
 
 private:
 

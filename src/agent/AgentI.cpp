@@ -13,14 +13,14 @@ AgentI::AgentI(const AgentConfigManagerPtr& agentConfigCM, const DispatcherAdapt
 	failedSendWorker_->start().detach();
 }
 
-void AgentI::add(const LogDataSeq& datas, const ::Ice::Current& current)
+void AgentI::add(const LogDataSeq& data, const ::Ice::Current& current)
 {
-	normalSendWorker_->add(datas);
+	normalSendWorker_->add(data);
 }
     
-void AgentI::addFailedLogDatas(const LogDataSeq& datas, const ::Ice::Current& current)
+void AgentI::addFailedLogData(const LogDataSeq& data, const ::Ice::Current& current)
 {
-	failedSendWorker_->add(datas);
+	failedSendWorker_->add(data);
 }
 
 ::Ice::StringSeq AgentI::getAgents(const ::Ice::Current& current)
@@ -33,42 +33,42 @@ void AgentI::addFailedLogDatas(const LogDataSeq& datas, const ::Ice::Current& cu
   return ::Ice::StringSeq();
 }
 
-void SendWorker::add(const LogDataSeq& datas)
+void SendWorker::add(const LogDataSeq& data)
 {
-	::IceUtil::Monitor< ::IceUtil::Mutex>::Lock lock(datasMutex_);
-	datas_.insert(datas_.end(), datas.begin(), datas.end());
-	datasMutex_.notify();
+	::IceUtil::Monitor< ::IceUtil::Mutex>::Lock lock(dataMutex_);
+	data_.insert(data_.end(), data.begin(), data.end());
+	dataMutex_.notify();
 }
 
 void SendWorker::run()
 {
 	while(true)
 	{
-		LogDataSeq datas;
+		LogDataSeq data;
 		{
-			::IceUtil::Monitor< ::IceUtil::Mutex>::Lock lock(datasMutex_);
-			if(datas_.empty())
+			::IceUtil::Monitor< ::IceUtil::Mutex>::Lock lock(dataMutex_);
+			if(data_.empty())
 			{
-				datasMutex_.wait();
+				dataMutex_.wait();
 			}
-			datas.swap(datas_);
+			data.swap(data_);
 		}
 
-    send(datas);
+    send(data);
 	}
 }
 
-bool NormalSendWorker::send(const LogDataSeq& datas)
+bool NormalSendWorker::send(const LogDataSeq& data)
 {
   //TODO
-  //dispatcher_->send(datas);
+  //dispatcher_->send(data);
 	return true;
 }
 
-bool FailedSendWorker::send(const LogDataSeq& datas)
+bool FailedSendWorker::send(const LogDataSeq& data)
 {
   //TODO
-  //dispatcher_->sendFailedLogDatas(datas);
+  //dispatcher_->sendFailedLogDatas(data);
 	return true;
 }
 
