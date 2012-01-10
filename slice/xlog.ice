@@ -1,9 +1,17 @@
 #include <Ice/BuiltinSequences.ice>
 
 module xlog {
+  struct LogData {
+	Ice::StringSeq categories;
+	Ice::StringSeq logs;
+	string checkSum;
+  };
+  sequence<LogData> LogDataSeq;
+
   interface Agent {
-    int ensureLog(Ice::StringSeq lines);
-    void dobestLog(Ice::StringSeq lines);
+    void add(LogDataSeq data);
+    void addFailedLogData(LogDataSeq data);
+	Ice::StringSeq getAgents();
   };
 
   interface Logger {
