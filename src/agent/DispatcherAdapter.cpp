@@ -3,7 +3,8 @@
 namespace xlog
 {
 
-DispatcherAdapter::DispatcherAdapter(const DispatcherConfigManagerPtr& dispatcherCM) : dispatcherCM_(dispatcherCM)
+DispatcherAdapter::DispatcherAdapter(const DispatcherConfigManagerPtr& dispatcherCM) :
+        dispatcherCM_(dispatcherCM)
 {
 }
 

@@ -4,7 +4,8 @@
 namespace xlog
 {
 
-DispatcherConfigManager::DispatcherConfigManager(const ZkManagerPtr& zm) : zm_(zm)
+DispatcherConfigManager::DispatcherConfigManager(const ZkManagerPtr& zm) :
+        zm_(zm)
 {
 }
 

@@ -10,7 +10,7 @@
 namespace xlog
 {
 
-class DispatcherConfigManager : public ZooKeeperListener
+class DispatcherConfigManager: public ZooKeeperListener
 {
 public:
 
@@ -31,7 +31,7 @@ private:
     ZkManagerPtr zm_;
 
     ::IceUtil::RWRecMutex configMutex_;
-    
+
     std::vector<DispatcherPrx> config_;
 };
 

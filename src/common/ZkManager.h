@@ -13,7 +13,7 @@
 
 #include <src/common/common.h>
 
-namespace xlog 
+namespace xlog
 {
 
 /**
@@ -21,7 +21,7 @@ namespace xlog
  */
 void setZkManager(const ZkManagerPtr& zm);
 
-class ZkManager : public ::Ice::Object
+class ZkManager: public ::Ice::Object
 {
 public:
 
@@ -60,7 +60,7 @@ public:
      * zookeeper watcher 调用的接口，通知zookeeper连接已经建立成功
      */
     void notifyConnected();
-    
+
     /**
      * 当zookeeper数据有变化时，通知已经注册的configmanager进行数据更新
      */
@@ -76,8 +76,8 @@ private:
     std::string zkAddress_; /*zookeeper连接的地址*/
 
     std::vector<ZooKeeperListenerPtr> listeners_; /*所有listeneragent的配置管理*/
-    
-    ::IceUtil::Monitor< ::IceUtil::Mutex> zhMonitor_; /*zh_的锁*/
+
+    ::IceUtil::Monitor<::IceUtil::Mutex> zhMonitor_; /*zh_的锁*/
 
     zhandle_t* zh_; /*zookeeper的连接*/
 };

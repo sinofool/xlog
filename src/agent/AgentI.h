@@ -17,80 +17,80 @@ typedef ::IceUtil::Handle<NormalSendWorker> NormalSendWorkerPtr;
 class FailedSendWorker;
 typedef ::IceUtil::Handle<FailedSendWorker> FailedSendWorkerPtr;
 
-class AgentI : virtual public Agent
+class AgentI: virtual public Agent
 {
 public:
 
-	AgentI(const AgentConfigManagerPtr& agentConfigCM, const DispatcherAdapterPtr& dispatcher);
+    AgentI(const AgentConfigManagerPtr& agentConfigCM, const DispatcherAdapterPtr& dispatcher);
 
 public:
 
-	/**
-	 * 收集client的log信息
-	 * @param data log信息
-	 */
+    /**
+     * 收集client的log信息
+     * @param data log信息
+     */
     virtual void add(const LogDataSeq& data, const ::Ice::Current& current);
-   
-	/**
-	 * 收集client曾经发送失败的log信息
-	 * @param data log信息
-	 */
-	virtual void addFailedLogData(const LogDataSeq& data, const ::Ice::Current& current);
-	
-	/**
-	 * 获取所有agent的字符串信息，可以通过该字符串生成agent的prx
-	 */
-	virtual ::Ice::StringSeq getAgents(const ::Ice::Current& current);
+
+    /**
+     * 收集client曾经发送失败的log信息
+     * @param data log信息
+     */
+    virtual void addFailedLogData(const LogDataSeq& data, const ::Ice::Current& current);
+
+    /**
+     * 获取所有agent的字符串信息，可以通过该字符串生成agent的prx
+     */
+    virtual ::Ice::StringSeq getAgents(const ::Ice::Current& current);
 
 private:
 
-	NormalSendWorkerPtr normalSendWorker_; /**发送正常数据的worker*/
-	
-	FailedSendWorkerPtr failedSendWorker_; /**发送失败数据的worker*/
+    NormalSendWorkerPtr normalSendWorker_; /**发送正常数据的worker*/
 
-  AgentConfigManagerPtr agentConfigCM_;
-  
-  DispatcherAdapterPtr dispatcher_;
-	
+    FailedSendWorkerPtr failedSendWorker_; /**发送失败数据的worker*/
+
+    AgentConfigManagerPtr agentConfigCM_;
+
+    DispatcherAdapterPtr dispatcher_;
+
 };
 
 typedef ::IceUtil::Handle<AgentI> AgentIPtr;
 
-class SendWorker : public ::IceUtil::Thread 
+class SendWorker: public ::IceUtil::Thread
 {
 public:
 
-	void add(const LogDataSeq& data);
+    void add(const LogDataSeq& data);
 
 protected:
 
-	virtual void run();
+    virtual void run();
 
-	/**
-	 * 发送数据的接口
-	 * 不同的worker会调用dispatcher的不同接口
-	 */
-	virtual bool send(const LogDataSeq& data) = 0;
+    /**
+     * 发送数据的接口
+     * 不同的worker会调用dispatcher的不同接口
+     */
+    virtual bool send(const LogDataSeq& data) = 0;
 
 private:
 
-	LogDataSeq data_;
-	
-	::IceUtil::Monitor< ::IceUtil::Mutex> dataMutex_;
+    LogDataSeq data_;
+
+    ::IceUtil::Monitor<::IceUtil::Mutex> dataMutex_;
 };
 
-class NormalSendWorker : public SendWorker
+class NormalSendWorker: public SendWorker
 {
 protected:
 
-	virtual bool send(const LogDataSeq& data);
+    virtual bool send(const LogDataSeq& data);
 
 };
 
-class FailedSendWorker : public SendWorker
+class FailedSendWorker: public SendWorker
 {
 protected:
-	virtual bool send(const LogDataSeq& data);
+    virtual bool send(const LogDataSeq& data);
 
 };
 
