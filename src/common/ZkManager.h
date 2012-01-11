@@ -11,7 +11,7 @@
 
 #include <zookeeper/zookeeper.h>
 
-#include <src/common/common.h>
+#include "src/common/common.h"
 
 namespace xlog
 {
@@ -77,7 +77,7 @@ private:
 
     std::vector<ZooKeeperListenerPtr> listeners_; /*所有listeneragent的配置管理*/
 
-    ::IceUtil::Monitor<::IceUtil::Mutex> zhMonitor_; /*zh_的锁*/
+    IceUtil::Monitor<IceUtil::Mutex> zhMonitor_; /*zh_的锁*/
 
     zhandle_t* zh_; /*zookeeper的连接*/
 };

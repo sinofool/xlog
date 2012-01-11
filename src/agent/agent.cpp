@@ -1,9 +1,9 @@
 #include <Ice/Ice.h>
-#include <src/agent/AgentI.h>
-#include <src/common/ZkManager.h>
-#include <src/common/AgentConfigManager.h>
-#include <src/common/DispatcherConfigManager.h>
-#include <src/agent/DispatcherAdapter.h>
+#include "src/agent/AgentI.h"
+#include "src/common/ZkManager.h"
+#include "src/common/AgentConfigManager.h"
+#include "src/common/DispatcherConfigManager.h"
+#include "src/agent/DispatcherAdapter.h"
 
 using namespace std;
 using namespace xlog;

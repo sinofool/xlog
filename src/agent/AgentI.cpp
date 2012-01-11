@@ -1,6 +1,6 @@
-#include <src/common/AgentConfigManager.h>
-#include <src/agent/DispatcherAdapter.h>
-#include <src/agent/AgentI.h>
+#include "src/common/AgentConfigManager.h"
+#include "src/agent/DispatcherAdapter.h"
+#include "src/agent/AgentI.h"
 
 namespace xlog
 {
@@ -36,7 +36,7 @@ void AgentI::addFailedLogData(const LogDataSeq& data, const ::Ice::Current& curr
 
 void SendWorker::add(const LogDataSeq& data)
 {
-    ::IceUtil::Monitor<::IceUtil::Mutex>::Lock lock(dataMutex_);
+    ::IceUtil::Monitor<IceUtil::Mutex>::Lock lock(dataMutex_);
     data_.insert(data_.end(), data.begin(), data.end());
     dataMutex_.notify();
 }
@@ -47,7 +47,7 @@ void SendWorker::run()
     {
         LogDataSeq data;
         {
-            ::IceUtil::Monitor<::IceUtil::Mutex>::Lock lock(dataMutex_);
+            ::IceUtil::Monitor<IceUtil::Mutex>::Lock lock(dataMutex_);
             if (data_.empty())
             {
                 dataMutex_.wait();

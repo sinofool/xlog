@@ -1,7 +1,7 @@
 #include <algorithm>
 
-#include <src/common/ZkManager.h>
-#include <src/common/AgentConfigManager.h>
+#include "src/common/ZkManager.h"
+#include "src/common/AgentConfigManager.h"
 
 namespace xlog
 {
@@ -86,13 +86,13 @@ std::vector<std::string> AgentConfigManager::update()
 
 void AgentConfigManager::setConfig(const std::vector<std::string>& config)
 {
-    ::IceUtil::RWRecMutex::WLock lock(configMutex_);
+    IceUtil::RWRecMutex::WLock lock(configMutex_);
     config_ = config;
 }
 
 std::vector<std::string> AgentConfigManager::getConfig()
 {
-    ::IceUtil::RWRecMutex::RLock lock(configMutex_);
+    IceUtil::RWRecMutex::RLock lock(configMutex_);
     return config_;
 }
 

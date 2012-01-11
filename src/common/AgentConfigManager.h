@@ -5,8 +5,8 @@
 
 #include <IceUtil/RWRecMutex.h>
 
-#include <src/common/common.h>
-#include <src/common/ZooKeeperListener.h>
+#include "src/common/common.h"
+#include "src/common/ZooKeeperListener.h"
 
 namespace xlog
 {
@@ -67,7 +67,7 @@ private:
 
     std::string prx_; /*需要向zookeeper注册的prx字符串*/
 
-    ::IceUtil::RWRecMutex configMutex_; /*config_的读写锁，使用读写锁是为了提高性能*/
+    IceUtil::RWRecMutex configMutex_; /*config_的读写锁，使用读写锁是为了提高性能*/
 
     std::vector<std::string> config_; /*配置信息*/
 

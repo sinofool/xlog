@@ -6,7 +6,7 @@
 
 #include <Ice/Ice.h>
 
-#include <src/common/common.h>
+#include "src/common/common.h"
 
 namespace xlog
 {

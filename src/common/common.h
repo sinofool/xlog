@@ -11,19 +11,19 @@ namespace xlog
 {
 
 class ZooKeeperListener;
-typedef ::IceUtil::Handle<ZooKeeperListener> ZooKeeperListenerPtr;
+typedef IceUtil::Handle<ZooKeeperListener> ZooKeeperListenerPtr;
 
 class AgentConfigManager;
-typedef ::IceUtil::Handle<AgentConfigManager> AgentConfigManagerPtr;
+typedef IceUtil::Handle<AgentConfigManager> AgentConfigManagerPtr;
 
 class DispatcherConfigManager;
-typedef ::IceUtil::Handle<DispatcherConfigManager> DispatcherConfigManagerPtr;
+typedef IceUtil::Handle<DispatcherConfigManager> DispatcherConfigManagerPtr;
 
 class ZkManager;
-typedef ::IceUtil::Handle<ZkManager> ZkManagerPtr;
+typedef IceUtil::Handle<ZkManager> ZkManagerPtr;
 
 class DispatcherAdapter;
-typedef ::IceUtil::Handle<DispatcherAdapter> DispatcherAdapterPtr;
+typedef IceUtil::Handle<DispatcherAdapter> DispatcherAdapterPtr;
 
 }
 #endif

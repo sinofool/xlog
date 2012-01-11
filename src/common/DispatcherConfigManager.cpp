@@ -1,5 +1,5 @@
-#include <src/common/ZkManager.h>
-#include <src/common/DispatcherConfigManager.h>
+#include "src/common/ZkManager.h"
+#include "src/common/DispatcherConfigManager.h"
 
 namespace xlog
 {
@@ -23,7 +23,7 @@ bool DispatcherConfigManager::handle()
 
 std::vector<DispatcherPrx> DispatcherConfigManager::getConfig()
 {
-    ::IceUtil::RWRecMutex::RLock lock(configMutex_);
+    IceUtil::RWRecMutex::RLock lock(configMutex_);
     return config_;
 }
 

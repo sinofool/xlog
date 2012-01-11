@@ -4,9 +4,8 @@
 #include <Ice/Ice.h>
 
 #include <xlog.h>
-#include <src/common/common.h>
-#include <src/common/DispatcherConfigManager.h>
-
+#include "src/common/common.h"
+#include "src/common/DispatcherConfigManager.h"
 namespace xlog
 {
 

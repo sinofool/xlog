@@ -1,5 +1,5 @@
-#include <src/common/ZooKeeperListener.h>
-#include <src/common/ZkManager.h>
+#include "src/common/ZooKeeperListener.h"
+#include "src/common/ZkManager.h"
 
 namespace xlog
 {
@@ -113,7 +113,7 @@ void ZkManager::addListener(const ZooKeeperListenerPtr& listener)
 
 bool ZkManager::createEphemeralNode(const std::string& path)
 {
-    ::IceUtil::Monitor<::IceUtil::Mutex>::Lock lock(zhMonitor_);
+    ::IceUtil::Monitor<IceUtil::Mutex>::Lock lock(zhMonitor_);
 
     if (zh_)
     {
@@ -127,7 +127,7 @@ bool ZkManager::createEphemeralNode(const std::string& path)
 
 std::vector<std::string> ZkManager::getChildren(const std::string& path)
 {
-    ::IceUtil::Monitor<::IceUtil::Mutex>::Lock lock(zhMonitor_);
+    ::IceUtil::Monitor<IceUtil::Mutex>::Lock lock(zhMonitor_);
 
     std::vector<std::string> res;
 
@@ -162,7 +162,7 @@ bool ZkManager::init(const std::string& zkAddress)
 
     zkAddress_ = zkAddress;
 
-    ::IceUtil::Monitor<::IceUtil::Mutex>::Lock lock(zhMonitor_);
+    ::IceUtil::Monitor<IceUtil::Mutex>::Lock lock(zhMonitor_);
 
     zh_ = zookeeper_init(zkAddress_.c_str(), xlog::ZkWatcher, 1000, 0, 0, 0);
 
@@ -181,7 +181,7 @@ bool ZkManager::init(const std::string& zkAddress)
 
 void ZkManager::notifyConnected()
 {
-    ::IceUtil::Monitor<::IceUtil::Mutex>::Lock lock(zhMonitor_);
+    ::IceUtil::Monitor<IceUtil::Mutex>::Lock lock(zhMonitor_);
     zhMonitor_.notify();
 }
 
@@ -189,7 +189,7 @@ void ZkManager::reInit()
 {
     while (true)
     {
-        ::IceUtil::Monitor<::IceUtil::Mutex>::Lock lock(zhMonitor_);
+        ::IceUtil::Monitor<IceUtil::Mutex>::Lock lock(zhMonitor_);
 
         if (zh_)
         {

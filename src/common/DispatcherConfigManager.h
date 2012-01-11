@@ -4,8 +4,8 @@
 #include <xlog.h>
 #include <IceUtil/RWRecMutex.h>
 
-#include <src/common/common.h>
-#include <src/common/ZooKeeperListener.h>
+#include "src/common/common.h"
+#include "src/common/ZooKeeperListener.h""
 
 namespace xlog
 {
@@ -30,7 +30,7 @@ private:
 
     ZkManagerPtr zm_;
 
-    ::IceUtil::RWRecMutex configMutex_;
+    IceUtil::RWRecMutex configMutex_;
 
     std::vector<DispatcherPrx> config_;
 };

@@ -6,16 +6,16 @@
 #include <IceUtil/Mutex.h>
 #include <IceUtil/Monitor.h>
 
-#include <src/common/common.h>
+#include "src/common/common.h"
 
 namespace xlog
 {
 
 class NormalSendWorker;
-typedef ::IceUtil::Handle<NormalSendWorker> NormalSendWorkerPtr;
+typedef IceUtil::Handle<NormalSendWorker> NormalSendWorkerPtr;
 
 class FailedSendWorker;
-typedef ::IceUtil::Handle<FailedSendWorker> FailedSendWorkerPtr;
+typedef IceUtil::Handle<FailedSendWorker> FailedSendWorkerPtr;
 
 class AgentI: virtual public Agent
 {
@@ -56,7 +56,7 @@ private:
 
 typedef ::IceUtil::Handle<AgentI> AgentIPtr;
 
-class SendWorker: public ::IceUtil::Thread
+class SendWorker: public IceUtil::Thread
 {
 public:
 
@@ -76,7 +76,7 @@ private:
 
     LogDataSeq data_;
 
-    ::IceUtil::Monitor<::IceUtil::Mutex> dataMutex_;
+    ::IceUtil::Monitor<IceUtil::Mutex> dataMutex_;
 };
 
 class NormalSendWorker: public SendWorker
