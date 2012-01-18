@@ -1,4 +1,11 @@
-ICE_HOME=/opt/Ice-3.3
+
+
+#=========== RULES below ===========
+
+ifndef ICE_HOME
+	ICE_HOME=/opt/Ice-3.3
+endif
+
 CC=g++
 
 all: build/agent
@@ -15,9 +22,9 @@ build/libXlogSlice.a: slice/xlog.ice
 build/agent: build/agent.o build/AgentI.o build/libXlogSlice.a
 	$(CC) -o $@ build/AgentI.o build/agent.o -Lbuild -lXlogSlice -L$(ICE_HOME)/lib -lIce -lIceUtil 
 
-build/AgentI.o: src/agent/AgentI.cpp src/agent/AgentI.h
+build/AgentI.o: src/agent/AgentI.cpp src/agent/AgentI.h build/libXlogSlice.a
 	$(CC) -c -o $@ -I. -I$(ICE_HOME)/include -Ibuild/generated src/agent/AgentI.cpp
 
-build/agent.o: src/agent/agent.cpp
+build/agent.o: src/agent/agent.cpp build/libXlogSlice.a
 	$(CC) -c -o $@ -I. -I$(ICE_HOME)/include -Ibuild/generated src/agent/agent.cpp
 
