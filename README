@@ -1,2 +1,15 @@
-All disscussion about this project: https://groups.google.com/group/xlog-dev
+All disscussion about this project: 
+  https://groups.google.com/group/xlog-dev
+
+Reference:
+I. About ICE
+  ICE is a open source grid computing software. 
+  We use it as RPC protocal because of the wide range deployment in our production enviroument.
+  ICE Homepage is: http://www.zeroc.com
+
+II. About Zookeeper
+  Zookeeper is a distributed locking system, providing consistent and good performance.
+  Zookeeper Homepage is: http://zookeeper.apache.org
+  Note: After compiling and install zookeeper/src/c, the header files in include directory is named c-client-cpp.
+    PLEASE rename it to zookeeper. (This is the way we deploy it)
 
