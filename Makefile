@@ -1,5 +1,13 @@
-ICE_HOME=/opt/Ice-3.3
-ZOOKEEPER_HOME=/usr/local/distcache-dev
+
+#=========== RULES below ===========
+
+ifndef ICE_HOME
+	ICE_HOME=/opt/Ice-3.3
+endif
+ifndef ZOOKEEPER_HOME
+	ZOOKEEPER_HOME=/opt/zookeeper
+endif
+
 CC=g++
 
 all: build/agent
@@ -28,9 +36,8 @@ build/DispatcherConfigManager.o: src/common/DispatcherConfigManager.cpp src/comm
 build/DispatcherAdapter.o: src/agent/DispatcherAdapter.cpp src/agent/DispatcherAdapter.h
 	$(CC) -c -o $@ -I. -I$(ICE_HOME)/include -I$(ZOOKEEPER_HOME)/include -Ibuild/generated src/agent/DispatcherAdapter.cpp
 
-build/AgentI.o: src/agent/AgentI.cpp src/agent/AgentI.h
+build/AgentI.o: src/agent/AgentI.cpp src/agent/AgentI.h build/libXlogSlice.a
 	$(CC) -c -o $@ -I. -I$(ICE_HOME)/include -I$(ZOOKEEPER_HOME)/include -Ibuild/generated src/agent/AgentI.cpp
 
-build/agent.o: src/agent/agent.cpp
+build/agent.o: src/agent/agent.cpp build/libXlogSlice.a
 	$(CC) -c -o $@ -I. -I$(ICE_HOME)/include -I$(ZOOKEEPER_HOME)/include -Ibuild/generated src/agent/agent.cpp
-
