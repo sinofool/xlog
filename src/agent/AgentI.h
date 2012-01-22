@@ -1,3 +1,4 @@
+
 #ifndef __AgentI_h__
 #define __AgentI_h__
 
@@ -6,7 +7,7 @@
 #include <IceUtil/Mutex.h>
 #include <IceUtil/Monitor.h>
 
-#include <src/common/common.h>
+#include "src/common/common.h"
 
 namespace xlog
 {
@@ -21,36 +22,46 @@ class AgentI : virtual public Agent
 {
 public:
 
-	AgentI(const AgentConfigManagerPtr& agentConfigCM, const DispatcherAdapterPtr& dispatcher);
+	AgentI(const AgentConfigManagerPtr& agentConfigCM, const ClientConfigManagerPtr& clientConfigCM,
+         const DispatcherConfigManagerPtr& dispatcherConfigCM, const DispatcherAdapterPtr& dispatcher);
 
 public:
 
 	/**
 	 * 收集client的log信息
-	 * @param datas log信息
+	 * @param data log信息
 	 */
-    virtual void add(const LogDataSeq& datas, const ::Ice::Current& current);
+    virtual void add(const LogDataSeq& data, const ::Ice::Current& current);
    
 	/**
 	 * 收集client曾经发送失败的log信息
-	 * @param datas log信息
+	 * @param data log信息
 	 */
-	virtual void addFailedLogDatas(const LogDataSeq& datas, const ::Ice::Current& current);
+	virtual void addFailedLogData(const LogDataSeq& data, const ::Ice::Current& current);
 	
 	/**
-	 * 获取所有agent的字符串信息，可以通过该字符串生成agent的prx
+	 * 获取所有agent的字符串信息，并将client的信息注册到zookeeper上
 	 */
-	virtual ::Ice::StringSeq getAgents(const ::Ice::Current& current);
+	virtual ::Ice::StringSeq subscribeClient(const std::string& prxStr, const ::Ice::Current& current);
+	
+  /**
+	 * 获取所有agent的字符串信息，并将subscriber的信息注册到zookeeper上
+	 */
+	virtual ::Ice::StringSeq subscribeSubscriber(const ::Ice::StringSeq& categories, const std::string& prxStr, const ::Ice::Current& current);
 
 private:
 
-	NormalSendWorkerPtr normalSendWorker_; /**发送正常数据的worker*/
+	NormalSendWorkerPtr _normalSendWorker; /**发送正常数据的worker*/
 	
-	FailedSendWorkerPtr failedSendWorker_; /**发送失败数据的worker*/
+	FailedSendWorkerPtr _failedSendWorker; /**发送失败数据的worker*/
 
-  AgentConfigManagerPtr agentConfigCM_;
+  AgentConfigManagerPtr _agentConfigCM;
   
-  DispatcherAdapterPtr dispatcher_;
+  ClientConfigManagerPtr _clientConfigCM;
+  
+  DispatcherConfigManagerPtr _dispatcherConfigCM;
+  
+  DispatcherAdapterPtr _dispatcherAdapter;
 	
 };
 
@@ -60,7 +71,7 @@ class SendWorker : public ::IceUtil::Thread
 {
 public:
 
-	void add(const LogDataSeq& datas);
+	void add(const LogDataSeq& data);
 
 protected:
 
@@ -70,27 +81,27 @@ protected:
 	 * 发送数据的接口
 	 * 不同的worker会调用dispatcher的不同接口
 	 */
-	virtual bool send(const LogDataSeq& datas) = 0;
+	virtual bool send(const LogDataSeq& data) = 0;
 
 private:
 
-	LogDataSeq datas_;
+	LogDataSeq _data;
 	
-	::IceUtil::Monitor< ::IceUtil::Mutex> datasMutex_;
+	::IceUtil::Monitor< ::IceUtil::Mutex> _dataMutex;
 };
 
 class NormalSendWorker : public SendWorker
 {
 protected:
 
-	virtual bool send(const LogDataSeq& datas);
+	virtual bool send(const LogDataSeq& data);
 
 };
 
 class FailedSendWorker : public SendWorker
 {
 protected:
-	virtual bool send(const LogDataSeq& datas);
+	virtual bool send(const LogDataSeq& data);
 
 };
 

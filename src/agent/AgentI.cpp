@@ -1,74 +1,96 @@
-#include <src/common/AgentConfigManager.h>
-#include <src/agent/DispatcherAdapter.h>
-#include <src/agent/AgentI.h>
+#include "src/config/agent_config_manager.h"
+#include "src/config/client_config_manager.h"
+#include "src/config/dispatcher_config_manager.h"
+#include "src/adapter/dispatcher_adapter.h"
+#include "src/agent/AgentI.h"
 
 namespace xlog {
 
-AgentI::AgentI(const AgentConfigManagerPtr& agentConfigCM, const DispatcherAdapterPtr& dispatcher) : Agent(), 
-                agentConfigCM_(agentConfigCM), dispatcher_(dispatcher)
+AgentI::AgentI(const AgentConfigManagerPtr& agentConfigCM, const ClientConfigManagerPtr& clientConfigCM,
+               const DispatcherConfigManagerPtr& dispatcherConfigCM, const DispatcherAdapterPtr& dispatcherAdapter) : 
+               Agent(), _agentConfigCM(agentConfigCM), _clientConfigCM(clientConfigCM),
+               _dispatcherConfigCM(dispatcherConfigCM), _dispatcherAdapter(dispatcherAdapter)
 {
-	normalSendWorker_ = new NormalSendWorker;
-	normalSendWorker_->start().detach();
-	failedSendWorker_ = new FailedSendWorker;
-	failedSendWorker_->start().detach();
+	_normalSendWorker = new NormalSendWorker;
+	_normalSendWorker->start().detach();
+	_failedSendWorker = new FailedSendWorker;
+	_failedSendWorker->start().detach();
 }
 
-void AgentI::add(const LogDataSeq& datas, const ::Ice::Current& current)
+void AgentI::add(const LogDataSeq& data, const ::Ice::Current& current)
 {
-	normalSendWorker_->add(datas);
+	_normalSendWorker->add(data);
 }
     
-void AgentI::addFailedLogDatas(const LogDataSeq& datas, const ::Ice::Current& current)
+void AgentI::addFailedLogData(const LogDataSeq& data, const ::Ice::Current& current)
 {
-	failedSendWorker_->add(datas);
+	_failedSendWorker->add(data);
 }
 
-::Ice::StringSeq AgentI::getAgents(const ::Ice::Current& current)
+::Ice::StringSeq AgentI::subscribeClient(const std::string& prxStr, const ::Ice::Current& current)
 {
-  if(agentConfigCM_)
+  if(_clientConfigCM)
   {
-      return agentConfigCM_->getConfig();
+      _clientConfigCM->subscribe(prxStr);
+  }
+  
+  if(_agentConfigCM)
+  {
+      return _agentConfigCM->getConfig();
   }
 
   return ::Ice::StringSeq();
 }
 
-void SendWorker::add(const LogDataSeq& datas)
+::Ice::StringSeq AgentI::subscribeSubscriber(const ::Ice::StringSeq& categories, const std::string& prxStr, const ::Ice::Current& current)
 {
-	::IceUtil::Monitor< ::IceUtil::Mutex>::Lock lock(datasMutex_);
-	datas_.insert(datas_.end(), datas.begin(), datas.end());
-	datasMutex_.notify();
+  if(_dispatcherConfigCM)
+  {
+      _dispatcherConfigCM->subscribe(categories, prxStr);
+  }
+  
+  if(_agentConfigCM)
+  {
+      return _agentConfigCM->getConfig();
+  }
+
+  return ::Ice::StringSeq();
+}
+
+void SendWorker::add(const LogDataSeq& data)
+{
+	::IceUtil::Monitor< ::IceUtil::Mutex>::Lock lock(_dataMutex);
+	_data.insert(_data.end(), data.begin(), data.end());
+	_dataMutex.notify();
 }
 
 void SendWorker::run()
 {
-	while(true)
+	for(;;)
 	{
-		LogDataSeq datas;
+		LogDataSeq data;
 		{
-			::IceUtil::Monitor< ::IceUtil::Mutex>::Lock lock(datasMutex_);
-			if(datas_.empty())
+			::IceUtil::Monitor< ::IceUtil::Mutex>::Lock lock(_dataMutex);
+			if(_data.empty())
 			{
-				datasMutex_.wait();
+				_dataMutex.wait();
 			}
-			datas.swap(datas_);
+			data.swap(_data);
 		}
 
-    send(datas);
+    send(data);
 	}
 }
 
-bool NormalSendWorker::send(const LogDataSeq& datas)
+bool NormalSendWorker::send(const LogDataSeq& data)
 {
   //TODO
-  //dispatcher_->send(datas);
 	return true;
 }
 
-bool FailedSendWorker::send(const LogDataSeq& datas)
+bool FailedSendWorker::send(const LogDataSeq& data)
 {
   //TODO
-  //dispatcher_->sendFailedLogDatas(datas);
 	return true;
 }
 

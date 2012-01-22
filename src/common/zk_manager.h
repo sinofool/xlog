@@ -1,3 +1,4 @@
+
 /*
  * 管理zookeeper连接的类
  */
@@ -13,7 +14,7 @@
 
 #include "src/common/common.h"
 
-namespace xlog
+namespace xlog 
 {
 
 /**
@@ -21,7 +22,7 @@ namespace xlog
  */
 void setZkManager(const ZkManagerPtr& zm);
 
-class ZkManager: public ::Ice::Object
+class ZkManager : public ::Ice::Object
 {
 public:
 
@@ -48,6 +49,20 @@ public:
      * return true 创建成功，否则false
      */
     bool createEphemeralNode(const std::string& path);
+    
+    /**
+     * 创建zookeeper普通节点，节点没有数据，只会创建目录
+     * param path zkAddress_的相对地址
+     * return true 创建成功，否则false
+     */
+    bool createNormalNode(const std::string& path);
+    
+    /**
+     * 删除zookeeper普通节点
+     * param path zkAddress_的相对地址
+     * return true 删除成功，否则false
+     */
+    bool deleteNormalNode(const std::string& path);
 
     /**
      * 获取zookeeper中path对应路径的子节点
@@ -60,7 +75,7 @@ public:
      * zookeeper watcher 调用的接口，通知zookeeper连接已经建立成功
      */
     void notifyConnected();
-
+    
     /**
      * 当zookeeper数据有变化时，通知已经注册的configmanager进行数据更新
      */
@@ -73,16 +88,16 @@ public:
 
 private:
 
-    std::string zkAddress_; /*zookeeper连接的地址*/
+    std::string _zkAddress; /*zookeeper连接的地址*/
 
-    std::vector<ZooKeeperListenerPtr> listeners_; /*所有listeneragent的配置管理*/
+    std::vector<ZooKeeperListenerPtr> _listeners; /*所有listeneragent的配置管理*/
+    
+    ::IceUtil::Monitor< ::IceUtil::Mutex> _zhMonitor; /*zh_的锁*/
 
-    IceUtil::Monitor<IceUtil::Mutex> zhMonitor_; /*zh_的锁*/
-
-    zhandle_t* zh_; /*zookeeper的连接*/
+    zhandle_t* _zh; /*zookeeper的连接*/
 };
 
-static ZkManagerPtr zm__; /*全局的ZkManager用于zookeeper watcher调用*/
+static ZkManagerPtr __zm; /*全局的ZkManager用于zookeeper watcher调用*/
 
 }
 

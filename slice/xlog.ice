@@ -8,10 +8,16 @@ module xlog {
   };
   sequence<LogData> LogDataSeq;
 
+  interface Subscriber {
+    void notify(Ice::StringSeq config);
+  };
+
   interface Agent {
-    void add(LogDataSeq datas);
-    void addFailedLogDatas(LogDataSeq datas);
-	Ice::StringSeq getAgents();
+    void add(LogDataSeq data);
+    void addFailedLogData(LogDataSeq data);
+
+    Ice::StringSeq subscribeClient(string prxStr);
+    Ice::StringSeq subscribeSubscriber(Ice::StringSeq categories, string prxStr);
   };
 
   interface Logger {

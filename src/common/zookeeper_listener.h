@@ -1,3 +1,4 @@
+
 /*
  * 获取ZkManager通知的类
  */
@@ -11,10 +12,10 @@
 namespace xlog
 {
 
-class ZooKeeperListener: public Ice::Object
+class ZooKeeperListener : public Ice::Object
 {
-public:
-    virtual bool handle() = 0;
+    public:
+        virtual bool handle() = 0;
 };
 
 }

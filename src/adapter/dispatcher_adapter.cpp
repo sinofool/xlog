@@ -1,10 +1,10 @@
-#include "src/agent/DispatcherAdapter.h"
+#include "src/config/dispatcher_config_manager.h"
+#include "src/adapter/dispatcher_adapter.h"
 
 namespace xlog
 {
 
-DispatcherAdapter::DispatcherAdapter(const DispatcherConfigManagerPtr& dispatcherCM) :
-        dispatcherCM_(dispatcherCM)
+DispatcherAdapter::DispatcherAdapter(const DispatcherConfigManagerPtr& dispatcherCM) : _dispatcherCM(dispatcherCM)
 {
 }
 
