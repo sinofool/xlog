@@ -19,11 +19,20 @@ typedef IceUtil::Handle<AgentConfigManager> AgentConfigManagerPtr;
 class DispatcherConfigManager;
 typedef IceUtil::Handle<DispatcherConfigManager> DispatcherConfigManagerPtr;
 
+class ClientConfigManager;
+typedef ::IceUtil::Handle<ClientConfigManager> ClientConfigManagerPtr;
+
 class ZkManager;
 typedef IceUtil::Handle<ZkManager> ZkManagerPtr;
 
 class DispatcherAdapter;
 typedef IceUtil::Handle<DispatcherAdapter> DispatcherAdapterPtr;
+
+class ClientAdapter;
+typedef ::IceUtil::Handle<ClientAdapter> ClientAdapterPtr;
+
+class AgentAdapter;
+typedef ::IceUtil::Handle<AgentAdapter> AgentAdapterPtr;
 
 }
 #endif

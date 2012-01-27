@@ -5,6 +5,7 @@
 #ifndef __ZKMANAGER_H__
 #define __ZKMANAGER_H__
 
+#include <vector>
 #include <Ice/Ice.h>
 #include <IceUtil/Mutex.h>
 #include <IceUtil/Monitor.h>
@@ -50,6 +51,20 @@ public:
     bool createEphemeralNode(const std::string& path);
 
     /**
+     * 创建zookeeper普通节点，节点没有数据，只会创建目录
+     * param path zkAddress_的相对地址
+     * return true 创建成功，否则false
+     */
+    bool createNormalNode(const std::string& path);
+
+    /**
+     * 删除zookeeper普通节点
+     * param path zkAddress_的相对地址
+     * return true 删除成功，否则false
+     */
+    bool deleteNormalNode(const std::string& path);
+
+    /**
      * 获取zookeeper中path对应路径的子节点
      * param path zkAddress_的相对地址
      * return path对应的子节点，如果获取失败则返回一个空的vector
@@ -73,16 +88,16 @@ public:
 
 private:
 
-    std::string zkAddress_; /*zookeeper连接的地址*/
+    std::string _zkAddress; /*zookeeper连接的地址*/
 
-    std::vector<ZooKeeperListenerPtr> listeners_; /*所有listeneragent的配置管理*/
+    std::vector<ZooKeeperListenerPtr> _listeners; /*所有listeneragent的配置管理*/
 
-    IceUtil::Monitor<IceUtil::Mutex> zhMonitor_; /*zh_的锁*/
+    ::IceUtil::Monitor<IceUtil::Mutex> _zhMonitor; /*zh_的锁*/
 
-    zhandle_t* zh_; /*zookeeper的连接*/
+    zhandle_t* _zh; /*zookeeper的连接*/
 };
 
-static ZkManagerPtr zm__; /*全局的ZkManager用于zookeeper watcher调用*/
+static ZkManagerPtr __zm; /*全局的ZkManager用于zookeeper watcher调用*/
 
 }
 

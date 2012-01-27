@@ -1,5 +1,5 @@
-#include "src/common/ZooKeeperListener.h"
-#include "src/common/ZkManager.h"
+#include "src/common/zookeeper_listener.h"
+#include "src/common/zk_manager.h"
 
 namespace xlog
 {
@@ -57,7 +57,7 @@ const char* watcherEvent2String(const int ev)
  */
 void setZkManager(const ZkManagerPtr& zm)
 {
-    zm__ = zm;
+    __zm = zm;
 }
 
 /**
@@ -76,11 +76,11 @@ void ZkWatcher(zhandle_t *zzh, int type, int state, const char *path, void *watc
             if (fromExpired)
             {
                 fromExpired = false;
-                zm__->notifyChange();
+                __zm->notifyChange();
             }
             else
             {
-                zm__->notifyConnected();
+                __zm->notifyConnected();
             }
             return;
         }
@@ -89,35 +89,35 @@ void ZkWatcher(zhandle_t *zzh, int type, int state, const char *path, void *watc
         if (state == ZOO_EXPIRED_SESSION_STATE)
         {
             fromExpired = true;
-            zm__->reInit();
+            __zm->reInit();
             return;
         }
     }
     else
     {
-        zm__->notifyChange();
+        __zm->notifyChange();
     }
 }
 
 ZkManager::ZkManager()
 {
-    zkAddress_ = "";
+    _zkAddress = "";
 
-    zhandle_t* zh_ = NULL;
+    zhandle_t* _zh = NULL;
 }
 
 void ZkManager::addListener(const ZooKeeperListenerPtr& listener)
 {
-    listeners_.push_back(listener);
+    _listeners.push_back(listener);
 }
 
 bool ZkManager::createEphemeralNode(const std::string& path)
 {
-    ::IceUtil::Monitor<IceUtil::Mutex>::Lock lock(zhMonitor_);
+    ::IceUtil::Monitor<IceUtil::Mutex>::Lock lock(_zhMonitor);
 
-    if (zh_)
+    if (_zh)
     {
-        int rc = zoo_create(zh_, path.c_str(), "", 0, &ZOO_OPEN_ACL_UNSAFE, 0, 0, 0);
+        int rc = zoo_create(_zh, path.c_str(), "", 0, &ZOO_OPEN_ACL_UNSAFE, ZOO_EPHEMERAL, 0, 0);
 
         return rc == ZOK;
     }
@@ -125,17 +125,55 @@ bool ZkManager::createEphemeralNode(const std::string& path)
     return false;
 }
 
+bool ZkManager::createNormalNode(const std::string& path)
+{
+    ::IceUtil::Monitor<IceUtil::Mutex>::Lock lock(_zhMonitor);
+
+    if (_zh)
+    {
+        int rc = zoo_create(_zh, path.c_str(), "", 0, &ZOO_OPEN_ACL_UNSAFE, 0, 0, 0);
+
+        return rc == ZOK;
+    }
+
+    return false;
+}
+
+bool ZkManager::deleteNormalNode(const std::string& path)
+{
+    ::IceUtil::Monitor<IceUtil::Mutex>::Lock lock(_zhMonitor);
+
+    if (_zh)
+    {
+        int rc = zoo_exists(_zh, path.c_str(), 0, 0);
+
+        if (rc == ZOK)
+        {
+            rc = zoo_delete(_zh, path.c_str(), -1);
+
+            return rc == ZOK;
+        }
+        else
+        {
+            return true;
+        }
+
+    }
+
+    return false;
+}
+
 std::vector<std::string> ZkManager::getChildren(const std::string& path)
 {
-    ::IceUtil::Monitor<IceUtil::Mutex>::Lock lock(zhMonitor_);
+    ::IceUtil::Monitor<IceUtil::Mutex>::Lock lock(_zhMonitor);
 
-    std::vector<std::string> res;
+    std::vector < std::string > res;
 
-    if (zh_)
+    if (_zh)
     {
         struct String_vector nodes;
 
-        int rc = zoo_get_children(zh_, path.c_str(), 0, &nodes);
+        int rc = zoo_get_children(_zh, path.c_str(), 0, &nodes);
 
         if (rc != ZOK)
         {
@@ -160,13 +198,13 @@ bool ZkManager::init(const std::string& zkAddress)
         return false;
     }
 
-    zkAddress_ = zkAddress;
+    _zkAddress = zkAddress;
 
-    ::IceUtil::Monitor<IceUtil::Mutex>::Lock lock(zhMonitor_);
+    ::IceUtil::Monitor<IceUtil::Mutex>::Lock lock(_zhMonitor);
 
-    zh_ = zookeeper_init(zkAddress_.c_str(), xlog::ZkWatcher, 1000, 0, 0, 0);
+    _zh = zookeeper_init(_zkAddress.c_str(), xlog::ZkWatcher, 1000, 0, 0, 0);
 
-    if (!zh_)
+    if (!_zh)
     {
         std::cerr << "ZkManager::init failed, because zookeeper_init return a null pointer!"
                 << std::endl;
@@ -174,46 +212,47 @@ bool ZkManager::init(const std::string& zkAddress)
     }
 
     //因为zookeeper建立连接是异步的，所以在这里等待zookeeper连接成功
-    zhMonitor_.wait();
+    _zhMonitor.wait();
 
     return true;
 }
 
 void ZkManager::notifyConnected()
 {
-    ::IceUtil::Monitor<IceUtil::Mutex>::Lock lock(zhMonitor_);
-    zhMonitor_.notify();
+    ::IceUtil::Monitor<IceUtil::Mutex>::Lock lock(_zhMonitor);
+    _zhMonitor.notify();
 }
 
 void ZkManager::reInit()
 {
     while (true)
-    {
-        ::IceUtil::Monitor<IceUtil::Mutex>::Lock lock(zhMonitor_);
-
-        if (zh_)
+        for (;;)
         {
-            zookeeper_close(zh_);
+            ::IceUtil::Monitor<IceUtil::Mutex>::Lock lock(_zhMonitor);
+
+            if (_zh)
+            {
+                zookeeper_close(_zh);
+            }
+
+            _zh = zookeeper_init(_zkAddress.c_str(), xlog::ZkWatcher, 1000, 0, 0, 0);
+
+            if (!_zh)
+            {
+                //如果创建失败，则过5秒再进行创建，不重复连接是为了降低性能开销，防止出现恶性循环
+                std::cerr << "ZkManager::reInit failed, we will try after 5 seconds!" << std::endl;
+                sleep(5);
+                continue;
+            }
+
+            break;
         }
-
-        zh_ = zookeeper_init(zkAddress_.c_str(), xlog::ZkWatcher, 1000, 0, 0, 0);
-
-        if (!zh_)
-        {
-            //如果创建失败，则过5秒再进行创建，不重复连接是为了降低性能开销，防止出现恶性循环
-            std::cerr << "ZkManager::reInit failed, we will try after 5 seconds!" << std::endl;
-            sleep(5);
-            continue;
-        }
-
-        break;
-    }
 }
 
 void ZkManager::notifyChange()
 {
-    for (std::vector<ZooKeeperListenerPtr>::const_iterator it = listeners_.begin();
-            it != listeners_.end(); ++it)
+    for (std::vector<ZooKeeperListenerPtr>::const_iterator it = _listeners.begin();
+            it != _listeners.end(); ++it)
     {
         (*it)->handle();
     }

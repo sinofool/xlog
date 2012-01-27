@@ -15,6 +15,10 @@ class ZooKeeperListener: public Ice::Object
 {
 public:
     virtual bool handle() = 0;
+protected:
+    virtual ~ZooKeeperListener()
+    {
+    }
 };
 
 }

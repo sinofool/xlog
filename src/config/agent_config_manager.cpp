@@ -1,13 +1,15 @@
 #include <algorithm>
 
-#include "src/common/ZkManager.h"
-#include "src/common/AgentConfigManager.h"
+#include "src/common/zk_manager.h"
+#include "src/adapter/client_adapter.h"
+#include "src/config/agent_config_manager.h"
 
 namespace xlog
 {
 
-AgentConfigManager::AgentConfigManager(const std::string& prx, const ZkManagerPtr& zm) :
-        prx_(prx), zm_(zm)
+AgentConfigManager::AgentConfigManager(const std::string& prx, const ZkManagerPtr& zm,
+        const ClientAdapterPtr& clientAdapter) :
+        _prx(prx), _zm(zm), _clientAdapter(clientAdapter)
 {
 }
 
@@ -18,19 +20,19 @@ bool AgentConfigManager::init()
 
 bool AgentConfigManager::handle()
 {
-    if (!zm_)
+    if (!_zm)
     {
         std::cerr << "AgentConfigManager::handle failed, because zkmananager is null!" << std::endl;
         return false;
     }
 
-    if (prx_ == "")
+    if (_prx == "")
     {
-        std::cerr << "AgentConfigManager::handle failed, because prx_ is null!" << std::endl;
+        std::cerr << "AgentConfigManager::handle failed, because _prx is null!" << std::endl;
         return false;
     }
 
-    std::vector<std::string> newConfig = update();
+    std::vector < std::string > newConfig = update();
 
     if (newConfig.empty())
     {
@@ -39,13 +41,13 @@ bool AgentConfigManager::handle()
     }
 
     std::vector<std::string>::const_iterator findIt = find(newConfig.begin(), newConfig.end(),
-            prx_);
+            _prx);
 
     if (findIt == newConfig.end())
     {
         if (subscribe())
         {
-            newConfig.push_back(prx_);
+            newConfig.push_back(_prx);
         }
         else
         {
@@ -55,45 +57,56 @@ bool AgentConfigManager::handle()
 
     setConfig(newConfig);
 
+    notifyClients();
+
     return true;
 }
 
 bool AgentConfigManager::subscribe()
 {
-    if (!zm_)
+    if (!_zm)
     {
         std::cerr << "AgentConfigManager::subscribe failed, because zkmanager is null!"
                 << std::endl;
     }
 
-    if (prx_ == "")
+    if (_prx == "")
     {
-        std::cerr << "AgentConfigManager::subscribe failed, because prx_ is null!" << std::endl;
+        std::cerr << "AgentConfigManager::subscribe failed, because _prx is null!" << std::endl;
     }
 
-    return zm_->createEphemeralNode(AGENTS_PATH + prx_);
+    return _zm->createEphemeralNode(AGENTS_PATH + _prx);
 }
 
 std::vector<std::string> AgentConfigManager::update()
 {
-    if (!zm_)
+    if (!_zm)
     {
         std::cerr << "AgentConfigManager::update failed, because zkmanager is null!" << std::endl;
     }
 
-    return zm_->getChildren(AGENTS_PATH);
+    return _zm->getChildren(AGENTS_PATH);
 }
 
 void AgentConfigManager::setConfig(const std::vector<std::string>& config)
 {
-    IceUtil::RWRecMutex::WLock lock(configMutex_);
-    config_ = config;
+    ::IceUtil::RWRecMutex::WLock lock(_configMutex);
+    _config = config;
+}
+
+//TODO
+//如果判断配置信息是否有变化再决定是否通知会减少不必要的通知
+void AgentConfigManager::notifyClients()
+{
+    std::vector < std::string > config = getConfig();
+
+    _clientAdapter->notify(config);
 }
 
 std::vector<std::string> AgentConfigManager::getConfig()
 {
-    IceUtil::RWRecMutex::RLock lock(configMutex_);
-    return config_;
+    ::IceUtil::RWRecMutex::RLock lock(_configMutex);
+    return _config;
 }
 
 }

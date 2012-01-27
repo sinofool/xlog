@@ -1,12 +1,13 @@
 #ifndef __AGENT_CONFIGMANAGER_H__
 #define __AGENT_CONFIGMANAGER_H__
 
+#include <vector>
 #include <string>
 
 #include <IceUtil/RWRecMutex.h>
 
 #include "src/common/common.h"
-#include "src/common/ZooKeeperListener.h"
+#include "src/common/zookeeper_listener.h"
 
 namespace xlog
 {
@@ -17,9 +18,8 @@ class AgentConfigManager: public ZooKeeperListener
 {
 public:
 
-    AgentConfigManager(const std::string& prx, const ZkManagerPtr& zm);
-
-public:
+    AgentConfigManager(const std::string& prx, const ZkManagerPtr& zm,
+            const ClientAdapterPtr& clientAdapter);
 
     /**
      * 初始化
@@ -32,8 +32,6 @@ public:
      * return 所有配置，如果失败则返回空的vector
      */
     std::vector<std::string> getConfig();
-
-public:
 
     /**
      * 实现ZooKeeperListener的纯虚方法
@@ -61,15 +59,20 @@ private:
      */
     void setConfig(const std::vector<std::string>& config);
 
-private:
+    /**
+     * 通知所有client新的agent配置信息
+     */
+    void notifyClients();
 
-    ZkManagerPtr zm_; /*初始化设置的zkmanager*/
+    ZkManagerPtr _zm; /*初始化设置的zkmanager*/
 
-    std::string prx_; /*需要向zookeeper注册的prx字符串*/
+    std::string _prx; /*需要向zookeeper注册的prx字符串*/
 
-    IceUtil::RWRecMutex configMutex_; /*config_的读写锁，使用读写锁是为了提高性能*/
+    ClientAdapterPtr _clientAdapter;
 
-    std::vector<std::string> config_; /*配置信息*/
+    ::IceUtil::RWRecMutex _configMutex; /*config_的读写锁，使用读写锁是为了提高性能*/
+
+    std::vector<std::string> _config; /*配置信息*/
 
 };
 
