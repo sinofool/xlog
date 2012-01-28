@@ -21,10 +21,11 @@ module xlog {
   };
 
   interface Logger {
-    int log(Ice::StringSeq lines);
+    void add(LogDataSeq data);
   };
 
   interface Dispatcher {
+    void add(LogDataSeq data);
     bool register(Logger* subscriber, int frequence);
   };
 };

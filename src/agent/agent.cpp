@@ -20,7 +20,7 @@ public:
         ZkManagerPtr zm = new ZkManager;
         //设置全局的zkmanager，要在调用init之前，因为ZkWatcher会获取全局的zkmanager
         setZkManager(zm);
-        if (!zm->init(""))
+        if (!zm->init("127.0.0.1:2222/xlog"))
         {
             cerr << appName() << ": can not init zk, exit" << endl;
             return 0;
@@ -55,7 +55,8 @@ public:
         Ice::ObjectAdapterPtr adapter = communicator()->createObjectAdapterWithEndpoints(
                 "XlogAgent", "default -p 10000");
         AgentIPtr agent = new AgentI(agentCM, clientCM, dispatcherCM, dispatcher);
-        adapter->add(agent, communicator()->stringToIdentity("A"));
+        Ice::ObjectPrx prx = adapter->add(agent, communicator()->stringToIdentity("A"));
+        
         adapter->activate();
 
         communicator()->waitForShutdown();
