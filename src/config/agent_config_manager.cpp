@@ -7,28 +7,28 @@
 namespace xlog
 {
 
-AgentConfigManager::AgentConfigManager(const std::string& prx, const ZkManagerPtr& zm,
+AgentConfig::AgentConfig(const std::string& prx, const ZkManagerPtr& zm,
         const ClientAdapterPtr& clientAdapter) :
         _prx(prx), _zm(zm), _clientAdapter(clientAdapter)
 {
 }
 
-bool AgentConfigManager::init()
+bool AgentConfig::init()
 {
     return handle();
 }
 
-bool AgentConfigManager::handle()
+bool AgentConfig::handle()
 {
     if (!_zm)
     {
-        std::cerr << "AgentConfigManager::handle failed, because zkmananager is null!" << std::endl;
+        std::cerr << "AgentConfig::handle failed, because zkmananager is null!" << std::endl;
         return false;
     }
 
     if (_prx == "")
     {
-        std::cerr << "AgentConfigManager::handle failed, because _prx is null!" << std::endl;
+        std::cerr << "AgentConfig::handle failed, because _prx is null!" << std::endl;
         return false;
     }
 
@@ -36,7 +36,7 @@ bool AgentConfigManager::handle()
 
     if (newConfig.empty())
     {
-        std::cerr << "AgentConfigManager::handle can not get agents config from zk!" << std::endl;
+        std::cerr << "AgentConfig::handle can not get agents config from zk!" << std::endl;
         return false;
     }
 
@@ -62,33 +62,33 @@ bool AgentConfigManager::handle()
     return true;
 }
 
-bool AgentConfigManager::subscribe()
+bool AgentConfig::subscribe()
 {
     if (!_zm)
     {
-        std::cerr << "AgentConfigManager::subscribe failed, because zkmanager is null!"
+        std::cerr << "AgentConfig::subscribe failed, because zkmanager is null!"
                 << std::endl;
     }
 
     if (_prx == "")
     {
-        std::cerr << "AgentConfigManager::subscribe failed, because _prx is null!" << std::endl;
+        std::cerr << "AgentConfig::subscribe failed, because _prx is null!" << std::endl;
     }
 
     return _zm->createEphemeralNode(AGENTS_PATH + _prx);
 }
 
-std::vector<std::string> AgentConfigManager::update()
+std::vector<std::string> AgentConfig::update()
 {
     if (!_zm)
     {
-        std::cerr << "AgentConfigManager::update failed, because zkmanager is null!" << std::endl;
+        std::cerr << "AgentConfig::update failed, because zkmanager is null!" << std::endl;
     }
 
     return _zm->getChildren(AGENTS_PATH);
 }
 
-void AgentConfigManager::setConfig(const std::vector<std::string>& config)
+void AgentConfig::setConfig(const std::vector<std::string>& config)
 {
     ::IceUtil::RWRecMutex::WLock lock(_configMutex);
     _config = config;
@@ -96,14 +96,14 @@ void AgentConfigManager::setConfig(const std::vector<std::string>& config)
 
 //TODO
 //如果判断配置信息是否有变化再决定是否通知会减少不必要的通知
-void AgentConfigManager::notifyClients()
+void AgentConfig::notifyClients()
 {
     std::vector < std::string > config = getConfig();
 
     _clientAdapter->notify(config);
 }
 
-std::vector<std::string> AgentConfigManager::getConfig()
+std::vector<std::string> AgentConfig::getConfig()
 {
     ::IceUtil::RWRecMutex::RLock lock(_configMutex);
     return _config;

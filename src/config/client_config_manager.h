@@ -12,15 +12,13 @@
 namespace xlog
 {
 
-const std::string CLIENTS_PATH = "/clients/"; /*client在zookeeper中的父目录*/
+static const char* CLIENTS_PATH = "/clients/"; /*client在zookeeper中的父目录*/
 
-class ClientConfigManager: public ZooKeeperListener
+class ClientConfig: public ZooKeeperListener
 {
 public:
 
-    ClientConfigManager(const ZkManagerPtr& zm);
-
-public:
+    ClientConfig(const ZkManagerPtr& zm);
 
     /**
      * 初始化
@@ -46,8 +44,6 @@ public:
      */
     bool remove(const std::string& prx);
 
-public:
-
     /**
      * 实现ZooKeeperListener的纯虚方法
      * return true 成功 false 失败
@@ -67,8 +63,6 @@ private:
      * param 新的配置信息
      */
     void setConfig(const std::vector<std::string>& config);
-
-private:
 
     ZkManagerPtr _zm; /*初始化设置的zkmanager*/
 

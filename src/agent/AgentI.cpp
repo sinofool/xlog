@@ -1,27 +1,40 @@
 #include "src/config/agent_config_manager.h"
 #include "src/config/client_config_manager.h"
-#include "src/config/dispatcher_config_manager.h"
+#include "src/config/dispatcher_config.h"
 #include "src/adapter/dispatcher_adapter.h"
 #include "src/agent/AgentI.h"
 
 namespace xlog
 {
 
-AgentI::AgentI(const AgentConfigManagerPtr& agentConfigCM,
-        const ClientConfigManagerPtr& clientConfigCM,
-        const DispatcherConfigManagerPtr& dispatcherConfigCM,
-        const DispatcherAdapterPtr& dispatcherAdapter) :
-        Agent(), _agentConfigCM(agentConfigCM), _clientConfigCM(clientConfigCM), _dispatcherConfigCM(
-                dispatcherConfigCM), _dispatcherAdapter(dispatcherAdapter)
+AgentI::AgentI()
 {
-    _normalSendWorker = new NormalSendWorker;
+}
+
+void AgentI::init(const Ice::CommunicatorPtr& ic, const ZKConnectionPtr& conn)
+{
+    std::cout << "AgentI::init step " << __LINE__ << std::endl;
+    _config_dispatcher = DispatcherConfigPtr(new DispatcherConfig(conn));
+    std::cout << "AgentI::init step " << __LINE__ << std::endl;
+    _config_dispatcher->init();
+    std::cout << "AgentI::init step " << __LINE__ << std::endl;
+    _adapter_dispatcher = new DispatcherAdapter(ic, _config_dispatcher);
+    std::cout << "AgentI::init step " << __LINE__ << std::endl;
+    _adapter_dispatcher->init();
+    std::cout << "AgentI::init step " << __LINE__ << std::endl;
+    _normalSendWorker = new NormalSendWorker(_adapter_dispatcher);
+    std::cout << "AgentI::init step " << __LINE__ << std::endl;
     _normalSendWorker->start().detach();
+    std::cout << "AgentI::init step " << __LINE__ << std::endl;
     _failedSendWorker = new FailedSendWorker;
+    std::cout << "AgentI::init step " << __LINE__ << std::endl;
     _failedSendWorker->start().detach();
+    std::cout << "AgentI::init step " << __LINE__ << std::endl;
 }
 
 void AgentI::add(const LogDataSeq& data, const ::Ice::Current& current)
 {
+    std::cout << "AgentI::add " << data.size() << std::endl;
     _normalSendWorker->add(data);
 }
 
@@ -32,15 +45,15 @@ void AgentI::addFailedLogData(const LogDataSeq& data, const ::Ice::Current& curr
 
 ::Ice::StringSeq AgentI::subscribeClient(const std::string& prxStr, const ::Ice::Current& current)
 {
-    if (_clientConfigCM)
-    {
-        _clientConfigCM->subscribe(prxStr);
-    }
-
-    if (_agentConfigCM)
-    {
-        return _agentConfigCM->getConfig();
-    }
+//    if (_clientConfigCM)
+//    {
+//        _clientConfigCM->subscribe(prxStr);
+//    }
+//
+//    if (_agentConfigCM)
+//    {
+//        return _agentConfigCM->getConfig();
+//    }
 
     return ::Ice::StringSeq();
 }
@@ -48,15 +61,15 @@ void AgentI::addFailedLogData(const LogDataSeq& data, const ::Ice::Current& curr
 ::Ice::StringSeq AgentI::subscribeSubscriber(const ::Ice::StringSeq& categories,
         const std::string& prxStr, const ::Ice::Current& current)
 {
-    if (_dispatcherConfigCM)
-    {
-        _dispatcherConfigCM->subscribe(categories, prxStr);
-    }
+//    if (_dispatcherConfigCM)
+//    {
+//        _dispatcherConfigCM->subscribe(categories, prxStr);
+//    }
 
-    if (_agentConfigCM)
-    {
-        return _agentConfigCM->getConfig();
-    }
+//    if (_agentConfigCM)
+//    {
+//        return _agentConfigCM->getConfig();
+//    }
 
     return ::Ice::StringSeq();
 }
@@ -88,7 +101,7 @@ void SendWorker::run()
 
 bool NormalSendWorker::send(const LogDataSeq& data)
 {
-    //TODO
+    _adapter_dispatcher->sendNormal(data);
     return true;
 }
 

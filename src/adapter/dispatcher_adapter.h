@@ -2,6 +2,7 @@
 #define __DISPATCHER_ADAPTER_H__
 
 #include <Ice/Ice.h>
+#include <IceUtil/RWRecMutex.h>
 
 #include <xlog.h>
 #include "src/common/common.h"
@@ -12,12 +13,23 @@ namespace xlog
 class DispatcherAdapter: public Ice::Object
 {
 public:
-    DispatcherAdapter(const DispatcherConfigManagerPtr& dispatcherCM);
-    bool send(const LogDataSeq& data);
-    bool sendFailedLogData(const LogDataSeq& data);
+    DispatcherAdapter(const Ice::CommunicatorPtr& ic, const DispatcherConfigPtr& config) :
+            _ic(ic), _config_dispatcher(config)
+    {
+    }
+    void init();
+    bool sendNormal(const LogDataSeq& data);
+    bool sendFailed(const LogDataSeq& data);
 
 private:
-    DispatcherConfigManagerPtr _dispatcherCM;
+    Ice::CommunicatorPtr _ic;
+    DispatcherConfigPtr _config_dispatcher;
+
+    IceUtil::RWRecMutex _prx_lock;
+    VectorOfString _prx_address;
+    std::vector<DispatcherPrx> _prx;
+    long _prx_version;
+    void rebuild_prx();
 };
 
 }

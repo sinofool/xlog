@@ -44,6 +44,7 @@ public class DispatcherConfig {
     public void addDispatcher(DispatcherI obj) {
         Xlog2zkFormat format = obj.toZk();
         try {
+            System.out.println("Creating " + format.path + " data: " + new String(format.data));
             conn.get().create(format.path, format.data, Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL);
         } catch (KeeperException e) {
             // TODO Auto-generated catch block

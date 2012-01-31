@@ -6,6 +6,7 @@
 #define __COMMON_H__
 
 #include <IceUtil/Handle.h>
+#include <boost/shared_ptr.hpp>
 
 namespace xlog
 {
@@ -13,14 +14,14 @@ namespace xlog
 class ZooKeeperListener;
 typedef IceUtil::Handle<ZooKeeperListener> ZooKeeperListenerPtr;
 
-class AgentConfigManager;
-typedef IceUtil::Handle<AgentConfigManager> AgentConfigManagerPtr;
+class AgentConfig;
+typedef IceUtil::Handle<AgentConfig> AgentConfigPtr;
 
-class DispatcherConfigManager;
-typedef IceUtil::Handle<DispatcherConfigManager> DispatcherConfigManagerPtr;
+class DispatcherConfig;
+typedef boost::shared_ptr<DispatcherConfig> DispatcherConfigPtr;
 
-class ClientConfigManager;
-typedef ::IceUtil::Handle<ClientConfigManager> ClientConfigManagerPtr;
+class ClientConfig;
+typedef ::IceUtil::Handle<ClientConfig> ClientConfigPtr;
 
 class ZkManager;
 typedef IceUtil::Handle<ZkManager> ZkManagerPtr;
@@ -34,5 +35,7 @@ typedef ::IceUtil::Handle<ClientAdapter> ClientAdapterPtr;
 class AgentAdapter;
 typedef ::IceUtil::Handle<AgentAdapter> AgentAdapterPtr;
 
+typedef std::vector<std::string> VectorOfString;
+typedef std::vector<char> VectorOfChar;
 }
 #endif

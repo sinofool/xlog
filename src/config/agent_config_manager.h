@@ -12,13 +12,13 @@
 namespace xlog
 {
 
-const std::string AGENTS_PATH = "/agents/"; /*agent在zookeeper中的父目录*/
+static const std::string AGENTS_PATH = "/agents/"; /*agent在zookeeper中的父目录*/
 
-class AgentConfigManager: public ZooKeeperListener
+class AgentConfig: public ZooKeeperListener
 {
 public:
 
-    AgentConfigManager(const std::string& prx, const ZkManagerPtr& zm,
+    AgentConfig(const std::string& prx, const ZkManagerPtr& zm,
             const ClientAdapterPtr& clientAdapter);
 
     /**

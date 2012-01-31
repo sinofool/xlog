@@ -29,7 +29,7 @@ bool AgentAdapter::init(const std::string& prxStr, const ::Ice::StringSeq& defau
     srand((unsigned) time(NULL));
 
     ::Ice::ObjectAdapterPtr adapter = _ic->createObjectAdapter(
-            _prxStr + boost::lexical_cast < std::string > (rand()));
+            _prxStr + boost::lexical_cast<std::string>(rand()));
     adapter->activate();
     adapter->addWithUUID(this);
 
@@ -167,6 +167,32 @@ std::vector<AgentPrx> AgentAdapter::getPrxs(const int size)
         std::cerr << "AgentAdapter::subscribe ::Ice::Exception " << e.what() << std::endl;
     }
     return ::Ice::StringSeq();
+}
+
+void TcpAgentAdapter::setPrxs(const Ice::StringSeq& config)
+{
+    std::vector<AgentPrx> res;
+    for (Ice::StringSeq::const_iterator it = config.begin(); it != config.end(); ++it)
+    {
+        res.push_back(Util::getPrx<AgentPrx>(_ic, *it, false, 300));
+    }
+
+    ::IceUtil::RWRecMutex::WLock lock(_rwMutex);
+
+    _agents.swap(res);
+}
+
+void UdpAgentAdapter::setPrxs(const Ice::StringSeq& config)
+{
+    std::vector<AgentPrx> res;
+    for (Ice::StringSeq::const_iterator it = config.begin(); it != config.end(); ++it)
+    {
+        res.push_back(Util::getPrx<AgentPrx>(_ic, *it));
+    }
+
+    IceUtil::RWRecMutex::WLock lock(_rwMutex);
+
+    _agents.swap(res);
 }
 
 }

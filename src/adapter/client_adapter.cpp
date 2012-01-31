@@ -8,7 +8,7 @@
 namespace xlog
 {
 
-ClientAdapter::ClientAdapter(const ClientConfigManagerPtr& clientCM) :
+ClientAdapter::ClientAdapter(const ClientConfigPtr& clientCM) :
         _clientCM(clientCM)
 {
     _ic = Ice::initialize();

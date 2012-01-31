@@ -35,5 +35,17 @@ protected:
     ::Ice::CommunicatorPtr _ic;
 };
 
+class TcpAgentAdapter: public AgentAdapter
+{
+protected:
+    virtual void setPrxs(const ::Ice::StringSeq& config);
+};
+
+class UdpAgentAdapter: public AgentAdapter
+{
+protected:
+    virtual void setPrxs(const ::Ice::StringSeq& config);
+};
+
 }
 #endif

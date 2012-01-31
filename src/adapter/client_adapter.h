@@ -13,11 +13,11 @@ namespace xlog
 class ClientAdapter: public Ice::Object
 {
 public:
-    ClientAdapter(const ClientConfigManagerPtr& clientCM);
+    ClientAdapter(const ClientConfigPtr& clientCM);
     void notify(const std::vector<std::string>& agentConfig);
 
 private:
-    ClientConfigManagerPtr _clientCM;
+    ClientConfigPtr _clientCM;
     Ice::CommunicatorPtr _ic;
 };
 

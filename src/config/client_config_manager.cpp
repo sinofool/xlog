@@ -6,21 +6,21 @@
 namespace xlog
 {
 
-ClientConfigManager::ClientConfigManager(const ZkManagerPtr& zm) :
+ClientConfig::ClientConfig(const ZkManagerPtr& zm) :
         _zm(zm)
 {
 }
 
-bool ClientConfigManager::init()
+bool ClientConfig::init()
 {
     return handle();
 }
 
-bool ClientConfigManager::handle()
+bool ClientConfig::handle()
 {
     if (!_zm)
     {
-        std::cerr << "ClientConfigManager::handle failed, because zkmananager is null!"
+        std::cerr << "ClientConfig::handle failed, because zkmananager is null!"
                 << std::endl;
         return false;
     }
@@ -29,7 +29,7 @@ bool ClientConfigManager::handle()
 
     if (newConfig.empty())
     {
-        std::cerr << "ClientConfigManager::handle can not get clients config from zk!" << std::endl;
+        std::cerr << "ClientConfig::handle can not get clients config from zk!" << std::endl;
         return false;
     }
 
@@ -38,54 +38,54 @@ bool ClientConfigManager::handle()
     return true;
 }
 
-bool ClientConfigManager::subscribe(const std::string& prx)
+bool ClientConfig::subscribe(const std::string& prx)
 {
     if (!_zm)
     {
-        std::cerr << "ClientConfigManager::subscribe failed, because zkmanager is null!"
+        std::cerr << "ClientConfig::subscribe failed, because zkmanager is null!"
                 << std::endl;
     }
 
     if (prx == "")
     {
-        std::cerr << "ClientConfigManager::subscribe failed, because prx is null!" << std::endl;
+        std::cerr << "ClientConfig::subscribe failed, because prx is null!" << std::endl;
     }
 
     return _zm->createNormalNode(CLIENTS_PATH + prx);
 }
 
-bool ClientConfigManager::remove(const std::string& prx)
+bool ClientConfig::remove(const std::string& prx)
 {
     if (!_zm)
     {
-        std::cerr << "ClientConfigManager::remove failed, because zkmanager is null!" << std::endl;
+        std::cerr << "ClientConfig::remove failed, because zkmanager is null!" << std::endl;
     }
 
     if (prx == "")
     {
-        std::cerr << "ClientConfigManager::remove failed, because prx is null!" << std::endl;
+        std::cerr << "ClientConfig::remove failed, because prx is null!" << std::endl;
     }
 
     return _zm->deleteNormalNode(CLIENTS_PATH + prx);
 }
 
-std::vector<std::string> ClientConfigManager::update()
+std::vector<std::string> ClientConfig::update()
 {
     if (!_zm)
     {
-        std::cerr << "ClientConfigManager::update failed, because zkmanager is null!" << std::endl;
+        std::cerr << "ClientConfig::update failed, because zkmanager is null!" << std::endl;
     }
 
     return _zm->getChildren(CLIENTS_PATH);
 }
 
-void ClientConfigManager::setConfig(const std::vector<std::string>& config)
+void ClientConfig::setConfig(const std::vector<std::string>& config)
 {
     ::IceUtil::RWRecMutex::WLock lock(_configMutex);
     _config = config;
 }
 
-std::vector<std::string> ClientConfigManager::getConfig()
+std::vector<std::string> ClientConfig::getConfig()
 {
     ::IceUtil::RWRecMutex::RLock lock(_configMutex);
     return _config;
