@@ -1,0 +1,12 @@
+
+package xlog;
+
+message NodeConfig {
+    required int32 type = 1;
+    required string prefix = 2;
+};
+
+message NodeItem {
+    required int32 type = 1;
+    required string location = 2;
+};

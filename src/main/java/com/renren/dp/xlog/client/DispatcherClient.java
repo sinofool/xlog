@@ -10,6 +10,7 @@ import com.renren.dp.xlog.common.ZkConn;
 import com.renren.dp.xlog.config.DispatcherConfig;
 
 public class DispatcherClient {
+    private static final String[] CATEGORIES = new String[] { "xlog", "example", "level3", "file" };
 
     /**
      * @param args
@@ -17,14 +18,11 @@ public class DispatcherClient {
      */
     public static void main(String[] args) throws IOException {
         ZkConn conn = new ZkConn();
-        DispatcherConfig cfg = DispatcherConfig.create(conn);
-        String[] dispatchers = cfg.listDispatcher();
-        for (String dispatcher : dispatchers) {
-            Ice.Communicator ic = Ice.Util.initialize();
-            DispatcherPrx prx = DispatcherPrxHelper.uncheckedCast(ic.stringToProxy(cfg
-                    .getDispatcher(dispatcher)));
-            prx.add(new LogData[] { new LogData(), new LogData() });
-        }
+        Ice.Communicator ic = Ice.Util.initialize();
+        DispatcherConfig<DispatcherPrx> cfg = DispatcherConfig.create(conn, ic);
+        DispatcherPrx prx = cfg.getDispatcher(CATEGORIES);
+        prx.add(new LogData[] { new LogData(), new LogData() });
+
     }
 
 }
