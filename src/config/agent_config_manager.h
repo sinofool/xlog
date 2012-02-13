@@ -12,8 +12,6 @@
 namespace xlog
 {
 
-static const std::string AGENTS_PATH = "/agents/"; /*agent在zookeeper中的父目录*/
-
 class AgentConfig: public ZooKeeperListener
 {
 public:

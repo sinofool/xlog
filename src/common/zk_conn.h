@@ -74,7 +74,7 @@ class ZKConnection
 {
 public:
     bool init(const std::string& address);
-    void create(const std::string& path, const std::vector<char>& data);
+    bool create(const std::string& path, const std::vector<char>& data);
     void remove(const std::string& path, int version);
     void exists(const std::string& path, ZKWatcher* watcher);
     std::vector<char> getData(const std::string& path, ZKWatcher* watcher);

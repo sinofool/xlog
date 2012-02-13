@@ -5,7 +5,8 @@
 namespace xlog
 {
 
-void ZKWatcher::watcher_callback(zhandle_t *zh, int type, int state, const char *path, void *watcherCtx)
+void ZKWatcher::watcher_callback(zhandle_t *zh, int type, int state, const char *path,
+        void *watcherCtx)
 {
     ZKWatchedEvent event(EventType(type), KeeperState(state), path);
     ((ZKWatcher*) watcherCtx)->process(event);
@@ -20,9 +21,25 @@ bool ZKConnection::init(const std::string& address)
     }
     return true;
 }
-void ZKConnection::create(const std::string& path, const std::vector<char>& data)
+bool ZKConnection::create(const std::string& path, const std::vector<char>& data)
 {
-    ;
+    int size = 1024;
+    VectorOfChar buffer;
+    buffer.reserve(size);
+    int rc = zoo_create(_zk, path.c_str(), data.data(), data.size(), &ZOO_OPEN_ACL_UNSAFE, 0, buffer.data(),
+            size);
+
+    if (rc != ZOK)
+    {
+        std::cerr << __FILE__<<":" << __LINE__<<" zoo_create returns not ZOK. (" << rc << ")"
+                << std::endl;
+        return false;
+    }
+    {
+        std::cout << __FILE__<<":" << __LINE__ << " Created: " << std::string(buffer.data(), 0, size)
+                << std::endl;
+    }
+    return true;
 }
 void ZKConnection::remove(const std::string& path, int version)
 {
@@ -66,7 +83,8 @@ std::vector<std::string> ZKConnection::getChildren(const std::string& path, ZKWa
     void * ctx;
     int rc =
             watcher ?
-                    zoo_wget_children(_zk, path.c_str(), ZKWatcher::watcher_callback, watcher, &nodes) :
+                    zoo_wget_children(_zk, path.c_str(), ZKWatcher::watcher_callback, watcher,
+                            &nodes) :
                     zoo_get_children(_zk, path.c_str(), 0, &nodes);
 
     if (rc != ZOK)

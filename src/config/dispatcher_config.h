@@ -12,8 +12,6 @@
 namespace xlog
 {
 
-static const char* DISPATCHERS_PATH = "/dispatchers"; /*client在zookeeper中的父目录*/
-
 class DispatcherConfig: public ZKWatcher
 {
 public:
