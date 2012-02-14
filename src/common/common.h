@@ -11,6 +11,9 @@
 namespace xlog
 {
 
+static const char* AGENTS_PATH = "/agents"; /*agent在zookeeper中的父目录*/
+static const char* DISPATCHERS_PATH = "/dispatchers"; /*client在zookeeper中的父目录*/
+
 class ZooKeeperListener;
 typedef IceUtil::Handle<ZooKeeperListener> ZooKeeperListenerPtr;
 
