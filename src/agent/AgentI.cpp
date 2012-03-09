@@ -32,13 +32,13 @@ void AgentI::init(const Ice::CommunicatorPtr& ic, const ZKConnectionPtr& conn)
     std::cout << "AgentI::init step " << __LINE__ << std::endl;
 }
 
-void AgentI::add(const LogDataSeq& data, const ::Ice::Current& current)
+void AgentI::add(const slice::LogDataSeq& data, const ::Ice::Current& current)
 {
     std::cout << "AgentI::add " << data.size() << std::endl;
     _normalSendWorker->add(data);
 }
 
-void AgentI::addFailedLogData(const LogDataSeq& data, const ::Ice::Current& current)
+void AgentI::addFailedLogData(const slice::LogDataSeq& data, const ::Ice::Current& current)
 {
     _failedSendWorker->add(data);
 }
@@ -74,7 +74,7 @@ void AgentI::addFailedLogData(const LogDataSeq& data, const ::Ice::Current& curr
     return ::Ice::StringSeq();
 }
 
-void SendWorker::add(const LogDataSeq& data)
+void SendWorker::add(const slice::LogDataSeq& data)
 {
     ::IceUtil::Monitor<IceUtil::Mutex>::Lock lock(_dataMutex);
     _data.insert(_data.end(), data.begin(), data.end());
@@ -85,7 +85,7 @@ void SendWorker::run()
 {
     for (;;)
     {
-        LogDataSeq data;
+        slice::LogDataSeq data;
         {
             ::IceUtil::Monitor<IceUtil::Mutex>::Lock lock(_dataMutex);
             if (_data.empty())
@@ -99,13 +99,13 @@ void SendWorker::run()
     }
 }
 
-bool NormalSendWorker::send(const LogDataSeq& data)
+bool NormalSendWorker::send(const slice::LogDataSeq& data)
 {
     _adapter_dispatcher->sendNormal(data);
     return true;
 }
 
-bool FailedSendWorker::send(const LogDataSeq& data)
+bool FailedSendWorker::send(const slice::LogDataSeq& data)
 {
     //TODO
     return true;

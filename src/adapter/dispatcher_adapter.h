@@ -18,8 +18,8 @@ public:
     {
     }
     void init();
-    bool sendNormal(const LogDataSeq& data);
-    bool sendFailed(const LogDataSeq& data);
+    bool sendNormal(const slice::LogDataSeq& data);
+    bool sendFailed(const slice::LogDataSeq& data);
 
 private:
     Ice::CommunicatorPtr _ic;
@@ -27,7 +27,7 @@ private:
 
     IceUtil::RWRecMutex _prx_lock;
     VectorOfString _prx_address;
-    std::vector<DispatcherPrx> _prx;
+    std::vector<slice::DispatcherPrx> _prx;
     long _prx_version;
     void rebuild_prx();
 };

@@ -1,6 +1,7 @@
 #include <Ice/BuiltinSequences.ice>
 
 module xlog {
+module slice {
   struct LogData {
     Ice::StringSeq categories;
     Ice::StringSeq logs;
@@ -28,5 +29,7 @@ module xlog {
     void add(LogDataSeq data);
     bool register(Logger* subscriber, int frequence);
   };
+
+};
 };
 

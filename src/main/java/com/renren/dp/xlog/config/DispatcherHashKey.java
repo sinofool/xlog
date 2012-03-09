@@ -1,6 +1,8 @@
 package com.renren.dp.xlog.config;
 
-public class DispatcherHashKey implements HashableKey<String[]> {
+import dp.election.GenericHashBuilder;
+
+public class DispatcherHashKey implements GenericHashBuilder<String[]> {
 
     @Override
     public int hash(String[] key, int size) {

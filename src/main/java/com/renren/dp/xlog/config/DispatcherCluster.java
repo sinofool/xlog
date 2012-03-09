@@ -2,31 +2,32 @@ package com.renren.dp.xlog.config;
 
 import java.io.IOException;
 
-import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.KeeperException;
-import org.apache.zookeeper.ZooDefs.Ids;
 
-import xlog.DispatcherPrx;
+import xlog.slice.DispatcherPrx;
 
-import com.renren.dp.xlog.common.Xlog2zkFormat;
-import com.renren.dp.xlog.common.ZkConn;
 import com.renren.dp.xlog.dispatcher.DispatcherI;
 
-public class DispatcherConfig<T> {
-    public static DispatcherConfig<DispatcherPrx> create(ZkConn conn, Ice.Communicator ic)
+import dp.election.GenericProxyBuilder;
+import dp.election.HACluster;
+import dp.zk.ZkConn;
+
+public class DispatcherCluster<T> {
+    
+    public static DispatcherCluster<DispatcherPrx> create(ZkConn conn, Ice.Communicator ic)
             throws IOException {
-        DispatcherConfig<DispatcherPrx> cfg = new DispatcherConfig<DispatcherPrx>(
+        DispatcherCluster<DispatcherPrx> cfg = new DispatcherCluster<DispatcherPrx>(
                 new DispatcherProxyFactory(ic));
         cfg.initialize(conn);
         return cfg;
     }
 
     private ZkConn conn;
-    private NodeCluster<String[], T> dispatcher_cluster;
+    private HACluster<String[], T> dispatcher_cluster;
 
-    private final ProxyFactory<T> proxy_factory;
+    private final GenericProxyBuilder<T> proxy_factory;
 
-    public DispatcherConfig(ProxyFactory<T> proxyFactory) {
+    public DispatcherCluster(GenericProxyBuilder<T> proxyFactory) {
         this.proxy_factory = proxyFactory;
     }
 
@@ -35,7 +36,7 @@ public class DispatcherConfig<T> {
         boolean retry = false;
         do {
             retry = false;
-            dispatcher_cluster = new NodeCluster<String[], T>(conn, "/dispatchers",
+            dispatcher_cluster = new HACluster<String[], T>(conn, "/dispatchers",
                     new DispatcherHashKey(), proxy_factory);
             try {
                 dispatcher_cluster.initialize();
@@ -50,10 +51,8 @@ public class DispatcherConfig<T> {
     }
 
     public void addDispatcher(DispatcherI obj) {
-        Xlog2zkFormat format = obj.toZk();
         try {
-            System.out.println("Creating " + format.path + " data: " + new String(format.data));
-            conn.get().create(format.path, format.data, Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL);
+            dispatcher_cluster.add(obj.toItemInfo());
         } catch (KeeperException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -66,7 +65,7 @@ public class DispatcherConfig<T> {
         }
     }
 
-    public T getDispatcher(String[] category) {
-        return dispatcher_cluster.getNode(category);
+    public T getDispatcher(String[] category) throws InterruptedException {
+        return dispatcher_cluster.get(category);
     }
 }

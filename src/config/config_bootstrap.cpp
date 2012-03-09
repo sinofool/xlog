@@ -1,5 +1,6 @@
 #include "src/common/zk_conn.h"
 #include "src/config/dispatcher_config.h"
+#include "build/generated/xlog.pb.h"
 #include <boost/lexical_cast.hpp>
 
 using namespace xlog;
@@ -13,9 +14,12 @@ int main(int argc, char **argv)
         cerr << "Can not init zk, exit" << endl;
         return 0;
     }
+
     VectorOfChar empty;
-    VectorOfChar data;
-    data.push_back(19);
+    xlog::proto::ClusterInfo cluster;
+    cluster.set_size(19);
+    VectorOfChar data(cluster.ByteSize());
+    cluster.SerializeToArray(&data[0], data.size());
     bool dis_ret = conn->create(DISPATCHERS_PATH, data);
     if (!dis_ret)
     {

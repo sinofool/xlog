@@ -1,12 +1,11 @@
 
-package xlog;
+package xlog.proto;
 
-message NodeConfig {
-    required int32 type = 1;
-    required string prefix = 2;
+message ClusterInfo {
+    required int32 size = 1;
 };
 
-message NodeItem {
+message ItemInfo {
     required int32 type = 1;
     required string location = 2;
 };

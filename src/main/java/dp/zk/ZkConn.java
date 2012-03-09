@@ -1,4 +1,4 @@
-package com.renren.dp.xlog.common;
+package dp.zk;
 
 import java.io.IOException;
 import java.util.Properties;

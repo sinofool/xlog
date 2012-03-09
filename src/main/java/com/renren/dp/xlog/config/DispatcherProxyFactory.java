@@ -1,9 +1,10 @@
 package com.renren.dp.xlog.config;
 
-import xlog.DispatcherPrx;
-import xlog.DispatcherPrxHelper;
+import xlog.slice.DispatcherPrx;
+import xlog.slice.DispatcherPrxHelper;
+import dp.election.GenericProxyBuilder;
 
-public class DispatcherProxyFactory implements ProxyFactory<DispatcherPrx> {
+public class DispatcherProxyFactory implements GenericProxyBuilder<DispatcherPrx> {
     private final Ice.Communicator ic;
 
     public DispatcherProxyFactory(Ice.Communicator ic) {
@@ -11,7 +12,7 @@ public class DispatcherProxyFactory implements ProxyFactory<DispatcherPrx> {
     }
 
     @Override
-    public DispatcherPrx get(String config) {
+    public DispatcherPrx cast(String config) {
         return DispatcherPrxHelper.uncheckedCast(ic.stringToProxy(config));
     }
 }

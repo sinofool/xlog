@@ -10,7 +10,7 @@ void DispatcherAdapter::init()
     rebuild_prx();
 }
 
-bool DispatcherAdapter::sendNormal(const LogDataSeq& data)
+bool DispatcherAdapter::sendNormal(const slice::LogDataSeq& data)
 {
     long version = _config_dispatcher->version();
     if (version != _prx_version)
@@ -25,7 +25,7 @@ bool DispatcherAdapter::sendNormal(const LogDataSeq& data)
     return true;
 }
 
-bool DispatcherAdapter::sendFailed(const LogDataSeq& data)
+bool DispatcherAdapter::sendFailed(const slice::LogDataSeq& data)
 {
     //TODO
     return true;
@@ -35,13 +35,13 @@ void DispatcherAdapter::rebuild_prx()
 {
     long version = _config_dispatcher->version();
     VectorOfString new_address = _config_dispatcher->get();
-    std::vector<DispatcherPrx> newprx;
+    std::vector<slice::DispatcherPrx> newprx;
     newprx.resize(new_address.size());
     for (size_t i = 0; i < new_address.size(); ++i)
     {
         std::cout << __FILE__ << ":" << __LINE__ << " constructing endpoint " << new_address[i]
                 << std::endl;
-        newprx[i] = DispatcherPrx::uncheckedCast(_ic->stringToProxy(new_address[i]));
+        newprx[i] = slice::DispatcherPrx::uncheckedCast(_ic->stringToProxy(new_address[i]));
     }
 
     IceUtil::RWRecMutex::WLock lock(_prx_lock);

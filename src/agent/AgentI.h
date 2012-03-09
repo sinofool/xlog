@@ -18,7 +18,7 @@ typedef IceUtil::Handle<NormalSendWorker> NormalSendWorkerPtr;
 class FailedSendWorker;
 typedef IceUtil::Handle<FailedSendWorker> FailedSendWorkerPtr;
 
-class AgentI: virtual public Agent
+class AgentI: virtual public slice::Agent
 {
 public:
     AgentI();
@@ -27,13 +27,13 @@ public:
      * 收集client的log信息
      * @param data log信息
      */
-    virtual void add(const LogDataSeq& data, const ::Ice::Current& current);
+    virtual void add(const slice::LogDataSeq& data, const ::Ice::Current& current);
 
     /**
      * 收集client曾经发送失败的log信息
      * @param data log信息
      */
-    virtual void addFailedLogData(const LogDataSeq& data, const ::Ice::Current& current);
+    virtual void addFailedLogData(const slice::LogDataSeq& data, const ::Ice::Current& current);
 
     /**
      * 获取所有agent的字符串信息，并将client的信息注册到zookeeper上
@@ -61,7 +61,7 @@ typedef IceUtil::Handle<AgentI> AgentIPtr;
 class SendWorker: public IceUtil::Thread
 {
 public:
-    void add(const LogDataSeq& data);
+    void add(const slice::LogDataSeq& data);
 
 protected:
     virtual void run();
@@ -70,10 +70,10 @@ protected:
      * 发送数据的接口
      * 不同的worker会调用dispatcher的不同接口
      */
-    virtual bool send(const LogDataSeq& data) = 0;
+    virtual bool send(const slice::LogDataSeq& data) = 0;
 
 private:
-    LogDataSeq _data;
+    slice::LogDataSeq _data;
     ::IceUtil::Monitor<IceUtil::Mutex> _dataMutex;
 };
 
@@ -85,7 +85,7 @@ public:
     {
     }
 protected:
-    virtual bool send(const LogDataSeq& data);
+    virtual bool send(const slice::LogDataSeq& data);
 private:
     DispatcherAdapterPtr _adapter_dispatcher;
 };
@@ -93,7 +93,7 @@ private:
 class FailedSendWorker: public SendWorker
 {
 protected:
-    virtual bool send(const LogDataSeq& data);
+    virtual bool send(const slice::LogDataSeq& data);
 };
 
 }

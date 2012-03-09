@@ -20,7 +20,7 @@ void ClientAdapter::notify(const std::vector<std::string>& agentConfig)
 
     for (std::vector<std::string>::const_iterator it = prxVec.begin(); it != prxVec.end(); ++it)
     {
-        SubscriberPrx prx = Util::getPrx<SubscriberPrx>(_ic, *it);
+        slice::SubscriberPrx prx = Util::getPrx<slice::SubscriberPrx>(_ic, *it);
 
         try
         {

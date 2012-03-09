@@ -2,14 +2,9 @@ package com.renren.dp.xlog.client;
 
 import java.io.IOException;
 
-import xlog.AgentPrx;
-import xlog.AgentPrxHelper;
-import xlog.DispatcherPrx;
-import xlog.DispatcherPrxHelper;
-import xlog.LogData;
-
-import com.renren.dp.xlog.common.ZkConn;
-import com.renren.dp.xlog.config.DispatcherConfig;
+import xlog.slice.AgentPrx;
+import xlog.slice.AgentPrxHelper;
+import xlog.slice.LogData;
 
 public class AgentClient {
 

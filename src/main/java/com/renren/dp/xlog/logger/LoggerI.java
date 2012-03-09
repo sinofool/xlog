@@ -2,10 +2,10 @@ package com.renren.dp.xlog.logger;
 
 import java.util.Arrays;
 
+import xlog.slice.LogData;
+import xlog.slice._LoggerDisp;
 import Ice.Current;
 import Ice.ObjectAdapter;
-import xlog.LogData;
-import xlog._LoggerDisp;
 
 public class LoggerI extends _LoggerDisp {
     private static final long serialVersionUID = -3117295957500314988L;

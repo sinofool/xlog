@@ -1,6 +1,6 @@
 package com.renren.dp.xlog.dispatcher;
 
-import com.renren.dp.xlog.common.ZkConn;
+import dp.zk.ZkConn;
 
 public class DispatcherApp extends Ice.Application {
 
