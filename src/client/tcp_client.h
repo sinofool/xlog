@@ -15,10 +15,7 @@ public:
 
     TcpClient(const std::string& prxStr, const ::Ice::StringSeq& defaultAgents,
             const int maxQueueSize = 10000);
-
-protected:
-
-    virtual AgentAdapterPtr getAgentAdapter();
+   
 };
 
 }

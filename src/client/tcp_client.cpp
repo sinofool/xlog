@@ -1,5 +1,5 @@
-#include "src/adapter/tcp_agent_adapter.h"
-
+#include "src/adapter/agent_adapter.h"
+#include <iostream>
 #include "src/client/tcp_client.h"
 
 namespace xlog
@@ -9,24 +9,27 @@ TcpClient::TcpClient(const std::string& prxStr, const ::Ice::StringSeq& defaultA
         const int maxQueueSize) :
         Client(prxStr, defaultAgents, maxQueueSize)
 {
+   init(false);
 }
-
-AgentAdapterPtr TcpClient::getAgentAdapter()
+/*
+bool TcpClient::initAgentAdapter()
 {
+    bool res=false;
     if (_agentAdapter == 0)
     {
         ::IceUtil::Mutex::Lock lock(_agentMutex);
         if (_agentAdapter == 0)
         {
-            _agentAdapter = new TcpAgentAdapter;
+            _agentAdapter = new AgentAdapter;
 
-            if (_agentAdapter->init(_prxStr, _defaultAgents) == false)
+            bool flag=_agentAdapter->init(_prxStr, _defaultAgents,false);
+	    if (flag)
             {
-                _agentAdapter = 0;
+                res=true;
             }
         }
     }
-    return _agentAdapter;
+    return res;
 }
-
+*/
 }

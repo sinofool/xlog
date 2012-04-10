@@ -14,27 +14,31 @@
 namespace xlog
 {
 
-class AgentAdapter: public Subscriber, public ::IceUtil::Thread
+//class AgentAdapter : public slice::Subscriber , public ::IceUtil::Thread
+class AgentAdapter : public Ice::Object
 {
 public:
-    bool init(const std::string& prxStr, const ::Ice::StringSeq& defaultAgents);
-    void send(const LogDataSeq& data);
-    virtual void notify(const ::Ice::StringSeq& agentConfig, const ::Ice::Current& current);
+    bool init(const std::string& prxStr, const ::Ice::StringSeq& defaultAgents,bool is_udp_protocol);
+    void send(const slice::LogDataSeq& data);
+    //virtual void notify(const ::Ice::StringSeq& agentConfig, const ::Ice::Current& current);
 
-protected:
-    virtual void run();
-    virtual void setPrxs(const ::Ice::StringSeq& config) = 0;
+private:
+    int current_agent_prx_number;
+    //virtual void run();
+    //virtual void setPrxs(const ::Ice::StringSeq& config) = 0;
 
-    std::vector<AgentPrx> getPrxs(const int size);
-    ::Ice::StringSeq subscribe(const AgentPrx& prx = NULL);
+    //std::vector<slice::AgentPrx> getPrxs(const int size);
+    std::vector<slice::AgentPrx> agent_prxs;
+    slice::AgentPrx getAgentPrx();
+    //::Ice::StringSeq subscribe(const slice::AgentPrx& prx = NULL);
 
-    std::string _prxStr;
-    std::vector<AgentPrx> _agents;
-    ::IceUtil::RWRecMutex _rwMutex;
-    ::IceUtil::Monitor<IceUtil::Mutex> _monitor;
+    //std::string _prxStr;
+    //std::vector<slice::AgentPrx> _agents;
+    //::IceUtil::RWRecMutex _rwMutex;
+    //::IceUtil::Monitor<IceUtil::Mutex> _monitor;
     ::Ice::CommunicatorPtr _ic;
 };
-
+/*
 class TcpAgentAdapter: public AgentAdapter
 {
 protected:
@@ -46,6 +50,6 @@ class UdpAgentAdapter: public AgentAdapter
 protected:
     virtual void setPrxs(const ::Ice::StringSeq& config);
 };
-
+*/
 }
 #endif

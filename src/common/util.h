@@ -26,8 +26,7 @@ public:
         std::string host = parts[0];
         std::string port = parts[1];
         std::ostringstream os;
-        os << "M:tcp -h " << host << " -p " << port << " -t 1000";
-
+        os << "A:tcp -h " << host << " -p " << port << " -t 1000";
         T prx = udp ?
                 T::uncheckedCast(ic->stringToProxy(os.str())->ice_datagram()) :
                 T::uncheckedCast(ic->stringToProxy(os.str())->ice_twoway()->ice_timeout(timeout));

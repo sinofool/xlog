@@ -13,28 +13,19 @@
 namespace xlog
 {
 
-class Client: public ::IceUtil::Thread
+class Client : public ::IceUtil::Thread
 {
 public:
 
     Client(const std::string& prxStr, const ::Ice::StringSeq& defaultAgents,
             const int maxQueueSize = 10000);
-
-public:
-
-    void append(const LogDataSeq& data);
+    bool append(const slice::LogDataSeq& data);
 
 protected:
+    void init(bool is_udp_protocol);  
+    void run();
 
-    virtual void run();
-
-protected:
-
-    virtual AgentAdapterPtr getAgentAdapter() = 0;
-
-protected:
-
-    LogDataSeq _data;
+    slice::LogDataSeq _data;
 
     ::IceUtil::Monitor<IceUtil::Mutex> _dataMutex;
 
@@ -46,7 +37,7 @@ protected:
 
     ::IceUtil::Mutex _agentMutex;
 
-    AgentAdapterPtr _agentAdapter;
+    AgentAdapter *_agentAdapter;
 };
 
 }

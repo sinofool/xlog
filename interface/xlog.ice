@@ -23,10 +23,13 @@ module slice {
 
   interface Logger {
     void add(LogDataSeq data);
+    void addLogData(LogData data);
   };
 
   interface Dispatcher {
     void add(LogDataSeq data);
+    void addLogData(LogData data);
+    void createZNode(int slot);
     bool register(Logger* subscriber, int frequence);
   };
 

@@ -6,8 +6,8 @@
 namespace xlog
 {
 
-bool AgentAdapter::init(const std::string& prxStr, const ::Ice::StringSeq& defaultAgents)
-{
+bool AgentAdapter::init(const std::string& prxStr, const ::Ice::StringSeq& defaultAgents,bool is_udp_protocol)
+{   
     if (defaultAgents.empty())
     {
         std::cerr << "AgentAdapter::init defaultAgent is empty!" << std::endl;
@@ -22,43 +22,53 @@ bool AgentAdapter::init(const std::string& prxStr, const ::Ice::StringSeq& defau
 
     srand(unsigned(time(NULL)));
 
-    _prxStr = prxStr;
-
     _ic = ::Ice::initialize();
 
     srand((unsigned) time(NULL));
+    current_agent_prx_number=0;
 
-    ::Ice::ObjectAdapterPtr adapter = _ic->createObjectAdapter(
-            _prxStr + boost::lexical_cast<std::string>(rand()));
-    adapter->activate();
-    adapter->addWithUUID(this);
-
+    std::vector<slice::AgentPrx> _prxs;
     for (::Ice::StringSeq::const_iterator it = defaultAgents.begin(); it != defaultAgents.end();
             ++it)
     {
-        AgentPrx prx = Util::getPrx<AgentPrx>(_ic, *it, false, 300);
-
-        ::Ice::StringSeq agents = subscribe(prx);
-
-        if (!agents.empty())
-        {
-            setPrxs(agents);
-            start().detach();
-            return true;
-        }
+        slice::AgentPrx prx = Util::getPrx<slice::AgentPrx>(_ic, *it, is_udp_protocol, 300);
+	_prxs.push_back(prx);
     }
+    agent_prxs.swap(_prxs);
 
-    std::cerr << "AgentAdapter::init agents is empty!" << std::endl;
-
-    return false;
+    return true;
 }
 
-void AgentAdapter::send(const LogDataSeq& data)
+slice::AgentPrx AgentAdapter::getAgentPrx()
 {
-    std::vector<AgentPrx> prxs = getPrxs(2);
+    int size=agent_prxs.size();
+    if(current_agent_prx_number==size)
+    {
+        current_agent_prx_number=0;
+    }
+    return agent_prxs.at(current_agent_prx_number++);
+    
+}
 
-    AgentPrx normalPrx;
-    AgentPrx backupPrx;
+void AgentAdapter::send(const slice::LogDataSeq& data)
+{
+    int size=agent_prxs.size();
+    for(int i=0;i<size;i++)
+    {
+       try
+       {
+           getAgentPrx()->add(data);
+           return;
+       } catch (::Ice::Exception& e)
+       {
+           std::cerr << "AgentAdapter::send failed for " << i  << " time, will send again!" << std::endl;
+       }
+    }
+    /*
+    std::vector<slice::AgentPrx> prxs = getPrxs(2);
+
+    slice::AgentPrx normalPrx;
+    slice::AgentPrx backupPrx;
 
     if (prxs.size() == 0)
     {
@@ -77,6 +87,7 @@ void AgentAdapter::send(const LogDataSeq& data)
 
     try
     {
+        std::cout << "Adapter add:"<< data.size() << std::endl;
         normalPrx->add(data);
         return;
     } catch (::Ice::Exception& e)
@@ -95,8 +106,9 @@ void AgentAdapter::send(const LogDataSeq& data)
 
         _monitor.notify();
     }
+    */
 }
-
+/*
 void AgentAdapter::notify(const ::Ice::StringSeq& agentConfig, const ::Ice::Current& current)
 {
     setPrxs(agentConfig);
@@ -117,9 +129,9 @@ void AgentAdapter::run()
     }
 }
 
-std::vector<AgentPrx> AgentAdapter::getPrxs(const int size)
+std::vector<slice::AgentPrx> AgentAdapter::getPrxs(const int size)
 {
-    std::vector<AgentPrx> res;
+    std::vector<slice::AgentPrx> res;
     ::IceUtil::RWRecMutex::RLock lock(_rwMutex);
     if (_agents.empty())
     {
@@ -138,9 +150,9 @@ std::vector<AgentPrx> AgentAdapter::getPrxs(const int size)
     return res;
 }
 
-::Ice::StringSeq AgentAdapter::subscribe(const AgentPrx& prx)
+::Ice::StringSeq AgentAdapter::subscribe(const slice::AgentPrx& prx)
 {
-    AgentPrx subPrx;
+    slice::AgentPrx subPrx;
 
     if (prx != 0)
     {
@@ -148,7 +160,7 @@ std::vector<AgentPrx> AgentAdapter::getPrxs(const int size)
     }
     else
     {
-        std::vector<AgentPrx> prxs = getPrxs(1);
+        std::vector<slice::AgentPrx> prxs = getPrxs(1);
 
         if (prxs.empty())
         {
@@ -171,10 +183,10 @@ std::vector<AgentPrx> AgentAdapter::getPrxs(const int size)
 
 void TcpAgentAdapter::setPrxs(const Ice::StringSeq& config)
 {
-    std::vector<AgentPrx> res;
+    std::vector<slice::AgentPrx> res;
     for (Ice::StringSeq::const_iterator it = config.begin(); it != config.end(); ++it)
     {
-        res.push_back(Util::getPrx<AgentPrx>(_ic, *it, false, 300));
+        res.push_back(Util::getPrx<slice::AgentPrx>(_ic, *it, false, 300));
     }
 
     ::IceUtil::RWRecMutex::WLock lock(_rwMutex);
@@ -184,15 +196,15 @@ void TcpAgentAdapter::setPrxs(const Ice::StringSeq& config)
 
 void UdpAgentAdapter::setPrxs(const Ice::StringSeq& config)
 {
-    std::vector<AgentPrx> res;
+    std::vector<slice::AgentPrx> res;
     for (Ice::StringSeq::const_iterator it = config.begin(); it != config.end(); ++it)
     {
-        res.push_back(Util::getPrx<AgentPrx>(_ic, *it));
+        res.push_back(Util::getPrx<slice::AgentPrx>(_ic, *it));
     }
 
     IceUtil::RWRecMutex::WLock lock(_rwMutex);
 
     _agents.swap(res);
 }
-
+*/
 }

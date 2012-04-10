@@ -1,4 +1,7 @@
 #include <Ice/Ice.h>
+#include <boost/algorithm/string/split.hpp>
+#include <boost/algorithm/string/classification.hpp>
+
 #include "src/agent/AgentI.h"
 #include "src/common/zk_manager.h"
 #include "src/config/agent_config_manager.h"
@@ -12,19 +15,40 @@ using namespace xlog;
 class AgentApp: virtual public Ice::Application
 {
 public:
-    virtual int run(int, char*[])
+    virtual int run(int argc , char* argv[])
     {
+        if(argc==1)
+        {
+            cout << "Usage:zk_host:zk_port/rootpath agent_host:agent_port"<<endl;
+            return 0;
+        }
+        *argv++;
+
         shutdownOnInterrupt();
 
         ZKConnectionPtr conn = ZKConnectionPtr(new ZKConnection);
-        if (!conn->init("127.0.0.1:2222/xlog"))
+        if (!conn->init(*argv++))
         {
             cerr << appName() << ": can not init zk, exit" << endl;
             return 0;
         }
         std::cout << "ZooKeeper inited. Now initializing ICE. " << std::endl;
+
+        std::vector < std::string > parts;
+        boost::algorithm::split(parts, *argv, boost::algorithm::is_any_of(":"));
+        if (parts.size() != 2)
+        {
+            std::cerr << "agent host:port is " << *argv 
+                    << ",does not match the format : <host>:<port>!" << std::endl;
+            return NULL;
+        }
+        std::string host = parts[0];
+        std::string port = parts[1];
+        std::ostringstream os;
+        os << "default -h " << host << " -p " << port;
+
         Ice::ObjectAdapterPtr adapter = communicator()->createObjectAdapterWithEndpoints(appName(),
-                "default -h 127.0.0.1 -p 10000");
+                os.str());
         std::cout << "new AgentI. ";
         AgentIPtr agent = new AgentI;
         agent->init(communicator(), conn);

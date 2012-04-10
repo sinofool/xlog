@@ -1,7 +1,8 @@
 package com.renren.dp.xlog.dispatcher;
 
 import java.io.IOException;
-import java.util.UUID;
+
+import org.apache.zookeeper.KeeperException;
 
 import xlog.proto.Xlog.ItemInfo;
 import xlog.proto.Xlog.ItemInfo.Builder;
@@ -22,29 +23,41 @@ import dp.zk.ZkConn;
 public class DispatcherI extends _DispatcherDisp {
     private static final long serialVersionUID = 5776184542612999955L;
 
-    private String uuid;
+    //private String uuid;
     private ObjectPrx myprx;
     private DispatcherCluster<DispatcherPrx> cfg;
     private LoggerI logger;
 
     protected boolean initialize(ObjectAdapter adapter, ZkConn conn) {
-        uuid = UUID.randomUUID().toString();
+        //uuid = UUID.randomUUID().toString();
         myprx = adapter.add(this, adapter.getCommunicator().stringToIdentity("D"));
+        logger = new LoggerI();
+        logger.initialize(adapter);
+        
         try {
-            logger = new LoggerI();
-            logger.initialize(adapter);
             cfg = DispatcherCluster.create(conn, adapter.getCommunicator());
-            cfg.addDispatcher(this);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
+            return false;
+        }
+        cfg.addDispatcher(this);
+        try {
+          cfg.addWatcher();
+        } catch (KeeperException e) {
+          e.printStackTrace();
+          return false;
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+          return false;
+        } catch (IOException e) {
+          e.printStackTrace();
+          return false;
         }
         return true;
     }
 
     @Override
     public boolean register(LoggerPrx subscriber, int frequence, Current __current) {
-        // TODO Auto-generated method stub
         return false;
     }
 
@@ -64,5 +77,17 @@ public class DispatcherI extends _DispatcherDisp {
         ib.setType(1);
         ib.setLocation(endpointline.toString());
         return ib.build();
+    }
+
+    @Override
+    public void createZNode(int slot, Current __current) {
+      // TODO Auto-generated method stub
+      cfg.createZNode(slot);
+    }
+
+    @Override
+    public void addLogData(LogData data, Current __current) {
+      // TODO Auto-generated method stub
+      logger.addLogData(data);
     }
 }

@@ -7,17 +7,24 @@ using namespace xlog;
 using namespace std;
 
 int main(int argc, char **argv)
-{
+{   
+    if(argc==1)
+    {
+      cout << "Usage:host:port/rootpath slot_count"<<endl;
+      return 0;
+    }
     ZKConnectionPtr conn = ZKConnectionPtr(new ZKConnection);
-    if (!conn->init("127.0.0.1:2222/xlog"))
+    *argv++;
+    if (!conn->init(*argv++))
     {
         cerr << "Can not init zk, exit" << endl;
         return 0;
     }
-
+    
+    int slotCount=boost::lexical_cast<int>(*argv);
     VectorOfChar empty;
     xlog::proto::ClusterInfo cluster;
-    cluster.set_size(19);
+    cluster.set_size(slotCount);
     VectorOfChar data(cluster.ByteSize());
     cluster.SerializeToArray(&data[0], data.size());
     bool dis_ret = conn->create(DISPATCHERS_PATH, data);
@@ -25,7 +32,7 @@ int main(int argc, char **argv)
     {
         std::cout << "Create " << DISPATCHERS_PATH << " error." << std::endl;
     }
-    for (int i = 0; i < 19; ++i)
+    for (int i = 0; i < slotCount; ++i)
     {
         string path = string(DISPATCHERS_PATH) + string("/") + boost::lexical_cast<std::string>(i);
 

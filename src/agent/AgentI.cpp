@@ -34,7 +34,7 @@ void AgentI::init(const Ice::CommunicatorPtr& ic, const ZKConnectionPtr& conn)
 
 void AgentI::add(const slice::LogDataSeq& data, const ::Ice::Current& current)
 {
-    std::cout << "AgentI::add " << data.size() << std::endl;
+    //std::cout << "AgentI::add " << data.size() << std::endl;
     _normalSendWorker->add(data);
 }
 
