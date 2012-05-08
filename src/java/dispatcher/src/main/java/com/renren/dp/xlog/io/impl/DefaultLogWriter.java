@@ -4,115 +4,96 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
 import java.util.concurrent.locks.ReentrantLock;
 
 import com.renren.dp.xlog.io.LogWriter;
-import com.renren.dp.xlog.logger.LogMeta;
-import com.renren.dp.xlog.util.Constants;
 
-public class DefaultLogWriter implements LogWriter{
+public class DefaultLogWriter implements LogWriter {
 
-	private SimpleDateFormat sdf=null;
-	private String currentLogFileNum=null;
-	private FileWriter fw=null;
-	private BufferedWriter br=null;
-	private String logFilePath=null;
-	private boolean isAutoGenerateFileName;
-	
+	private FileWriter fw = null;
+	private BufferedWriter br = null;
+	private File logFile=null;
+
 	private final ReentrantLock lock = new ReentrantLock();
+
+	public DefaultLogWriter() {
+	}
 	
-	public DefaultLogWriter(String logFilePath){
-		this.logFilePath=logFilePath;
-		isAutoGenerateFileName=true;
-		sdf=new SimpleDateFormat(Constants.FILE_NAME_FORMAT);
-		currentLogFileNum=sdf.format(new Date());
-		File f=new File(logFilePath+File.separator+currentLogFileNum);
-		if(!f.exists()){
-			File p=f.getParentFile();
-			if(!p.exists()){
+	public boolean createFile(File logFile){
+		this.logFile=logFile;
+		if (!logFile.exists()) {
+			File p = logFile.getParentFile();
+			if (!p.exists()) {
 				p.mkdirs();
 			}
 			try {
-				f.createNewFile();
+				logFile.createNewFile();
 			} catch (IOException e) {
 				e.printStackTrace();
-			}
-		}
-		try {
-			fw=new FileWriter(f,true);
-			br=new BufferedWriter(fw);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-	}
-	public DefaultLogWriter(File targetFile){
-		isAutoGenerateFileName=false;
-		try {
-			fw=new FileWriter(targetFile,true);
-			br=new BufferedWriter(fw);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public boolean write(List<LogMeta> logMetas,boolean isAllowPartSuccess) {
-		boolean res;
-		for(LogMeta log:logMetas){
-			res=write(log);
-			if(!isAllowPartSuccess && !res){
 				return false;
 			}
 		}
-		logMetas.removeAll(logMetas);
-		return true;
-	}
-	
-	public boolean write(LogMeta logMeta){
-		lock.lock();
-		try{
-			if(isAutoGenerateFileName){
-				String tmpLogFileNum=sdf.format(new Date());
-				if(!tmpLogFileNum.equals(currentLogFileNum)){
-					currentLogFileNum=tmpLogFileNum;
-					try {
-						fw.close();
-						br.close();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-					File f=new File(logFilePath+File.separator+currentLogFileNum);
-						f.createNewFile();
-						fw=new FileWriter(f,true);
-						br=new BufferedWriter(fw);
-				}
-			}
-			
-			br.write(logMeta.toString()+"\n");
-			br.flush();
-		}catch (IOException e) {
+		try {
+			fw = new FileWriter(logFile, true);
+			br = new BufferedWriter(fw);
+		} catch (IOException e) {
 			e.printStackTrace();
 			return false;
-		}finally{
-			lock.unlock();
 		}
-		
+
 		return true;
 	}
+
+	public boolean write(String logFileNum, String[] logs,
+			boolean isAllowPartSuccess) {
+		lock.lock();
+		for (String log : logs) {
+			if(log==null){
+				continue;
+			}
+			try {
+				br.write(log + "\n");
+			} catch (IOException e) {
+				e.printStackTrace();
+				if (isAllowPartSuccess) {
+					continue;
+				}else{
+					break;
+				}
+			}
+		}
+		try {
+			br.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			lock.unlock();
+		}
+
+		return true;
+	}
+
+	public String getLogFileName(){
+		return logFile.getName();
+	}
 	
-	public void close(){
-		if(br!=null){
+	public void rename(String suffix){
+		File destFile=new File(logFile.getAbsolutePath()+suffix);
+		if(!destFile.exists()){
+			logFile.renameTo(destFile);
+		}
+	}
+
+	public void close() {
+		if (br != null) {
 			try {
 				br.close();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
-		
-		if(fw!=null){
+		if (fw != null) {
 			try {
 				fw.close();
 			} catch (IOException e) {
@@ -121,4 +102,3 @@ public class DefaultLogWriter implements LogWriter{
 		}
 	}
 }
-

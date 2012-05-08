@@ -17,7 +17,11 @@
 		<fileSet>
 			<directory>logs</directory>
 			<outputDirectory>logs</outputDirectory>
-		</fileSet>
+       </fileSet>
+       <fileSet>
+			<directory>webapp</directory>
+			<outputDirectory>webapp</outputDirectory>
+       </fileSet>
 	</fileSets>
 	<dependencySets>
 		<dependencySet>

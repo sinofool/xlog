@@ -1,24 +1,16 @@
 package com.renren.dp.xlog.storage;
 
-import java.io.IOException;
-
 import com.renren.dp.xlog.config.Configuration;
 import com.renren.dp.xlog.storage.impl.HDFSAdapter;
 
 public class StorageAdapterFactory {
 
-	private static StorageAdapter storageAdapter=null;
-	
 	public static StorageAdapter getInstance(){
-		if(storageAdapter==null){
-			String storageType=Configuration.getString("storage.type");
-			if(storageType==null || "hdfs".equals(storageType)){
-				try {
-					storageAdapter=new HDFSAdapter();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
+		StorageAdapter storageAdapter=null;
+		String storageType=Configuration.getString("storage.type");
+		int bufferSize=Configuration.getInt("hdfs.buffer.size", 4000);
+		if(storageType==null || "hdfs".equals(storageType)){
+			storageAdapter=new HDFSAdapter(Configuration.getString("xlog.uuid"),bufferSize);
 		}
 		return storageAdapter;
 	}

@@ -1,11 +1,11 @@
 package com.renren.dp.xlog.logger;
 
-import java.util.Arrays;
-
 import com.renren.dp.xlog.cache.CacheManager;
-import com.renren.dp.xlog.cache.impl.DefaultCacheManager;
+import com.renren.dp.xlog.cache.CacheManagerFactory;
+import com.renren.dp.xlog.handler.AbstractFileNameHandler;
+import com.renren.dp.xlog.handler.FileNameHandlerFactory;
 import com.renren.dp.xlog.storage.StorageRepositoryFactory;
-import com.renren.dp.xlog.sync.SyncMain;
+import com.renren.dp.xlog.sync.LogSyncInitialization;
 
 import xlog.slice.LogData;
 import xlog.slice._LoggerDisp;
@@ -16,43 +16,48 @@ public class LoggerI extends _LoggerDisp {
   private static final long serialVersionUID = -3117295957500314988L;
 
   private CacheManager cacheManager = null;
-
+  private AbstractFileNameHandler fileNameHandler=null;
+  
   public boolean initialize(ObjectAdapter adapter) {
     adapter.add(this, adapter.getCommunicator().stringToIdentity("L"));
 
-    cacheManager = new DefaultCacheManager();
+    cacheManager = CacheManagerFactory.getInstance();
     cacheManager.initialize();
-
-    SyncMain.main(null);
+    fileNameHandler=FileNameHandlerFactory.getInstance();
+    
+    LogSyncInitialization logSync=new LogSyncInitialization();
+    logSync.initialise();
 
     return true;
   }
 
   @Override
   public void add(LogData[] data, Current __current) {
-    cacheManager = new DefaultCacheManager();
-    cacheManager.initialize();
-    
-    for (LogData logdata : data) {
+    if(data==null){
+      return ;
+     }
+//    for (LogData logdata : data) {
 //      System.out.println("=========================" + Arrays.toString(logdata.categories)
 //          + "=========================");
-      for (String log : logdata.logs) {
-        System.out.println("=> " + log);
-      }
-    }
-
-    boolean res = cacheManager.writeCache(data);
-    if (res) {
-      StorageRepositoryFactory.getInstance().addToRepository(data);
+//      for (String log : logdata.logs) {
+//        System.out.println("=> " + log);
+//      }
+//    }
+    for(LogData o:data){
+    	addLogData(o,__current);
     }
   }
 
   @Override
   public void addLogData(LogData data, Current __current) {
-    // TODO Auto-generated method stub
-    boolean res = cacheManager.writeCache(data);
+    if(data==null){
+      return ;
+     }
+    String logFileNum=fileNameHandler.getCacheLogFileNum();
+    LogMeta logMeta=new LogMeta(logFileNum,data,2);
+    boolean res = cacheManager.writeCache(logMeta);
     if (res) {
-      StorageRepositoryFactory.getInstance().addToRepository(data);
+      StorageRepositoryFactory.getInstance().addToRepository(logMeta);
     }
   }
 

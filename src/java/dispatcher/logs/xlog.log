@@ -1,0 +1,417 @@
+[xlog] 12-05-02 12:03:28 INFO zookeeper.ZooKeeper: Client environment:zookeeper.version=3.3.3-1203054, built on 11/17/2011 05:47 GMT
+[xlog] 12-05-02 12:03:28 INFO zookeeper.ZooKeeper: Client environment:host.name=xianquanzhang-desktop
+[xlog] 12-05-02 12:03:28 INFO zookeeper.ZooKeeper: Client environment:java.version=1.6.0_30
+[xlog] 12-05-02 12:03:28 INFO zookeeper.ZooKeeper: Client environment:java.vendor=Sun Microsystems Inc.
+[xlog] 12-05-02 12:03:28 INFO zookeeper.ZooKeeper: Client environment:java.home=/home/xianquanzhang/install/jdk1.6.0_30/jre
+[xlog] 12-05-02 12:03:28 INFO zookeeper.ZooKeeper: Client environment:java.class.path=/home/xianquanzhang/xlog/src/java/dispatcher/target/test-classes:/home/xianquanzhang/xlog/src/java/dispatcher/target/classes:/root/.m2/repository/javax/mail/mail/1.4/mail-1.4.jar:/root/.m2/repository/javax/activation/activation/1.1/activation-1.1.jar:/root/.m2/repository/javax/jms/jms/1.1/jms-1.1.jar:/root/.m2/repository/com/zeroc/Ice/3.3.1/Ice-3.3.1.jar:/root/.m2/repository/org/apache/zookeeper/zookeeper/3.3.4/zookeeper-3.3.4.jar:/root/.m2/repository/log4j/log4j/1.2.15/log4j-1.2.15.jar:/root/.m2/repository/com/sun/jdmk/jmxtools/1.2.1/jmxtools-1.2.1.jar:/root/.m2/repository/com/sun/jmx/jmxri/1.2.1/jmxri-1.2.1.jar:/root/.m2/repository/jline/jline/0.9.94/jline-0.9.94.jar:/root/.m2/repository/junit/junit/4.0/junit-4.0.jar:/root/.m2/repository/com/google/protobuf/protobuf-java/2.4.1/protobuf-java-2.4.1.jar:/root/.m2/repository/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar:/root/.m2/repository/org/apache/hadoop/hadoop-common/0.21.0/hadoop-common-0.21.0.jar:/root/.m2/repository/org/apache/hadoop/hadoop-hdfs/0.21.0/hadoop-hdfs-0.21.0.jar:/root/.m2/repository/org/slf4j/slf4j-api/1.5.8/slf4j-api-1.5.8.jar:/root/.m2/repository/org/slf4j/slf4j-log4j12/1.5.8/slf4j-log4j12-1.5.8.jar:/root/.m2/repository/jetty/jetty/6.0.2/jetty-6.0.2.jar:/root/.m2/repository/jetty/jetty-util/6.0.2/jetty-util-6.0.2.jar:/root/.m2/repository/jetty/jsp/2.1-6.0.2/jsp-2.1-6.0.2.jar:/root/.m2/repository/jetty/jsp-api/2.1-6.0.2/jsp-api-2.1-6.0.2.jar:/root/.m2/repository/jetty/servlet-api/2.5-6.0.2/servlet-api-2.5-6.0.2.jar:/root/.m2/repository/ant/ant/1.6.5/ant-1.6.5.jar:/home/xianquanzhang/install/jdk1.6.0_30/lib/tools.jar
+[xlog] 12-05-02 12:03:28 INFO zookeeper.ZooKeeper: Client environment:java.library.path=/home/xianquanzhang/install/jdk1.6.0_30/jre/lib/i386/server:/home/xianquanzhang/install/jdk1.6.0_30/jre/lib/i386:/home/xianquanzhang/install/jdk1.6.0_30/jre/../lib/i386:/usr/lib/jvm/java-6-openjdk/jre/lib/i386/client:/usr/lib/jvm/java-6-openjdk/jre/lib/i386::/usr/java/packages/lib/i386:/lib:/usr/lib
+[xlog] 12-05-02 12:03:28 INFO zookeeper.ZooKeeper: Client environment:java.io.tmpdir=/tmp
+[xlog] 12-05-02 12:03:28 INFO zookeeper.ZooKeeper: Client environment:java.compiler=<NA>
+[xlog] 12-05-02 12:03:28 INFO zookeeper.ZooKeeper: Client environment:os.name=Linux
+[xlog] 12-05-02 12:03:28 INFO zookeeper.ZooKeeper: Client environment:os.arch=i386
+[xlog] 12-05-02 12:03:28 INFO zookeeper.ZooKeeper: Client environment:os.version=2.6.32-39-generic
+[xlog] 12-05-02 12:03:28 INFO zookeeper.ZooKeeper: Client environment:user.name=root
+[xlog] 12-05-02 12:03:28 INFO zookeeper.ZooKeeper: Client environment:user.home=/root
+[xlog] 12-05-02 12:03:28 INFO zookeeper.ZooKeeper: Client environment:user.dir=/home/xianquanzhang/xlog/src/java/dispatcher
+[xlog] 12-05-02 12:03:28 INFO zookeeper.ZooKeeper: Initiating client connection, connectString=10.2.78.226:2222/xlog sessionTimeout=5000 watcher=dp.election.impl.DefaultWatcher@1f2e95f
+[xlog] 12-05-02 12:03:28 INFO zookeeper.ClientCnxn: Opening socket connection to server /10.2.78.226:2222
+[xlog] 12-05-02 12:03:28 INFO zookeeper.ClientCnxn: Socket connection established to xianquanzhang-desktop.local/10.2.78.226:2222, initiating session
+[xlog] 12-05-02 12:03:28 INFO zookeeper.ClientCnxn: Session establishment complete on server xianquanzhang-desktop.local/10.2.78.226:2222, sessionid = 0x1370b209dc10004, negotiated timeout = 5000
+[xlog] 12-05-02 12:03:28 INFO impl.DefaultWatcher: watcher event had happen,the event state is : SyncConnected
+[xlog] 12-05-02 12:04:32 INFO zookeeper.ZooKeeper: Client environment:zookeeper.version=3.3.3-1203054, built on 11/17/2011 05:47 GMT
+[xlog] 12-05-02 12:04:32 INFO zookeeper.ZooKeeper: Client environment:host.name=xianquanzhang-desktop
+[xlog] 12-05-02 12:04:32 INFO zookeeper.ZooKeeper: Client environment:java.version=1.6.0_30
+[xlog] 12-05-02 12:04:32 INFO zookeeper.ZooKeeper: Client environment:java.vendor=Sun Microsystems Inc.
+[xlog] 12-05-02 12:04:32 INFO zookeeper.ZooKeeper: Client environment:java.home=/home/xianquanzhang/install/jdk1.6.0_30/jre
+[xlog] 12-05-02 12:04:32 INFO zookeeper.ZooKeeper: Client environment:java.class.path=/home/xianquanzhang/xlog/src/java/dispatcher/target/test-classes:/home/xianquanzhang/xlog/src/java/dispatcher/target/classes:/root/.m2/repository/javax/mail/mail/1.4/mail-1.4.jar:/root/.m2/repository/javax/activation/activation/1.1/activation-1.1.jar:/root/.m2/repository/javax/jms/jms/1.1/jms-1.1.jar:/root/.m2/repository/com/zeroc/Ice/3.3.1/Ice-3.3.1.jar:/root/.m2/repository/org/apache/zookeeper/zookeeper/3.3.4/zookeeper-3.3.4.jar:/root/.m2/repository/log4j/log4j/1.2.15/log4j-1.2.15.jar:/root/.m2/repository/com/sun/jdmk/jmxtools/1.2.1/jmxtools-1.2.1.jar:/root/.m2/repository/com/sun/jmx/jmxri/1.2.1/jmxri-1.2.1.jar:/root/.m2/repository/jline/jline/0.9.94/jline-0.9.94.jar:/root/.m2/repository/junit/junit/4.0/junit-4.0.jar:/root/.m2/repository/com/google/protobuf/protobuf-java/2.4.1/protobuf-java-2.4.1.jar:/root/.m2/repository/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar:/root/.m2/repository/org/apache/hadoop/hadoop-common/0.21.0/hadoop-common-0.21.0.jar:/root/.m2/repository/org/apache/hadoop/hadoop-hdfs/0.21.0/hadoop-hdfs-0.21.0.jar:/root/.m2/repository/org/slf4j/slf4j-api/1.5.8/slf4j-api-1.5.8.jar:/root/.m2/repository/org/slf4j/slf4j-log4j12/1.5.8/slf4j-log4j12-1.5.8.jar:/root/.m2/repository/jetty/jetty/6.0.2/jetty-6.0.2.jar:/root/.m2/repository/jetty/jetty-util/6.0.2/jetty-util-6.0.2.jar:/root/.m2/repository/jetty/jsp/2.1-6.0.2/jsp-2.1-6.0.2.jar:/root/.m2/repository/jetty/jsp-api/2.1-6.0.2/jsp-api-2.1-6.0.2.jar:/root/.m2/repository/jetty/servlet-api/2.5-6.0.2/servlet-api-2.5-6.0.2.jar:/root/.m2/repository/ant/ant/1.6.5/ant-1.6.5.jar:/home/xianquanzhang/install/jdk1.6.0_30/lib/tools.jar
+[xlog] 12-05-02 12:04:32 INFO zookeeper.ZooKeeper: Client environment:java.library.path=/home/xianquanzhang/install/jdk1.6.0_30/jre/lib/i386/server:/home/xianquanzhang/install/jdk1.6.0_30/jre/lib/i386:/home/xianquanzhang/install/jdk1.6.0_30/jre/../lib/i386:/usr/lib/jvm/java-6-openjdk/jre/lib/i386/client:/usr/lib/jvm/java-6-openjdk/jre/lib/i386::/usr/java/packages/lib/i386:/lib:/usr/lib
+[xlog] 12-05-02 12:04:32 INFO zookeeper.ZooKeeper: Client environment:java.io.tmpdir=/tmp
+[xlog] 12-05-02 12:04:32 INFO zookeeper.ZooKeeper: Client environment:java.compiler=<NA>
+[xlog] 12-05-02 12:04:32 INFO zookeeper.ZooKeeper: Client environment:os.name=Linux
+[xlog] 12-05-02 12:04:32 INFO zookeeper.ZooKeeper: Client environment:os.arch=i386
+[xlog] 12-05-02 12:04:32 INFO zookeeper.ZooKeeper: Client environment:os.version=2.6.32-39-generic
+[xlog] 12-05-02 12:04:32 INFO zookeeper.ZooKeeper: Client environment:user.name=root
+[xlog] 12-05-02 12:04:32 INFO zookeeper.ZooKeeper: Client environment:user.home=/root
+[xlog] 12-05-02 12:04:32 INFO zookeeper.ZooKeeper: Client environment:user.dir=/home/xianquanzhang/xlog/src/java/dispatcher
+[xlog] 12-05-02 12:04:32 INFO zookeeper.ZooKeeper: Initiating client connection, connectString=10.2.78.226:2222/xlog sessionTimeout=5000 watcher=dp.election.impl.DefaultWatcher@52fecf
+[xlog] 12-05-02 12:04:32 INFO zookeeper.ClientCnxn: Opening socket connection to server /10.2.78.226:2222
+[xlog] 12-05-02 12:04:32 INFO zookeeper.ClientCnxn: Socket connection established to xianquanzhang-desktop.local/10.2.78.226:2222, initiating session
+[xlog] 12-05-02 12:04:32 INFO zookeeper.ClientCnxn: Session establishment complete on server xianquanzhang-desktop.local/10.2.78.226:2222, sessionid = 0x1370b209dc10005, negotiated timeout = 5000
+[xlog] 12-05-02 12:04:32 INFO impl.DefaultWatcher: watcher event had happen,the event state is : SyncConnected
+[xlog] 12-05-02 12:06:49 INFO zookeeper.ZooKeeper: Session: 0x1370b209dc10005 closed
+[xlog] 12-05-02 12:06:49 ERROR impl.DispatcherWatcher: fail to process znode /dispatchers/1/zn_10000000000
+org.apache.zookeeper.KeeperException$ConnectionLossException: KeeperErrorCode = ConnectionLoss for /dispatchers/master
+	at org.apache.zookeeper.KeeperException.create(KeeperException.java:90)
+	at org.apache.zookeeper.KeeperException.create(KeeperException.java:42)
+	at org.apache.zookeeper.ZooKeeper.exists(ZooKeeper.java:815)
+	at org.apache.zookeeper.ZooKeeper.exists(ZooKeeper.java:843)
+	at dp.election.HAClusterManager.isMasterExists(HAClusterManager.java:59)
+	at dp.election.impl.DispatcherWatcher.process(DispatcherWatcher.java:27)
+	at org.apache.zookeeper.ClientCnxn$EventThread.processEvent(ClientCnxn.java:531)
+	at org.apache.zookeeper.ClientCnxn$EventThread.run(ClientCnxn.java:507)
+[xlog] 12-05-02 12:06:49 INFO zookeeper.ZooKeeper: Initiating client connection, connectString=10.2.78.226:2222/xlog sessionTimeout=5000 watcher=dp.election.impl.DefaultWatcher@52fecf
+[xlog] 12-05-02 12:06:49 INFO zookeeper.ClientCnxn: Opening socket connection to server /10.2.78.226:2222
+[xlog] 12-05-02 12:06:50 INFO zookeeper.ClientCnxn: Socket connection established to xianquanzhang-desktop.local/10.2.78.226:2222, initiating session
+[xlog] 12-05-02 12:06:50 INFO zookeeper.ClientCnxn: Session establishment complete on server xianquanzhang-desktop.local/10.2.78.226:2222, sessionid = 0x1370b209dc10006, negotiated timeout = 5000
+[xlog] 12-05-02 12:06:50 INFO impl.DefaultWatcher: watcher event had happen,the event state is : SyncConnected
+[xlog] 12-05-02 12:06:50 ERROR zookeeper.ClientCnxn: Error while calling watcher 
+java.lang.IllegalArgumentException: Path length must be > 0
+	at org.apache.zookeeper.common.PathUtils.validatePath(PathUtils.java:48)
+	at org.apache.zookeeper.ZooKeeper.exists(ZooKeeper.java:794)
+	at dp.election.HAClusterManager.electMasterAndUpdateWatcher(HAClusterManager.java:99)
+	at dp.election.impl.DispatcherWatcher.process(DispatcherWatcher.java:30)
+	at org.apache.zookeeper.ClientCnxn$EventThread.processEvent(ClientCnxn.java:531)
+	at org.apache.zookeeper.ClientCnxn$EventThread.run(ClientCnxn.java:507)
+[xlog] 12-05-02 12:06:50 ERROR zookeeper.ClientCnxn: Error while calling watcher 
+java.lang.IllegalArgumentException: Path length must be > 0
+	at org.apache.zookeeper.common.PathUtils.validatePath(PathUtils.java:48)
+	at org.apache.zookeeper.ZooKeeper.exists(ZooKeeper.java:794)
+	at dp.election.HAClusterManager.electMasterAndUpdateWatcher(HAClusterManager.java:99)
+	at dp.election.impl.DispatcherWatcher.process(DispatcherWatcher.java:30)
+	at org.apache.zookeeper.ClientCnxn$EventThread.processEvent(ClientCnxn.java:531)
+	at org.apache.zookeeper.ClientCnxn$EventThread.run(ClientCnxn.java:507)
+[xlog] 12-05-02 12:06:50 ERROR zookeeper.ClientCnxn: Error while calling watcher 
+java.lang.IllegalArgumentException: Path length must be > 0
+	at org.apache.zookeeper.common.PathUtils.validatePath(PathUtils.java:48)
+	at org.apache.zookeeper.ZooKeeper.exists(ZooKeeper.java:794)
+	at dp.election.HAClusterManager.electMasterAndUpdateWatcher(HAClusterManager.java:99)
+	at dp.election.impl.DispatcherWatcher.process(DispatcherWatcher.java:30)
+	at org.apache.zookeeper.ClientCnxn$EventThread.processEvent(ClientCnxn.java:531)
+	at org.apache.zookeeper.ClientCnxn$EventThread.run(ClientCnxn.java:507)
+[xlog] 12-05-02 12:06:50 ERROR zookeeper.ClientCnxn: Error while calling watcher 
+java.lang.ArithmeticException: / by zero
+	at dp.election.impl.DefaultHABalancer.doBalance(DefaultHABalancer.java:104)
+	at dp.election.impl.SlotWatcher.process(SlotWatcher.java:49)
+	at org.apache.zookeeper.ClientCnxn$EventThread.processEvent(ClientCnxn.java:531)
+	at org.apache.zookeeper.ClientCnxn$EventThread.run(ClientCnxn.java:507)
+[xlog] 12-05-02 12:06:50 ERROR zookeeper.ClientCnxn: Error while calling watcher 
+java.lang.IllegalArgumentException: Path length must be > 0
+	at org.apache.zookeeper.common.PathUtils.validatePath(PathUtils.java:48)
+	at org.apache.zookeeper.ZooKeeper.exists(ZooKeeper.java:794)
+	at dp.election.HAClusterManager.electMasterAndUpdateWatcher(HAClusterManager.java:99)
+	at dp.election.impl.DispatcherWatcher.process(DispatcherWatcher.java:30)
+	at org.apache.zookeeper.ClientCnxn$EventThread.processEvent(ClientCnxn.java:531)
+	at org.apache.zookeeper.ClientCnxn$EventThread.run(ClientCnxn.java:507)
+[xlog] 12-05-02 12:06:50 ERROR zookeeper.ClientCnxn: Error while calling watcher 
+java.lang.IllegalArgumentException: Path length must be > 0
+	at org.apache.zookeeper.common.PathUtils.validatePath(PathUtils.java:48)
+	at org.apache.zookeeper.ZooKeeper.exists(ZooKeeper.java:794)
+	at dp.election.HAClusterManager.electMasterAndUpdateWatcher(HAClusterManager.java:99)
+	at dp.election.impl.DispatcherWatcher.process(DispatcherWatcher.java:30)
+	at org.apache.zookeeper.ClientCnxn$EventThread.processEvent(ClientCnxn.java:531)
+	at org.apache.zookeeper.ClientCnxn$EventThread.run(ClientCnxn.java:507)
+[xlog] 12-05-02 12:06:50 ERROR zookeeper.ClientCnxn: Error while calling watcher 
+java.lang.ArithmeticException: / by zero
+	at dp.election.impl.DefaultHABalancer.doBalance(DefaultHABalancer.java:104)
+	at dp.election.impl.SlotWatcher.process(SlotWatcher.java:49)
+	at org.apache.zookeeper.ClientCnxn$EventThread.processEvent(ClientCnxn.java:531)
+	at org.apache.zookeeper.ClientCnxn$EventThread.run(ClientCnxn.java:507)
+[xlog] 12-05-02 12:06:50 ERROR zookeeper.ClientCnxn: Error while calling watcher 
+java.lang.IllegalArgumentException: Path length must be > 0
+	at org.apache.zookeeper.common.PathUtils.validatePath(PathUtils.java:48)
+	at org.apache.zookeeper.ZooKeeper.exists(ZooKeeper.java:794)
+	at dp.election.HAClusterManager.electMasterAndUpdateWatcher(HAClusterManager.java:99)
+	at dp.election.impl.DispatcherWatcher.process(DispatcherWatcher.java:30)
+	at org.apache.zookeeper.ClientCnxn$EventThread.processEvent(ClientCnxn.java:531)
+	at org.apache.zookeeper.ClientCnxn$EventThread.run(ClientCnxn.java:507)
+[xlog] 12-05-02 12:06:50 ERROR zookeeper.ClientCnxn: Error while calling watcher 
+java.lang.ArithmeticException: / by zero
+	at dp.election.impl.DefaultHABalancer.doBalance(DefaultHABalancer.java:104)
+	at dp.election.impl.SlotWatcher.process(SlotWatcher.java:49)
+	at org.apache.zookeeper.ClientCnxn$EventThread.processEvent(ClientCnxn.java:531)
+	at org.apache.zookeeper.ClientCnxn$EventThread.run(ClientCnxn.java:507)
+[xlog] 12-05-02 12:06:50 ERROR zookeeper.ClientCnxn: Error while calling watcher 
+java.lang.IllegalArgumentException: Path length must be > 0
+	at org.apache.zookeeper.common.PathUtils.validatePath(PathUtils.java:48)
+	at org.apache.zookeeper.ZooKeeper.exists(ZooKeeper.java:794)
+	at dp.election.HAClusterManager.electMasterAndUpdateWatcher(HAClusterManager.java:99)
+	at dp.election.impl.DispatcherWatcher.process(DispatcherWatcher.java:30)
+	at org.apache.zookeeper.ClientCnxn$EventThread.processEvent(ClientCnxn.java:531)
+	at org.apache.zookeeper.ClientCnxn$EventThread.run(ClientCnxn.java:507)
+[xlog] 12-05-02 12:06:50 ERROR zookeeper.ClientCnxn: Error while calling watcher 
+java.lang.ArithmeticException: / by zero
+	at dp.election.impl.DefaultHABalancer.doBalance(DefaultHABalancer.java:104)
+	at dp.election.impl.SlotWatcher.process(SlotWatcher.java:49)
+	at org.apache.zookeeper.ClientCnxn$EventThread.processEvent(ClientCnxn.java:531)
+	at org.apache.zookeeper.ClientCnxn$EventThread.run(ClientCnxn.java:507)
+[xlog] 12-05-02 12:06:50 ERROR zookeeper.ClientCnxn: Error while calling watcher 
+java.lang.IllegalArgumentException: Path length must be > 0
+	at org.apache.zookeeper.common.PathUtils.validatePath(PathUtils.java:48)
+	at org.apache.zookeeper.ZooKeeper.exists(ZooKeeper.java:794)
+	at dp.election.HAClusterManager.electMasterAndUpdateWatcher(HAClusterManager.java:99)
+	at dp.election.impl.DispatcherWatcher.process(DispatcherWatcher.java:30)
+	at org.apache.zookeeper.ClientCnxn$EventThread.processEvent(ClientCnxn.java:531)
+	at org.apache.zookeeper.ClientCnxn$EventThread.run(ClientCnxn.java:507)
+[xlog] 12-05-02 12:06:50 ERROR zookeeper.ClientCnxn: Error while calling watcher 
+java.lang.ArithmeticException: / by zero
+	at dp.election.impl.DefaultHABalancer.doBalance(DefaultHABalancer.java:104)
+	at dp.election.impl.SlotWatcher.process(SlotWatcher.java:49)
+	at org.apache.zookeeper.ClientCnxn$EventThread.processEvent(ClientCnxn.java:531)
+	at org.apache.zookeeper.ClientCnxn$EventThread.run(ClientCnxn.java:507)
+[xlog] 12-05-02 12:06:50 INFO zookeeper.ClientCnxn: EventThread shut down
+[xlog] 12-05-02 12:10:58 INFO zookeeper.ZooKeeper: Client environment:zookeeper.version=3.3.3-1203054, built on 11/17/2011 05:47 GMT
+[xlog] 12-05-02 12:10:58 INFO zookeeper.ZooKeeper: Client environment:host.name=xianquanzhang-desktop
+[xlog] 12-05-02 12:10:58 INFO zookeeper.ZooKeeper: Client environment:java.version=1.6.0_30
+[xlog] 12-05-02 12:10:58 INFO zookeeper.ZooKeeper: Client environment:java.vendor=Sun Microsystems Inc.
+[xlog] 12-05-02 12:10:58 INFO zookeeper.ZooKeeper: Client environment:java.home=/home/xianquanzhang/install/jdk1.6.0_30/jre
+[xlog] 12-05-02 12:10:58 INFO zookeeper.ZooKeeper: Client environment:java.class.path=/home/xianquanzhang/xlog/src/java/dispatcher/target/test-classes:/home/xianquanzhang/xlog/src/java/dispatcher/target/classes:/root/.m2/repository/javax/mail/mail/1.4/mail-1.4.jar:/root/.m2/repository/javax/activation/activation/1.1/activation-1.1.jar:/root/.m2/repository/javax/jms/jms/1.1/jms-1.1.jar:/root/.m2/repository/com/zeroc/Ice/3.3.1/Ice-3.3.1.jar:/root/.m2/repository/org/apache/zookeeper/zookeeper/3.3.4/zookeeper-3.3.4.jar:/root/.m2/repository/log4j/log4j/1.2.15/log4j-1.2.15.jar:/root/.m2/repository/com/sun/jdmk/jmxtools/1.2.1/jmxtools-1.2.1.jar:/root/.m2/repository/com/sun/jmx/jmxri/1.2.1/jmxri-1.2.1.jar:/root/.m2/repository/jline/jline/0.9.94/jline-0.9.94.jar:/root/.m2/repository/junit/junit/4.0/junit-4.0.jar:/root/.m2/repository/com/google/protobuf/protobuf-java/2.4.1/protobuf-java-2.4.1.jar:/root/.m2/repository/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar:/root/.m2/repository/org/apache/hadoop/hadoop-common/0.21.0/hadoop-common-0.21.0.jar:/root/.m2/repository/org/apache/hadoop/hadoop-hdfs/0.21.0/hadoop-hdfs-0.21.0.jar:/root/.m2/repository/org/slf4j/slf4j-api/1.5.8/slf4j-api-1.5.8.jar:/root/.m2/repository/org/slf4j/slf4j-log4j12/1.5.8/slf4j-log4j12-1.5.8.jar:/root/.m2/repository/jetty/jetty/6.0.2/jetty-6.0.2.jar:/root/.m2/repository/jetty/jetty-util/6.0.2/jetty-util-6.0.2.jar:/root/.m2/repository/jetty/jsp/2.1-6.0.2/jsp-2.1-6.0.2.jar:/root/.m2/repository/jetty/jsp-api/2.1-6.0.2/jsp-api-2.1-6.0.2.jar:/root/.m2/repository/jetty/servlet-api/2.5-6.0.2/servlet-api-2.5-6.0.2.jar:/root/.m2/repository/ant/ant/1.6.5/ant-1.6.5.jar:/home/xianquanzhang/install/jdk1.6.0_30/lib/tools.jar
+[xlog] 12-05-02 12:10:58 INFO zookeeper.ZooKeeper: Client environment:java.library.path=/home/xianquanzhang/install/jdk1.6.0_30/jre/lib/i386/server:/home/xianquanzhang/install/jdk1.6.0_30/jre/lib/i386:/home/xianquanzhang/install/jdk1.6.0_30/jre/../lib/i386:/usr/lib/jvm/java-6-openjdk/jre/lib/i386/client:/usr/lib/jvm/java-6-openjdk/jre/lib/i386::/usr/java/packages/lib/i386:/lib:/usr/lib
+[xlog] 12-05-02 12:10:58 INFO zookeeper.ZooKeeper: Client environment:java.io.tmpdir=/tmp
+[xlog] 12-05-02 12:10:58 INFO zookeeper.ZooKeeper: Client environment:java.compiler=<NA>
+[xlog] 12-05-02 12:10:58 INFO zookeeper.ZooKeeper: Client environment:os.name=Linux
+[xlog] 12-05-02 12:10:58 INFO zookeeper.ZooKeeper: Client environment:os.arch=i386
+[xlog] 12-05-02 12:10:58 INFO zookeeper.ZooKeeper: Client environment:os.version=2.6.32-39-generic
+[xlog] 12-05-02 12:10:58 INFO zookeeper.ZooKeeper: Client environment:user.name=root
+[xlog] 12-05-02 12:10:58 INFO zookeeper.ZooKeeper: Client environment:user.home=/root
+[xlog] 12-05-02 12:10:58 INFO zookeeper.ZooKeeper: Client environment:user.dir=/home/xianquanzhang/xlog/src/java/dispatcher
+[xlog] 12-05-02 12:10:58 INFO zookeeper.ZooKeeper: Initiating client connection, connectString=10.2.78.226:2222/xlog sessionTimeout=5000 watcher=dp.election.impl.DefaultWatcher@1d86a73
+[xlog] 12-05-02 12:10:58 INFO zookeeper.ClientCnxn: Opening socket connection to server /10.2.78.226:2222
+[xlog] 12-05-02 12:10:58 INFO zookeeper.ClientCnxn: Socket connection established to xianquanzhang-desktop.local/10.2.78.226:2222, initiating session
+[xlog] 12-05-02 12:10:58 INFO zookeeper.ClientCnxn: Session establishment complete on server xianquanzhang-desktop.local/10.2.78.226:2222, sessionid = 0x1370b209dc10007, negotiated timeout = 5000
+[xlog] 12-05-02 12:10:58 INFO impl.DefaultWatcher: watcher event had happen,the event state is : SyncConnected
+[xlog] 12-05-02 12:11:15 INFO zookeeper.ZooKeeper: Session: 0x1370b209dc10007 closed
+[xlog] 12-05-02 12:11:15 INFO zookeeper.ClientCnxn: EventThread shut down
+[xlog] 12-05-02 12:11:30 INFO zookeeper.ZooKeeper: Initiating client connection, connectString=10.2.78.226:2222/xlog sessionTimeout=5000 watcher=dp.election.impl.DefaultWatcher@1d0e2c9
+[xlog] 12-05-02 12:11:30 INFO zookeeper.ClientCnxn: Opening socket connection to server /10.2.78.226:2222
+[xlog] 12-05-02 12:11:30 INFO zookeeper.ClientCnxn: Socket connection established to xianquanzhang-desktop.local/10.2.78.226:2222, initiating session
+[xlog] 12-05-02 12:11:30 INFO zookeeper.ClientCnxn: Session establishment complete on server xianquanzhang-desktop.local/10.2.78.226:2222, sessionid = 0x1370b209dc10008, negotiated timeout = 5000
+[xlog] 12-05-02 12:11:30 INFO impl.DefaultWatcher: watcher event had happen,the event state is : SyncConnected
+[xlog] 12-05-02 12:11:46 INFO zookeeper.ZooKeeper: Session: 0x1370b209dc10008 closed
+[xlog] 12-05-02 12:11:46 INFO zookeeper.ClientCnxn: EventThread shut down
+[xlog] 12-05-02 12:11:58 INFO zookeeper.ZooKeeper: Initiating client connection, connectString=10.2.78.226:2222/xlog sessionTimeout=5000 watcher=dp.election.impl.DefaultWatcher@1d86a73
+[xlog] 12-05-02 12:11:58 INFO zookeeper.ClientCnxn: Opening socket connection to server /10.2.78.226:2222
+[xlog] 12-05-02 12:11:58 INFO zookeeper.ClientCnxn: Socket connection established to xianquanzhang-desktop.local/10.2.78.226:2222, initiating session
+[xlog] 12-05-02 12:11:58 INFO zookeeper.ClientCnxn: Session establishment complete on server xianquanzhang-desktop.local/10.2.78.226:2222, sessionid = 0x1370b209dc10009, negotiated timeout = 5000
+[xlog] 12-05-02 12:11:58 INFO impl.DefaultWatcher: watcher event had happen,the event state is : SyncConnected
+[xlog] 12-05-02 12:12:30 INFO zookeeper.ZooKeeper: Initiating client connection, connectString=10.2.78.226:2222/xlog sessionTimeout=5000 watcher=dp.election.impl.DefaultWatcher@1d0e2c9
+[xlog] 12-05-02 12:12:30 INFO zookeeper.ClientCnxn: Opening socket connection to server /10.2.78.226:2222
+[xlog] 12-05-02 12:12:30 INFO zookeeper.ClientCnxn: Socket connection established to xianquanzhang-desktop.local/10.2.78.226:2222, initiating session
+[xlog] 12-05-02 12:12:30 INFO zookeeper.ClientCnxn: Session establishment complete on server xianquanzhang-desktop.local/10.2.78.226:2222, sessionid = 0x1370b209dc1000a, negotiated timeout = 5000
+[xlog] 12-05-02 12:12:30 INFO impl.DefaultWatcher: watcher event had happen,the event state is : SyncConnected
+[xlog] 12-05-02 12:40:58 DEBUG sync.SyncTimer: it start 0 threads to sync data!
+[xlog] 12-05-02 12:41:30 DEBUG sync.SyncTimer: it start 0 threads to sync data!
+[xlog] 12-05-02 13:10:58 DEBUG sync.SyncTimer: it start 0 threads to sync data!
+[xlog] 12-05-02 13:11:30 DEBUG sync.SyncTimer: it start 0 threads to sync data!
+[xlog] 12-05-02 13:40:58 DEBUG sync.SyncTimer: it start 0 threads to sync data!
+[xlog] 12-05-02 13:41:30 DEBUG sync.SyncTimer: it start 0 threads to sync data!
+[xlog] 12-05-02 14:10:58 DEBUG sync.SyncTimer: it start 0 threads to sync data!
+[xlog] 12-05-02 14:11:30 DEBUG sync.SyncTimer: it start 0 threads to sync data!
+[xlog] 12-05-02 14:26:18 INFO zookeeper.ZooKeeper: Client environment:zookeeper.version=3.3.3-1203054, built on 11/17/2011 05:47 GMT
+[xlog] 12-05-02 14:26:18 INFO zookeeper.ZooKeeper: Client environment:host.name=xianquanzhang-desktop
+[xlog] 12-05-02 14:26:18 INFO zookeeper.ZooKeeper: Client environment:java.version=1.6.0_30
+[xlog] 12-05-02 14:26:18 INFO zookeeper.ZooKeeper: Client environment:java.vendor=Sun Microsystems Inc.
+[xlog] 12-05-02 14:26:18 INFO zookeeper.ZooKeeper: Client environment:java.home=/home/xianquanzhang/install/jdk1.6.0_30/jre
+[xlog] 12-05-02 14:26:18 INFO zookeeper.ZooKeeper: Client environment:java.class.path=/home/xianquanzhang/xlog/src/java/dispatcher/target/test-classes:/home/xianquanzhang/xlog/src/java/dispatcher/target/classes:/root/.m2/repository/javax/mail/mail/1.4/mail-1.4.jar:/root/.m2/repository/javax/activation/activation/1.1/activation-1.1.jar:/root/.m2/repository/javax/jms/jms/1.1/jms-1.1.jar:/root/.m2/repository/com/zeroc/Ice/3.3.1/Ice-3.3.1.jar:/root/.m2/repository/org/apache/zookeeper/zookeeper/3.3.4/zookeeper-3.3.4.jar:/root/.m2/repository/log4j/log4j/1.2.15/log4j-1.2.15.jar:/root/.m2/repository/com/sun/jdmk/jmxtools/1.2.1/jmxtools-1.2.1.jar:/root/.m2/repository/com/sun/jmx/jmxri/1.2.1/jmxri-1.2.1.jar:/root/.m2/repository/jline/jline/0.9.94/jline-0.9.94.jar:/root/.m2/repository/junit/junit/4.0/junit-4.0.jar:/root/.m2/repository/com/google/protobuf/protobuf-java/2.4.1/protobuf-java-2.4.1.jar:/root/.m2/repository/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar:/root/.m2/repository/org/apache/hadoop/hadoop-common/0.21.0/hadoop-common-0.21.0.jar:/root/.m2/repository/org/apache/hadoop/hadoop-hdfs/0.21.0/hadoop-hdfs-0.21.0.jar:/root/.m2/repository/org/slf4j/slf4j-api/1.5.8/slf4j-api-1.5.8.jar:/root/.m2/repository/org/slf4j/slf4j-log4j12/1.5.8/slf4j-log4j12-1.5.8.jar:/root/.m2/repository/jetty/jetty/6.0.2/jetty-6.0.2.jar:/root/.m2/repository/jetty/jetty-util/6.0.2/jetty-util-6.0.2.jar:/root/.m2/repository/jetty/jsp/2.1-6.0.2/jsp-2.1-6.0.2.jar:/root/.m2/repository/jetty/jsp-api/2.1-6.0.2/jsp-api-2.1-6.0.2.jar:/root/.m2/repository/jetty/servlet-api/2.5-6.0.2/servlet-api-2.5-6.0.2.jar:/root/.m2/repository/ant/ant/1.6.5/ant-1.6.5.jar:/home/xianquanzhang/install/jdk1.6.0_30/lib/tools.jar
+[xlog] 12-05-02 14:26:18 INFO zookeeper.ZooKeeper: Client environment:java.library.path=/home/xianquanzhang/install/jdk1.6.0_30/jre/lib/i386/server:/home/xianquanzhang/install/jdk1.6.0_30/jre/lib/i386:/home/xianquanzhang/install/jdk1.6.0_30/jre/../lib/i386:/usr/lib/jvm/java-6-openjdk/jre/lib/i386/client:/usr/lib/jvm/java-6-openjdk/jre/lib/i386::/usr/java/packages/lib/i386:/lib:/usr/lib
+[xlog] 12-05-02 14:26:18 INFO zookeeper.ZooKeeper: Client environment:java.io.tmpdir=/tmp
+[xlog] 12-05-02 14:26:18 INFO zookeeper.ZooKeeper: Client environment:java.compiler=<NA>
+[xlog] 12-05-02 14:26:18 INFO zookeeper.ZooKeeper: Client environment:os.name=Linux
+[xlog] 12-05-02 14:26:18 INFO zookeeper.ZooKeeper: Client environment:os.arch=i386
+[xlog] 12-05-02 14:26:18 INFO zookeeper.ZooKeeper: Client environment:os.version=2.6.32-39-generic
+[xlog] 12-05-02 14:26:18 INFO zookeeper.ZooKeeper: Client environment:user.name=root
+[xlog] 12-05-02 14:26:18 INFO zookeeper.ZooKeeper: Client environment:user.home=/root
+[xlog] 12-05-02 14:26:18 INFO zookeeper.ZooKeeper: Client environment:user.dir=/home/xianquanzhang/xlog/src/java/dispatcher
+[xlog] 12-05-02 14:26:18 INFO zookeeper.ZooKeeper: Initiating client connection, connectString=10.2.78.226:2222/xlog sessionTimeout=5000 watcher=dp.election.impl.DefaultWatcher@1f47ae8
+[xlog] 12-05-02 14:26:18 INFO zookeeper.ClientCnxn: Opening socket connection to server /10.2.78.226:2222
+[xlog] 12-05-02 14:26:18 INFO zookeeper.ClientCnxn: Socket connection established to xianquanzhang-desktop.local/10.2.78.226:2222, initiating session
+[xlog] 12-05-02 14:26:18 INFO zookeeper.ClientCnxn: Session establishment complete on server xianquanzhang-desktop.local/10.2.78.226:2222, sessionid = 0x1370b209dc1000b, negotiated timeout = 5000
+[xlog] 12-05-02 14:26:18 INFO impl.DefaultWatcher: watcher event had happen,the event state is : SyncConnected
+[xlog] 12-05-02 14:26:23 INFO zookeeper.ZooKeeper: Session: 0x1370b209dc1000b closed
+[xlog] 12-05-02 14:26:23 INFO zookeeper.ClientCnxn: EventThread shut down
+[xlog] 12-05-02 14:27:27 INFO zookeeper.ZooKeeper: Client environment:zookeeper.version=3.3.3-1203054, built on 11/17/2011 05:47 GMT
+[xlog] 12-05-02 14:27:27 INFO zookeeper.ZooKeeper: Client environment:host.name=xianquanzhang-desktop
+[xlog] 12-05-02 14:27:27 INFO zookeeper.ZooKeeper: Client environment:java.version=1.6.0_30
+[xlog] 12-05-02 14:27:27 INFO zookeeper.ZooKeeper: Client environment:java.vendor=Sun Microsystems Inc.
+[xlog] 12-05-02 14:27:27 INFO zookeeper.ZooKeeper: Client environment:java.home=/home/xianquanzhang/install/jdk1.6.0_30/jre
+[xlog] 12-05-02 14:27:27 INFO zookeeper.ZooKeeper: Client environment:java.class.path=/home/xianquanzhang/xlog/src/java/dispatcher/target/test-classes:/home/xianquanzhang/xlog/src/java/dispatcher/target/classes:/root/.m2/repository/javax/mail/mail/1.4/mail-1.4.jar:/root/.m2/repository/javax/activation/activation/1.1/activation-1.1.jar:/root/.m2/repository/javax/jms/jms/1.1/jms-1.1.jar:/root/.m2/repository/com/zeroc/Ice/3.3.1/Ice-3.3.1.jar:/root/.m2/repository/org/apache/zookeeper/zookeeper/3.3.4/zookeeper-3.3.4.jar:/root/.m2/repository/log4j/log4j/1.2.15/log4j-1.2.15.jar:/root/.m2/repository/com/sun/jdmk/jmxtools/1.2.1/jmxtools-1.2.1.jar:/root/.m2/repository/com/sun/jmx/jmxri/1.2.1/jmxri-1.2.1.jar:/root/.m2/repository/jline/jline/0.9.94/jline-0.9.94.jar:/root/.m2/repository/junit/junit/4.0/junit-4.0.jar:/root/.m2/repository/com/google/protobuf/protobuf-java/2.4.1/protobuf-java-2.4.1.jar:/root/.m2/repository/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar:/root/.m2/repository/org/apache/hadoop/hadoop-common/0.21.0/hadoop-common-0.21.0.jar:/root/.m2/repository/org/apache/hadoop/hadoop-hdfs/0.21.0/hadoop-hdfs-0.21.0.jar:/root/.m2/repository/org/slf4j/slf4j-api/1.5.8/slf4j-api-1.5.8.jar:/root/.m2/repository/org/slf4j/slf4j-log4j12/1.5.8/slf4j-log4j12-1.5.8.jar:/root/.m2/repository/jetty/jetty/6.0.2/jetty-6.0.2.jar:/root/.m2/repository/jetty/jetty-util/6.0.2/jetty-util-6.0.2.jar:/root/.m2/repository/jetty/jsp/2.1-6.0.2/jsp-2.1-6.0.2.jar:/root/.m2/repository/jetty/jsp-api/2.1-6.0.2/jsp-api-2.1-6.0.2.jar:/root/.m2/repository/jetty/servlet-api/2.5-6.0.2/servlet-api-2.5-6.0.2.jar:/root/.m2/repository/ant/ant/1.6.5/ant-1.6.5.jar:/home/xianquanzhang/install/jdk1.6.0_30/lib/tools.jar
+[xlog] 12-05-02 14:27:27 INFO zookeeper.ZooKeeper: Client environment:java.library.path=/home/xianquanzhang/install/jdk1.6.0_30/jre/lib/i386/server:/home/xianquanzhang/install/jdk1.6.0_30/jre/lib/i386:/home/xianquanzhang/install/jdk1.6.0_30/jre/../lib/i386:/usr/lib/jvm/java-6-openjdk/jre/lib/i386/client:/usr/lib/jvm/java-6-openjdk/jre/lib/i386::/usr/java/packages/lib/i386:/lib:/usr/lib
+[xlog] 12-05-02 14:27:27 INFO zookeeper.ZooKeeper: Client environment:java.io.tmpdir=/tmp
+[xlog] 12-05-02 14:27:27 INFO zookeeper.ZooKeeper: Client environment:java.compiler=<NA>
+[xlog] 12-05-02 14:27:27 INFO zookeeper.ZooKeeper: Client environment:os.name=Linux
+[xlog] 12-05-02 14:27:27 INFO zookeeper.ZooKeeper: Client environment:os.arch=i386
+[xlog] 12-05-02 14:27:27 INFO zookeeper.ZooKeeper: Client environment:os.version=2.6.32-39-generic
+[xlog] 12-05-02 14:27:27 INFO zookeeper.ZooKeeper: Client environment:user.name=root
+[xlog] 12-05-02 14:27:27 INFO zookeeper.ZooKeeper: Client environment:user.home=/root
+[xlog] 12-05-02 14:27:27 INFO zookeeper.ZooKeeper: Client environment:user.dir=/home/xianquanzhang/xlog/src/java/dispatcher
+[xlog] 12-05-02 14:27:27 INFO zookeeper.ZooKeeper: Initiating client connection, connectString=10.2.78.226:2222/xlog sessionTimeout=5000 watcher=dp.election.impl.DefaultWatcher@ef4504
+[xlog] 12-05-02 14:27:27 INFO zookeeper.ClientCnxn: Opening socket connection to server /10.2.78.226:2222
+[xlog] 12-05-02 14:27:27 INFO zookeeper.ClientCnxn: Socket connection established to xianquanzhang-desktop.local/10.2.78.226:2222, initiating session
+[xlog] 12-05-02 14:27:27 INFO zookeeper.ClientCnxn: Session establishment complete on server xianquanzhang-desktop.local/10.2.78.226:2222, sessionid = 0x1370b209dc1000c, negotiated timeout = 5000
+[xlog] 12-05-02 14:27:27 INFO impl.DefaultWatcher: watcher event had happen,the event state is : SyncConnected
+[xlog] 12-05-02 14:32:05 INFO security.Groups: Group mapping impl=org.apache.hadoop.security.ShellBasedUnixGroupsMapping; cacheTimeout=300000
+[xlog] 12-05-02 14:32:06 INFO ipc.Client: Retrying connect to server: /10.2.78.226:9000. Already tried 0 time(s).
+[xlog] 12-05-02 14:32:07 INFO ipc.Client: Retrying connect to server: /10.2.78.226:9000. Already tried 1 time(s).
+[xlog] 12-05-02 14:32:08 INFO ipc.Client: Retrying connect to server: /10.2.78.226:9000. Already tried 2 time(s).
+[xlog] 12-05-02 14:32:09 INFO ipc.Client: Retrying connect to server: /10.2.78.226:9000. Already tried 3 time(s).
+[xlog] 12-05-02 14:32:10 INFO ipc.Client: Retrying connect to server: /10.2.78.226:9000. Already tried 4 time(s).
+[xlog] 12-05-02 14:32:11 INFO ipc.Client: Retrying connect to server: /10.2.78.226:9000. Already tried 5 time(s).
+[xlog] 12-05-02 14:33:16 INFO zookeeper.ZooKeeper: Client environment:zookeeper.version=3.3.3-1203054, built on 11/17/2011 05:47 GMT
+[xlog] 12-05-02 14:33:16 INFO zookeeper.ZooKeeper: Client environment:host.name=xianquanzhang-desktop
+[xlog] 12-05-02 14:33:16 INFO zookeeper.ZooKeeper: Client environment:java.version=1.6.0_30
+[xlog] 12-05-02 14:33:16 INFO zookeeper.ZooKeeper: Client environment:java.vendor=Sun Microsystems Inc.
+[xlog] 12-05-02 14:33:16 INFO zookeeper.ZooKeeper: Client environment:java.home=/home/xianquanzhang/install/jdk1.6.0_30/jre
+[xlog] 12-05-02 14:33:16 INFO zookeeper.ZooKeeper: Client environment:java.class.path=/home/xianquanzhang/xlog/src/java/dispatcher/target/test-classes:/home/xianquanzhang/xlog/src/java/dispatcher/target/classes:/root/.m2/repository/javax/mail/mail/1.4/mail-1.4.jar:/root/.m2/repository/javax/activation/activation/1.1/activation-1.1.jar:/root/.m2/repository/javax/jms/jms/1.1/jms-1.1.jar:/root/.m2/repository/com/zeroc/Ice/3.3.1/Ice-3.3.1.jar:/root/.m2/repository/org/apache/zookeeper/zookeeper/3.3.4/zookeeper-3.3.4.jar:/root/.m2/repository/log4j/log4j/1.2.15/log4j-1.2.15.jar:/root/.m2/repository/com/sun/jdmk/jmxtools/1.2.1/jmxtools-1.2.1.jar:/root/.m2/repository/com/sun/jmx/jmxri/1.2.1/jmxri-1.2.1.jar:/root/.m2/repository/jline/jline/0.9.94/jline-0.9.94.jar:/root/.m2/repository/junit/junit/4.0/junit-4.0.jar:/root/.m2/repository/com/google/protobuf/protobuf-java/2.4.1/protobuf-java-2.4.1.jar:/root/.m2/repository/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar:/root/.m2/repository/org/apache/hadoop/hadoop-common/0.21.0/hadoop-common-0.21.0.jar:/root/.m2/repository/org/apache/hadoop/hadoop-hdfs/0.21.0/hadoop-hdfs-0.21.0.jar:/root/.m2/repository/org/slf4j/slf4j-api/1.5.8/slf4j-api-1.5.8.jar:/root/.m2/repository/org/slf4j/slf4j-log4j12/1.5.8/slf4j-log4j12-1.5.8.jar:/root/.m2/repository/jetty/jetty/6.0.2/jetty-6.0.2.jar:/root/.m2/repository/jetty/jetty-util/6.0.2/jetty-util-6.0.2.jar:/root/.m2/repository/jetty/jsp/2.1-6.0.2/jsp-2.1-6.0.2.jar:/root/.m2/repository/jetty/jsp-api/2.1-6.0.2/jsp-api-2.1-6.0.2.jar:/root/.m2/repository/jetty/servlet-api/2.5-6.0.2/servlet-api-2.5-6.0.2.jar:/root/.m2/repository/ant/ant/1.6.5/ant-1.6.5.jar:/home/xianquanzhang/install/jdk1.6.0_30/lib/tools.jar
+[xlog] 12-05-02 14:33:16 INFO zookeeper.ZooKeeper: Client environment:java.library.path=/home/xianquanzhang/install/jdk1.6.0_30/jre/lib/i386/server:/home/xianquanzhang/install/jdk1.6.0_30/jre/lib/i386:/home/xianquanzhang/install/jdk1.6.0_30/jre/../lib/i386:/usr/lib/jvm/java-6-openjdk/jre/lib/i386/client:/usr/lib/jvm/java-6-openjdk/jre/lib/i386::/usr/java/packages/lib/i386:/lib:/usr/lib
+[xlog] 12-05-02 14:33:16 INFO zookeeper.ZooKeeper: Client environment:java.io.tmpdir=/tmp
+[xlog] 12-05-02 14:33:16 INFO zookeeper.ZooKeeper: Client environment:java.compiler=<NA>
+[xlog] 12-05-02 14:33:16 INFO zookeeper.ZooKeeper: Client environment:os.name=Linux
+[xlog] 12-05-02 14:33:16 INFO zookeeper.ZooKeeper: Client environment:os.arch=i386
+[xlog] 12-05-02 14:33:16 INFO zookeeper.ZooKeeper: Client environment:os.version=2.6.32-39-generic
+[xlog] 12-05-02 14:33:16 INFO zookeeper.ZooKeeper: Client environment:user.name=root
+[xlog] 12-05-02 14:33:16 INFO zookeeper.ZooKeeper: Client environment:user.home=/root
+[xlog] 12-05-02 14:33:16 INFO zookeeper.ZooKeeper: Client environment:user.dir=/home/xianquanzhang/xlog/src/java/dispatcher
+[xlog] 12-05-02 14:33:16 INFO zookeeper.ZooKeeper: Initiating client connection, connectString=10.2.78.226:2222/xlog sessionTimeout=5000 watcher=dp.election.impl.DefaultWatcher@1adb7b8
+[xlog] 12-05-02 14:33:16 INFO zookeeper.ClientCnxn: Opening socket connection to server /10.2.78.226:2222
+[xlog] 12-05-02 14:33:17 INFO zookeeper.ClientCnxn: Socket connection established to xianquanzhang-desktop.local/10.2.78.226:2222, initiating session
+[xlog] 12-05-02 14:33:17 INFO zookeeper.ClientCnxn: Session establishment complete on server xianquanzhang-desktop.local/10.2.78.226:2222, sessionid = 0x1370b209dc1000e, negotiated timeout = 5000
+[xlog] 12-05-02 14:33:17 INFO impl.DefaultWatcher: watcher event had happen,the event state is : SyncConnected
+[xlog] 12-05-02 14:35:11 INFO security.Groups: Group mapping impl=org.apache.hadoop.security.ShellBasedUnixGroupsMapping; cacheTimeout=300000
+[xlog] 12-05-02 14:35:13 INFO ipc.Client: Retrying connect to server: /10.2.78.226:9000. Already tried 0 time(s).
+[xlog] 12-05-02 14:35:14 INFO ipc.Client: Retrying connect to server: /10.2.78.226:9000. Already tried 1 time(s).
+[xlog] 12-05-02 14:35:15 INFO ipc.Client: Retrying connect to server: /10.2.78.226:9000. Already tried 2 time(s).
+[xlog] 12-05-02 14:35:16 INFO ipc.Client: Retrying connect to server: /10.2.78.226:9000. Already tried 3 time(s).
+[xlog] 12-05-02 14:35:17 INFO ipc.Client: Retrying connect to server: /10.2.78.226:9000. Already tried 4 time(s).
+[xlog] 12-05-02 14:35:18 INFO ipc.Client: Retrying connect to server: /10.2.78.226:9000. Already tried 5 time(s).
+[xlog] 12-05-02 14:35:19 INFO ipc.Client: Retrying connect to server: /10.2.78.226:9000. Already tried 6 time(s).
+[xlog] 12-05-02 14:35:20 INFO ipc.Client: Retrying connect to server: /10.2.78.226:9000. Already tried 7 time(s).
+[xlog] 12-05-02 14:35:21 INFO ipc.Client: Retrying connect to server: /10.2.78.226:9000. Already tried 8 time(s).
+[xlog] 12-05-02 14:35:22 INFO ipc.Client: Retrying connect to server: /10.2.78.226:9000. Already tried 9 time(s).
+[xlog] 12-05-02 14:35:22 ERROR storage.EventListener: fail to open storage adapter and eventlistener exist ! the error message is 
+[xlog] 12-05-02 14:35:22 ERROR impl.HDFSAdapter: fail to create HDFSOutputstream,then reinitialize hdfs and recreate!the exception is null
+[xlog] 12-05-02 14:35:23 INFO ipc.Client: Retrying connect to server: /10.2.78.226:9000. Already tried 0 time(s).
+[xlog] 12-05-02 14:35:24 INFO ipc.Client: Retrying connect to server: /10.2.78.226:9000. Already tried 1 time(s).
+[xlog] 12-05-02 14:35:25 INFO ipc.Client: Retrying connect to server: /10.2.78.226:9000. Already tried 2 time(s).
+[xlog] 12-05-02 14:35:26 INFO ipc.Client: Retrying connect to server: /10.2.78.226:9000. Already tried 3 time(s).
+[xlog] 12-05-02 14:35:27 INFO ipc.Client: Retrying connect to server: /10.2.78.226:9000. Already tried 4 time(s).
+[xlog] 12-05-02 14:35:28 INFO ipc.Client: Retrying connect to server: /10.2.78.226:9000. Already tried 5 time(s).
+[xlog] 12-05-02 14:35:29 INFO ipc.Client: Retrying connect to server: /10.2.78.226:9000. Already tried 6 time(s).
+[xlog] 12-05-02 14:35:30 INFO ipc.Client: Retrying connect to server: /10.2.78.226:9000. Already tried 7 time(s).
+[xlog] 12-05-02 14:38:27 INFO zookeeper.ZooKeeper: Client environment:zookeeper.version=3.3.3-1203054, built on 11/17/2011 05:47 GMT
+[xlog] 12-05-02 14:38:27 INFO zookeeper.ZooKeeper: Client environment:host.name=xianquanzhang-desktop
+[xlog] 12-05-02 14:38:27 INFO zookeeper.ZooKeeper: Client environment:java.version=1.6.0_30
+[xlog] 12-05-02 14:38:27 INFO zookeeper.ZooKeeper: Client environment:java.vendor=Sun Microsystems Inc.
+[xlog] 12-05-02 14:38:27 INFO zookeeper.ZooKeeper: Client environment:java.home=/home/xianquanzhang/install/jdk1.6.0_30/jre
+[xlog] 12-05-02 14:38:27 INFO zookeeper.ZooKeeper: Client environment:java.class.path=/home/xianquanzhang/xlog/src/java/dispatcher/target/test-classes:/home/xianquanzhang/xlog/src/java/dispatcher/target/classes:/root/.m2/repository/javax/mail/mail/1.4/mail-1.4.jar:/root/.m2/repository/javax/activation/activation/1.1/activation-1.1.jar:/root/.m2/repository/javax/jms/jms/1.1/jms-1.1.jar:/root/.m2/repository/com/zeroc/Ice/3.3.1/Ice-3.3.1.jar:/root/.m2/repository/org/apache/zookeeper/zookeeper/3.3.4/zookeeper-3.3.4.jar:/root/.m2/repository/log4j/log4j/1.2.15/log4j-1.2.15.jar:/root/.m2/repository/com/sun/jdmk/jmxtools/1.2.1/jmxtools-1.2.1.jar:/root/.m2/repository/com/sun/jmx/jmxri/1.2.1/jmxri-1.2.1.jar:/root/.m2/repository/jline/jline/0.9.94/jline-0.9.94.jar:/root/.m2/repository/junit/junit/4.0/junit-4.0.jar:/root/.m2/repository/com/google/protobuf/protobuf-java/2.4.1/protobuf-java-2.4.1.jar:/root/.m2/repository/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar:/root/.m2/repository/org/apache/hadoop/hadoop-common/0.21.0/hadoop-common-0.21.0.jar:/root/.m2/repository/org/apache/hadoop/hadoop-hdfs/0.21.0/hadoop-hdfs-0.21.0.jar:/root/.m2/repository/org/slf4j/slf4j-api/1.5.8/slf4j-api-1.5.8.jar:/root/.m2/repository/org/slf4j/slf4j-log4j12/1.5.8/slf4j-log4j12-1.5.8.jar:/root/.m2/repository/jetty/jetty/6.0.2/jetty-6.0.2.jar:/root/.m2/repository/jetty/jetty-util/6.0.2/jetty-util-6.0.2.jar:/root/.m2/repository/jetty/jsp/2.1-6.0.2/jsp-2.1-6.0.2.jar:/root/.m2/repository/jetty/jsp-api/2.1-6.0.2/jsp-api-2.1-6.0.2.jar:/root/.m2/repository/jetty/servlet-api/2.5-6.0.2/servlet-api-2.5-6.0.2.jar:/root/.m2/repository/ant/ant/1.6.5/ant-1.6.5.jar:/home/xianquanzhang/install/jdk1.6.0_30/lib/tools.jar
+[xlog] 12-05-02 14:38:27 INFO zookeeper.ZooKeeper: Client environment:java.library.path=/home/xianquanzhang/install/jdk1.6.0_30/jre/lib/i386/server:/home/xianquanzhang/install/jdk1.6.0_30/jre/lib/i386:/home/xianquanzhang/install/jdk1.6.0_30/jre/../lib/i386:/usr/lib/jvm/java-6-openjdk/jre/lib/i386/client:/usr/lib/jvm/java-6-openjdk/jre/lib/i386::/usr/java/packages/lib/i386:/lib:/usr/lib
+[xlog] 12-05-02 14:38:27 INFO zookeeper.ZooKeeper: Client environment:java.io.tmpdir=/tmp
+[xlog] 12-05-02 14:38:27 INFO zookeeper.ZooKeeper: Client environment:java.compiler=<NA>
+[xlog] 12-05-02 14:38:27 INFO zookeeper.ZooKeeper: Client environment:os.name=Linux
+[xlog] 12-05-02 14:38:27 INFO zookeeper.ZooKeeper: Client environment:os.arch=i386
+[xlog] 12-05-02 14:38:27 INFO zookeeper.ZooKeeper: Client environment:os.version=2.6.32-39-generic
+[xlog] 12-05-02 14:38:27 INFO zookeeper.ZooKeeper: Client environment:user.name=root
+[xlog] 12-05-02 14:38:27 INFO zookeeper.ZooKeeper: Client environment:user.home=/root
+[xlog] 12-05-02 14:38:27 INFO zookeeper.ZooKeeper: Client environment:user.dir=/home/xianquanzhang/xlog/src/java/dispatcher
+[xlog] 12-05-02 14:38:27 INFO zookeeper.ZooKeeper: Initiating client connection, connectString=10.2.78.226:2222/xlog sessionTimeout=5000 watcher=dp.election.impl.DefaultWatcher@b7b3f9
+[xlog] 12-05-02 14:38:28 INFO zookeeper.ClientCnxn: Opening socket connection to server /10.2.78.226:2222
+[xlog] 12-05-02 14:38:28 INFO zookeeper.ClientCnxn: Socket connection established to xianquanzhang-desktop.local/10.2.78.226:2222, initiating session
+[xlog] 12-05-02 14:38:28 INFO zookeeper.ClientCnxn: Session establishment complete on server xianquanzhang-desktop.local/10.2.78.226:2222, sessionid = 0x1370b209dc10010, negotiated timeout = 5000
+[xlog] 12-05-02 14:38:28 INFO impl.DefaultWatcher: watcher event had happen,the event state is : SyncConnected
+[xlog] 12-05-02 14:39:40 INFO security.Groups: Group mapping impl=org.apache.hadoop.security.ShellBasedUnixGroupsMapping; cacheTimeout=300000
+[xlog] 12-05-02 14:39:41 DEBUG impl.HDFSAdapter: success to get HDFSOutputStream!
+[xlog] 12-05-02 14:39:41 DEBUG impl.HDFSAdapter: success to get HDFSOutputStream!
+[xlog] 12-05-02 14:39:41 DEBUG impl.HDFSAdapter: success to get HDFSOutputStream!
+[xlog] 12-05-02 14:39:41 DEBUG impl.HDFSAdapter: success to get HDFSOutputStream!
+[xlog] 12-05-02 14:39:41 DEBUG impl.HDFSAdapter: success to get HDFSOutputStream!
+[xlog] 12-05-02 15:08:28 DEBUG sync.SyncTimer: it start 11 threads to sync data!
+[xlog] 12-05-02 15:08:28 DEBUG impl.HDFSAdapter: success to get HDFSOutputStream!
+[xlog] 12-05-02 15:38:27 DEBUG sync.SyncTimer: it start 5 threads to sync data!
+[xlog] 12-05-03 19:10:09 INFO zookeeper.ZooKeeper: Client environment:zookeeper.version=3.3.3-1203054, built on 11/17/2011 05:47 GMT
+[xlog] 12-05-03 19:10:09 INFO zookeeper.ZooKeeper: Client environment:host.name=xianquanzhang-desktop
+[xlog] 12-05-03 19:10:09 INFO zookeeper.ZooKeeper: Client environment:java.version=1.6.0_30
+[xlog] 12-05-03 19:10:09 INFO zookeeper.ZooKeeper: Client environment:java.vendor=Sun Microsystems Inc.
+[xlog] 12-05-03 19:10:09 INFO zookeeper.ZooKeeper: Client environment:java.home=/home/xianquanzhang/install/jdk1.6.0_30/jre
+[xlog] 12-05-03 19:10:09 INFO zookeeper.ZooKeeper: Client environment:java.class.path=/home/xianquanzhang/xlog/src/java/dispatcher/target/test-classes:/home/xianquanzhang/xlog/src/java/dispatcher/target/classes:/root/.m2/repository/javax/mail/mail/1.4/mail-1.4.jar:/root/.m2/repository/javax/activation/activation/1.1/activation-1.1.jar:/root/.m2/repository/javax/jms/jms/1.1/jms-1.1.jar:/root/.m2/repository/com/zeroc/Ice/3.3.1/Ice-3.3.1.jar:/root/.m2/repository/org/apache/zookeeper/zookeeper/3.3.4/zookeeper-3.3.4.jar:/root/.m2/repository/log4j/log4j/1.2.15/log4j-1.2.15.jar:/root/.m2/repository/com/sun/jdmk/jmxtools/1.2.1/jmxtools-1.2.1.jar:/root/.m2/repository/com/sun/jmx/jmxri/1.2.1/jmxri-1.2.1.jar:/root/.m2/repository/jline/jline/0.9.94/jline-0.9.94.jar:/root/.m2/repository/junit/junit/4.0/junit-4.0.jar:/root/.m2/repository/com/google/protobuf/protobuf-java/2.4.1/protobuf-java-2.4.1.jar:/root/.m2/repository/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar:/root/.m2/repository/org/apache/hadoop/hadoop-common/0.21.0/hadoop-common-0.21.0.jar:/root/.m2/repository/org/apache/hadoop/hadoop-hdfs/0.21.0/hadoop-hdfs-0.21.0.jar:/root/.m2/repository/org/slf4j/slf4j-api/1.5.8/slf4j-api-1.5.8.jar:/root/.m2/repository/org/slf4j/slf4j-log4j12/1.5.8/slf4j-log4j12-1.5.8.jar:/root/.m2/repository/jetty/jetty/6.0.2/jetty-6.0.2.jar:/root/.m2/repository/jetty/jetty-util/6.0.2/jetty-util-6.0.2.jar:/root/.m2/repository/jetty/jsp/2.1-6.0.2/jsp-2.1-6.0.2.jar:/root/.m2/repository/jetty/jsp-api/2.1-6.0.2/jsp-api-2.1-6.0.2.jar:/root/.m2/repository/jetty/servlet-api/2.5-6.0.2/servlet-api-2.5-6.0.2.jar:/root/.m2/repository/ant/ant/1.6.5/ant-1.6.5.jar:/home/xianquanzhang/install/jdk1.6.0_30/lib/tools.jar
+[xlog] 12-05-03 19:10:09 INFO zookeeper.ZooKeeper: Client environment:java.library.path=/home/xianquanzhang/install/jdk1.6.0_30/jre/lib/i386/server:/home/xianquanzhang/install/jdk1.6.0_30/jre/lib/i386:/home/xianquanzhang/install/jdk1.6.0_30/jre/../lib/i386:/usr/lib/jvm/java-6-openjdk/jre/lib/i386/client:/usr/lib/jvm/java-6-openjdk/jre/lib/i386::/usr/java/packages/lib/i386:/lib:/usr/lib
+[xlog] 12-05-03 19:10:09 INFO zookeeper.ZooKeeper: Client environment:java.io.tmpdir=/tmp
+[xlog] 12-05-03 19:10:09 INFO zookeeper.ZooKeeper: Client environment:java.compiler=<NA>
+[xlog] 12-05-03 19:10:09 INFO zookeeper.ZooKeeper: Client environment:os.name=Linux
+[xlog] 12-05-03 19:10:09 INFO zookeeper.ZooKeeper: Client environment:os.arch=i386
+[xlog] 12-05-03 19:10:09 INFO zookeeper.ZooKeeper: Client environment:os.version=2.6.32-39-generic
+[xlog] 12-05-03 19:10:09 INFO zookeeper.ZooKeeper: Client environment:user.name=root
+[xlog] 12-05-03 19:10:09 INFO zookeeper.ZooKeeper: Client environment:user.home=/root
+[xlog] 12-05-03 19:10:09 INFO zookeeper.ZooKeeper: Client environment:user.dir=/home/xianquanzhang/xlog/src/java/dispatcher
+[xlog] 12-05-03 19:10:09 INFO zookeeper.ZooKeeper: Initiating client connection, connectString=10.2.78.226:2222/xlog sessionTimeout=5000 watcher=dp.election.impl.DefaultWatcher@1b11b79
+[xlog] 12-05-03 19:10:09 INFO zookeeper.ClientCnxn: Opening socket connection to server /10.2.78.226:2222
+[xlog] 12-05-03 19:10:09 INFO zookeeper.ClientCnxn: Socket connection established to xianquanzhang-desktop.local/10.2.78.226:2222, initiating session
+[xlog] 12-05-03 19:10:09 INFO zookeeper.ClientCnxn: Session establishment complete on server xianquanzhang-desktop.local/10.2.78.226:2222, sessionid = 0x1370b209dc10012, negotiated timeout = 5000
+[xlog] 12-05-03 19:10:09 INFO impl.DefaultWatcher: watcher event had happen,the event state is : SyncConnected
+[xlog] 12-05-03 19:40:09 DEBUG sync.SyncTimer: it start 5 threads to sync data!
+[xlog] 12-05-03 19:40:09 INFO security.Groups: Group mapping impl=org.apache.hadoop.security.ShellBasedUnixGroupsMapping; cacheTimeout=300000
+[xlog] 12-05-03 19:40:09 DEBUG impl.HDFSAdapter: success to get HDFSOutputStream!
+[xlog] 12-05-03 20:10:09 DEBUG sync.SyncTimer: it start 1 threads to sync data!
+[xlog] 12-05-03 20:40:09 DEBUG sync.SyncTimer: it start 1 threads to sync data!
+[xlog] 12-05-03 21:10:09 DEBUG sync.SyncTimer: it start 1 threads to sync data!
+[xlog] 12-05-03 21:40:09 DEBUG sync.SyncTimer: it start 1 threads to sync data!
+[xlog] 12-05-03 22:10:09 DEBUG sync.SyncTimer: it start 1 threads to sync data!
+[xlog] 12-05-03 22:40:09 DEBUG sync.SyncTimer: it start 1 threads to sync data!
+[xlog] 12-05-03 23:10:09 DEBUG sync.SyncTimer: it start 1 threads to sync data!
+[xlog] 12-05-03 23:40:09 DEBUG sync.SyncTimer: it start 1 threads to sync data!
+[xlog] 12-05-04 00:10:09 DEBUG sync.SyncTimer: it start 1 threads to sync data!
+[xlog] 12-05-04 00:40:09 DEBUG sync.SyncTimer: it start 1 threads to sync data!
+[xlog] 12-05-04 01:10:09 DEBUG sync.SyncTimer: it start 1 threads to sync data!
+[xlog] 12-05-04 01:40:09 DEBUG sync.SyncTimer: it start 1 threads to sync data!
+[xlog] 12-05-04 02:10:09 DEBUG sync.SyncTimer: it start 1 threads to sync data!
+[xlog] 12-05-04 02:40:09 DEBUG sync.SyncTimer: it start 1 threads to sync data!
+[xlog] 12-05-04 03:10:09 DEBUG sync.SyncTimer: it start 1 threads to sync data!
+[xlog] 12-05-04 03:40:09 DEBUG sync.SyncTimer: it start 1 threads to sync data!
+[xlog] 12-05-04 04:10:09 DEBUG sync.SyncTimer: it start 1 threads to sync data!
+[xlog] 12-05-04 04:40:09 DEBUG sync.SyncTimer: it start 1 threads to sync data!
+[xlog] 12-05-04 05:10:09 DEBUG sync.SyncTimer: it start 1 threads to sync data!
+[xlog] 12-05-04 05:40:09 DEBUG sync.SyncTimer: it start 1 threads to sync data!
+[xlog] 12-05-04 06:10:09 DEBUG sync.SyncTimer: it start 1 threads to sync data!
+[xlog] 12-05-04 06:40:09 DEBUG sync.SyncTimer: it start 1 threads to sync data!
+[xlog] 12-05-04 07:10:09 DEBUG sync.SyncTimer: it start 1 threads to sync data!
+[xlog] 12-05-04 07:40:09 DEBUG sync.SyncTimer: it start 1 threads to sync data!
+[xlog] 12-05-04 08:10:09 DEBUG sync.SyncTimer: it start 1 threads to sync data!
+[xlog] 12-05-04 08:40:09 DEBUG sync.SyncTimer: it start 1 threads to sync data!
+[xlog] 12-05-04 09:10:09 DEBUG sync.SyncTimer: it start 1 threads to sync data!
+[xlog] 12-05-04 09:40:09 DEBUG sync.SyncTimer: it start 1 threads to sync data!
+[xlog] 12-05-04 10:10:09 DEBUG sync.SyncTimer: it start 1 threads to sync data!
+[xlog] 12-05-04 10:40:09 DEBUG sync.SyncTimer: it start 1 threads to sync data!
+[xlog] 12-05-04 11:10:09 DEBUG sync.SyncTimer: it start 1 threads to sync data!
+[xlog] 12-05-04 11:40:09 DEBUG sync.SyncTimer: it start 1 threads to sync data!
+[xlog] 12-05-04 12:01:10 DEBUG impl.HDFSAdapter: success to get HDFSOutputStream!
+[xlog] 12-05-04 12:10:09 DEBUG sync.SyncTimer: it start 2 threads to sync data!
+[xlog] 12-05-04 12:40:09 DEBUG sync.SyncTimer: it start 2 threads to sync data!
+[xlog] 12-05-04 13:10:09 DEBUG sync.SyncTimer: it start 2 threads to sync data!
+[xlog] 12-05-04 13:40:09 DEBUG sync.SyncTimer: it start 2 threads to sync data!
+[xlog] 12-05-07 10:40:53 INFO zookeeper.ZooKeeper: Client environment:zookeeper.version=3.3.3-1203054, built on 11/17/2011 05:47 GMT
+[xlog] 12-05-07 10:40:53 INFO zookeeper.ZooKeeper: Client environment:host.name=xianquanzhang-desktop
+[xlog] 12-05-07 10:40:53 INFO zookeeper.ZooKeeper: Client environment:java.version=1.6.0_30
+[xlog] 12-05-07 10:40:53 INFO zookeeper.ZooKeeper: Client environment:java.vendor=Sun Microsystems Inc.
+[xlog] 12-05-07 10:40:53 INFO zookeeper.ZooKeeper: Client environment:java.home=/home/xianquanzhang/install/jdk1.6.0_30/jre
+[xlog] 12-05-07 10:40:53 INFO zookeeper.ZooKeeper: Client environment:java.class.path=/home/xianquanzhang/xlog/src/java/dispatcher/target/test-classes:/home/xianquanzhang/xlog/src/java/dispatcher/target/classes:/root/.m2/repository/javax/mail/mail/1.4/mail-1.4.jar:/root/.m2/repository/javax/activation/activation/1.1/activation-1.1.jar:/root/.m2/repository/javax/jms/jms/1.1/jms-1.1.jar:/root/.m2/repository/com/zeroc/Ice/3.3.1/Ice-3.3.1.jar:/root/.m2/repository/org/apache/zookeeper/zookeeper/3.3.4/zookeeper-3.3.4.jar:/root/.m2/repository/log4j/log4j/1.2.15/log4j-1.2.15.jar:/root/.m2/repository/com/sun/jdmk/jmxtools/1.2.1/jmxtools-1.2.1.jar:/root/.m2/repository/com/sun/jmx/jmxri/1.2.1/jmxri-1.2.1.jar:/root/.m2/repository/jline/jline/0.9.94/jline-0.9.94.jar:/root/.m2/repository/junit/junit/4.0/junit-4.0.jar:/root/.m2/repository/com/google/protobuf/protobuf-java/2.4.1/protobuf-java-2.4.1.jar:/root/.m2/repository/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar:/root/.m2/repository/org/apache/hadoop/hadoop-common/0.21.0/hadoop-common-0.21.0.jar:/root/.m2/repository/org/apache/hadoop/hadoop-hdfs/0.21.0/hadoop-hdfs-0.21.0.jar:/root/.m2/repository/org/slf4j/slf4j-api/1.5.8/slf4j-api-1.5.8.jar:/root/.m2/repository/org/slf4j/slf4j-log4j12/1.5.8/slf4j-log4j12-1.5.8.jar:/root/.m2/repository/jetty/jetty/6.0.2/jetty-6.0.2.jar:/root/.m2/repository/jetty/jetty-util/6.0.2/jetty-util-6.0.2.jar:/root/.m2/repository/jetty/jsp/2.1-6.0.2/jsp-2.1-6.0.2.jar:/root/.m2/repository/jetty/jsp-api/2.1-6.0.2/jsp-api-2.1-6.0.2.jar:/root/.m2/repository/jetty/servlet-api/2.5-6.0.2/servlet-api-2.5-6.0.2.jar:/root/.m2/repository/ant/ant/1.6.5/ant-1.6.5.jar:/home/xianquanzhang/install/jdk1.6.0_30/lib/tools.jar
+[xlog] 12-05-07 10:40:53 INFO zookeeper.ZooKeeper: Client environment:java.library.path=/home/xianquanzhang/install/jdk1.6.0_30/jre/lib/i386/server:/home/xianquanzhang/install/jdk1.6.0_30/jre/lib/i386:/home/xianquanzhang/install/jdk1.6.0_30/jre/../lib/i386:/usr/lib/jvm/java-6-openjdk/jre/lib/i386/client:/usr/lib/jvm/java-6-openjdk/jre/lib/i386::/usr/java/packages/lib/i386:/lib:/usr/lib
+[xlog] 12-05-07 10:40:53 INFO zookeeper.ZooKeeper: Client environment:java.io.tmpdir=/tmp
+[xlog] 12-05-07 10:40:53 INFO zookeeper.ZooKeeper: Client environment:java.compiler=<NA>
+[xlog] 12-05-07 10:40:53 INFO zookeeper.ZooKeeper: Client environment:os.name=Linux
+[xlog] 12-05-07 10:40:53 INFO zookeeper.ZooKeeper: Client environment:os.arch=i386
+[xlog] 12-05-07 10:40:53 INFO zookeeper.ZooKeeper: Client environment:os.version=2.6.32-39-generic
+[xlog] 12-05-07 10:40:53 INFO zookeeper.ZooKeeper: Client environment:user.name=root
+[xlog] 12-05-07 10:40:53 INFO zookeeper.ZooKeeper: Client environment:user.home=/root
+[xlog] 12-05-07 10:40:53 INFO zookeeper.ZooKeeper: Client environment:user.dir=/home/xianquanzhang/xlog/src/java/dispatcher
+[xlog] 12-05-07 10:40:53 INFO zookeeper.ZooKeeper: Initiating client connection, connectString=10.2.78.226:2222/xlog sessionTimeout=5000 watcher=dp.election.impl.DefaultWatcher@ac06d4
+[xlog] 12-05-07 10:40:53 INFO zookeeper.ClientCnxn: Opening socket connection to server /10.2.78.226:2222
+[xlog] 12-05-07 10:40:53 INFO zookeeper.ClientCnxn: Socket connection established to xianquanzhang-desktop.local/10.2.78.226:2222, initiating session
+[xlog] 12-05-07 10:40:53 INFO zookeeper.ClientCnxn: Session establishment complete on server xianquanzhang-desktop.local/10.2.78.226:2222, sessionid = 0x1370b209dc10016, negotiated timeout = 5000
+[xlog] 12-05-07 10:40:53 INFO impl.DefaultWatcher: watcher event had happen,the event state is : SyncConnected
+[xlog] 12-05-07 11:10:53 DEBUG sync.SyncTimer: it start 2 threads to sync data!
+[xlog] 12-05-07 11:40:53 DEBUG sync.SyncTimer: it start 0 threads to sync data!
+[xlog] 12-05-07 12:10:53 DEBUG sync.SyncTimer: it start 0 threads to sync data!
+[xlog] 12-05-07 12:40:53 DEBUG sync.SyncTimer: it start 0 threads to sync data!
+[xlog] 12-05-07 13:10:53 DEBUG sync.SyncTimer: it start 0 threads to sync data!
+[xlog] 12-05-07 13:40:53 DEBUG sync.SyncTimer: it start 0 threads to sync data!
+[xlog] 12-05-07 13:58:17 INFO security.Groups: Group mapping impl=org.apache.hadoop.security.ShellBasedUnixGroupsMapping; cacheTimeout=300000
+[xlog] 12-05-07 13:58:17 DEBUG impl.HDFSAdapter: success to get HDFSOutputStream!
+[xlog] 12-05-07 14:10:53 DEBUG sync.SyncTimer: it start 1 threads to sync data!
+[xlog] 12-05-07 14:40:53 DEBUG sync.SyncTimer: it start 1 threads to sync data!
+[xlog] 12-05-07 15:10:53 DEBUG sync.SyncTimer: it start 1 threads to sync data!
+[xlog] 12-05-07 15:40:53 DEBUG sync.SyncTimer: it start 1 threads to sync data!
+[xlog] 12-05-07 16:10:53 DEBUG sync.SyncTimer: it start 1 threads to sync data!
+[xlog] 12-05-07 16:40:53 DEBUG sync.SyncTimer: it start 1 threads to sync data!
+[xlog] 12-05-07 17:10:53 DEBUG sync.SyncTimer: it start 1 threads to sync data!
+[xlog] 12-05-07 17:40:53 DEBUG sync.SyncTimer: it start 1 threads to sync data!
+[xlog] 12-05-07 18:10:53 DEBUG sync.SyncTimer: it start 1 threads to sync data!
+[xlog] 12-05-07 18:40:53 DEBUG sync.SyncTimer: it start 1 threads to sync data!
+[xlog] 12-05-07 19:10:53 DEBUG sync.SyncTimer: it start 1 threads to sync data!
+[xlog] 12-05-07 19:27:59 DEBUG impl.HDFSAdapter: success to get HDFSOutputStream!

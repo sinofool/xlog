@@ -1,10 +1,18 @@
 package com.renren.dp.xlog.storage;
 
-import xlog.slice.LogData;
+import java.util.List;
+
+import com.renren.dp.xlog.logger.LogMeta;
 
 public interface StorageRepository {
 
-	public void addToRepository(LogData[]logDatas); 
+	public void addToRepository(LogMeta logMeta);
 	
-	public void addToRepository(LogData logData); 
+	public void checkRepository();
+	
+	public List<NamespaceInfo> getNamespaceInfo();
+	
+	public long getCacheFilesSize();
+	
+	public void close();
 }

@@ -9,8 +9,6 @@ import org.apache.zookeeper.KeeperException;
 import org.apache.zookeeper.Watcher;
 import org.apache.zookeeper.ZooDefs.Ids;
 
-import com.renren.dp.xlog.config.Configuration;
-
 import xlog.proto.Xlog.ItemInfo;
 import dp.election.impl.DefaultWatcherManager;
 import dp.election.impl.DispatcherWatcher;
@@ -70,9 +68,8 @@ public class HAClusterManager<K, V> extends ClusterManager<K, V>{
     watcherManager.setDispatcherWatcher(logicZnode,new DispatcherWatcher(this,logicZnode));
   }
   
-  public void addWatchers() throws KeeperException, InterruptedException, IOException{
+  public void addWatchers(long delayTime) throws KeeperException, InterruptedException, IOException{
     if(isMaster){
-      long delayTime=Configuration.getLong("master.start.delay",300)*1000;
       watcherManager.setSlotWatcher(slots.length,System.currentTimeMillis()+delayTime);
     }else{
       watcherManager.setDispatcherWatcher(currentZnode,new DispatcherWatcher(this,currentZnode));

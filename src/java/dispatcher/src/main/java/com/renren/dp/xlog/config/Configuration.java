@@ -11,7 +11,6 @@ public class Configuration {
         try {
 			props.load(Configuration.class.getResourceAsStream("/conf/xlog.properties"));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

@@ -2,56 +2,47 @@ package dp.zk;
 
 import java.io.IOException;
 
-import org.apache.zookeeper.WatchedEvent;
 import org.apache.zookeeper.Watcher;
 import org.apache.zookeeper.ZooKeeper;
-import org.apache.zookeeper.Watcher.Event.KeeperState;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.renren.dp.xlog.config.Configuration;
 
 public class ZkConn {
   
   private ZooKeeper _conn;
+  private Watcher watcher=null;
+  private String strConn=null;
+  private int sessionTimeOut;
 
-  private final static Logger logger = LoggerFactory.getLogger(ZkConn.class);
+ // private final static Logger logger = LoggerFactory.getLogger(ZkConn.class);
 
-  public ZkConn() {
+  public ZkConn(String strConn,int sessionTimeOut,Watcher watcher) {
+	  this.strConn=strConn;
+	  this.sessionTimeOut=sessionTimeOut;
+	  this.watcher=watcher;
   }
 
   private synchronized void connect() throws IOException {
-    _conn = new ZooKeeper(Configuration.getString("zookeeper.connstr"), 2 * 1000, new DefaultWatcher());
+    _conn = new ZooKeeper(strConn, sessionTimeOut, this.watcher);
   }
 
   public ZooKeeper get() throws IOException {
     if (_conn == null) {
       connect();
-    }
-    return _conn;
+	 }
+	 return _conn;
+  }
+  
+  public void reconnect() throws IOException {
+    close();
+    connect();
   }
 
   public void close() {
     try {
       _conn.close();
+      _conn=null;
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
   }
 
-  private class DefaultWatcher implements Watcher {
-    @Override
-    public void process(WatchedEvent event) {
-      if (event.getState() == KeeperState.Expired) {
-        logger.info("zookeeper reconnect ......");
-        try {
-          connect();
-          logger.info("success to reconnect zookeeper!");
-        } catch (IOException e) {
-          logger.error("fail to reconnect zookeeper!");
-        }
-      }
-    }
-
-  }
 }

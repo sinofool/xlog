@@ -49,7 +49,7 @@ public class DispatcherAdapter<T> {
             }
         } while (retry);
         try {
-          clientManager.addWatchers();
+          clientManager.addWatchers(0);
         } catch (KeeperException e) {
           e.printStackTrace();
         } catch (InterruptedException e) {

@@ -38,6 +38,10 @@ public class SlotWatcher implements Watcher {
     }
     EventType type = event.getType();
     String znode = event.getPath();
+    if(znode == null){
+    	logger.info("slot watcher does not get the event path!");
+    	return ;
+    }
     synchronized (this) {
       if (type == EventType.NodeChildrenChanged) {
         try {

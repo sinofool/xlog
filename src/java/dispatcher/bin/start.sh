@@ -1,8 +1,15 @@
 #!/bin/bash
 
+usage()
+{
+    printf "usage: ${0##*/} [webserver|dispatcher|all]\n"
+    exit 1
+}
+[ $# -gt 0 ] || usage
+
 #BASEDIR=`dirname $0`
 cd ..
-CLASSPATH=.
+CLASSPATH=$CLASSPATH
 
 LIBPATH="lib"
 
@@ -18,11 +25,11 @@ for f in `find $LIBPATH -name '*.jar'`
 # ** Change 256m to higher values in case you run out of memory.  **
 # ******************************************************************
 
-#export DEBUG=-Xdebug -Xrunjdwp:transport=dt_socket,address=3005,server=y,suspend=n
-OPT="-Xmx1024m -Xms256m -cp $CLASSPATH"
+#export DEBUG="-Xdebug -Xrunjdwp:transport=dt_socket,address=3005,server=y,suspend=n"
+OPT="-Xmx8g -Xms4g -Xmn2g -Xss128k -XX:+UseParallelGC -XX:ParallelGCThreads=20 -cp $CLASSPATH"
 
 # ***************
 # ** Run...    **
 # ***************
 
-java $OPT com.renren.dp.xlog.dispatcher.DispatcherApp "${1+$@}"
+java $OPT com.renren.dp.xlog.dispatcher.Bootstrap "${1+$@}"

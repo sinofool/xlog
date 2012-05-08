@@ -1,20 +1,23 @@
 package com.renren.dp.xlog.io;
 
-import java.util.List;
+import java.io.File;
 
-import com.renren.dp.xlog.logger.LogMeta;
 
 public interface LogWriter{
 
 	/**
 	 * 
 	 * @param logMetas writer
-	 * @param isAllowPartSuccess �Ƿ����?�ֳɹ�
+	 * @param isAllowPartSuccess 是否允许写部分成功
 	 * @return
 	 */
-	public boolean write(List<LogMeta> logMetas,boolean isAllowPartSuccess);
+	public boolean write(String logFileNum, String[] logs,boolean isAllowPartSuccess);
 	
-	public boolean write(LogMeta logMeta);
+	public boolean createFile(File logFile);
+	
+	public String getLogFileName();
+	
+	public void rename(String suffix);
 	
 	public void close();
 }

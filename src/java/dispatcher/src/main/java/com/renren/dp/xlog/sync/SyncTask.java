@@ -5,148 +5,117 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
-import com.renren.dp.xlog.io.LogWriter;
-import com.renren.dp.xlog.io.impl.DefaultLogWriter;
-import com.renren.dp.xlog.storage.StorageAdapterFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.renren.dp.xlog.cache.CacheManagerFactory;
+import com.renren.dp.xlog.handler.FileNameHandlerFactory;
+import com.renren.dp.xlog.logger.LogMeta;
+import com.renren.dp.xlog.storage.StorageRepository;
+import com.renren.dp.xlog.storage.StorageRepositoryFactory;
+import com.renren.dp.xlog.util.Constants;
 import com.renren.dp.xlog.util.LogDataFormat;
 
 import xlog.slice.LogData;
 
 public class SyncTask extends Thread{
 
-	private File srcFile=null;
+	private String cacheLogDir=null;
 	private File slaveLogFile=null;
 	private int batchCommitSize;
-	private LogWriter logWriter=null;
+	private int slaveLogRootDirLen;
 	
-	public  SyncTask(File srcFile,File slaveLogFile,int batchCommitSize){
-		this.srcFile=srcFile;
+	private final static Logger logger = LoggerFactory.getLogger(SyncTask.class);
+	
+	public  SyncTask(String cacheLogDir,File slaveLogFile,int slaveLogRootDirLen,int batchCommitSize){
+		this.cacheLogDir=cacheLogDir;
 		this.slaveLogFile=slaveLogFile;
 		this.batchCommitSize=batchCommitSize;
-		this.logWriter=new DefaultLogWriter(slaveLogFile);
-	}
-	
-	public  SyncTask(File srcFile,String slaveLogPath,int batchCommitSize){
-		this.srcFile=srcFile;
-		this.batchCommitSize=batchCommitSize;
-		File f=new File(slaveLogPath);
-		this.logWriter=new DefaultLogWriter(f);
+		this.slaveLogRootDirLen=slaveLogRootDirLen;
 	}
 	
 	@Override
 	public void run() {
-		if(this.slaveLogFile==null){
-			loadCacheData();
+		String cacheLogStr=cacheLogDir+"/"+slaveLogFile.getAbsolutePath().substring(slaveLogRootDirLen);
+		String categories=slaveLogFile.getParent().substring(slaveLogRootDirLen);
+		boolean res=false;
+		File cacheLogFile=null;
+		if(slaveLogFile.getName().endsWith(Constants.LOG_WRITE_ERROR_SUFFIX)){
+			cacheLogFile=new File(cacheLogStr.replaceFirst(Constants.LOG_WRITE_ERROR_SUFFIX, Constants.LOG_WRITE_FINISHED_SUFFIX));
+			//保证数据的一致性,
+			if(cacheLogFile.exists()){
+				res=store(cacheLogFile,categories);
+			}
 		}else{
-			compareAndLoadData();
+			cacheLogFile=new File(cacheLogStr);
+			if(cacheLogFile.exists()){
+				res=store(slaveLogFile,categories);
+			}
+		}
+		if(res){
+			if(rename(cacheLogFile)){
+				rename(slaveLogFile);
+			}
 		}
 	}
 	
-	private void loadCacheData(){
+	private boolean store(File sourceFile,String categories){
+		StorageRepository sr=StorageRepositoryFactory.getInstance();
 		FileReader fr=null;
 		try {
-			fr = new FileReader(srcFile);
+			fr = new FileReader(sourceFile);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
-			return ;
+			return false;
 		}
+		
 		BufferedReader br=new BufferedReader(fr);
 		String line=null;
-		LogData[] logDatas=new LogData[this.batchCommitSize];
 		int i=0;
+		String[] logs=new String[batchCommitSize];
+		LogData logData=null;
+		String logFileNum=null;
+		boolean res=true;
 		try {
 			while((line=br.readLine())!=null){
-				logDatas[i++]=LogDataFormat.transformStringToLogData(line);
+				logs[i++]=line;
+				
 				if(i==batchCommitSize){
 					i=0;
-					doStore(logDatas,batchCommitSize);
-				}
-			}
-			if(i>0){
-				doStore(logDatas,i);
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}finally{
-			logWriter.close();
-		}
-	}
-	
-	public void compareAndLoadData(){
-		FileReader srcFR=null;
-		FileReader targetFR=null;
-		try {
-			srcFR = new FileReader(srcFile);
-			targetFR = new FileReader(slaveLogFile);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-			return ;
-		}
-		if(srcFile.getTotalSpace()==slaveLogFile.length()){
-			srcFile.renameTo(new File(srcFile.getAbsoluteFile()+".done"));
-			slaveLogFile.renameTo(new File(slaveLogFile.getAbsoluteFile()+".done"));
-			return ;
-		}
-		BufferedReader srcBR=new BufferedReader(srcFR);
-		BufferedReader targetBR=new BufferedReader(targetFR);
-		String srcLine=null;
-		String targetLine=null;
-		int i=0;
-		LogData[] logDatas=new LogData[this.batchCommitSize];
-		
-		try {
-			while((targetLine=targetBR.readLine())!=null){
-				while((srcLine=srcBR.readLine())!=null){
-					if(srcLine.equals(targetLine)){
-						break;
-					}else{
-						logDatas[i++]=LogDataFormat.transformStringToLogData(srcLine);
-						if(i==batchCommitSize){
-							i=0;
-							doStore(logDatas,batchCommitSize);
-						}
+					logData=LogDataFormat.transformToLogData(categories,logs);
+					logFileNum=FileNameHandlerFactory.getInstance().getCacheLogFileNum();
+					LogMeta logMeta=new LogMeta(logFileNum,logData,2);
+					if(CacheManagerFactory.getInstance().writeCache(logMeta)){
+						sr.addToRepository(logMeta);
 					}
-				}
-			}
-			while((srcLine=srcBR.readLine())!=null){
-				logDatas[i++]=LogDataFormat.transformStringToLogData(srcLine);
-				if(i==batchCommitSize){
-					i=0;
-					doStore(logDatas,batchCommitSize);
+					logs=new String[batchCommitSize];
 				}
 			}
 			if(i>0){
-				doStore(logDatas,i);
-			}
-			
-			srcFile.renameTo(new File(srcFile.getAbsoluteFile()+".done"));
-			slaveLogFile.renameTo(new File(slaveLogFile.getAbsoluteFile()+".done"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}finally{
-			logWriter.close();
-		}
-	}
-	
-	private void doStore(LogData[] logDatas,int len){
-		boolean res=true;
-		List<LogData> list=new ArrayList<LogData>();
-		for(int i=0;i<len;i++){
-			try {
-				res=StorageAdapterFactory.getInstance().store(logDatas[i]);
-				if(res){
-					list.add(logDatas[i]);
+				logData=LogDataFormat.transformToLogData(categories,logs);
+				logFileNum=FileNameHandlerFactory.getInstance().getCacheLogFileNum();
+				LogMeta logMeta=new LogMeta(logFileNum,logData,2);
+				if(CacheManagerFactory.getInstance().writeCache(logMeta)){
+					sr.addToRepository(logMeta);
 				}
-			} catch (Exception e) {
-				e.printStackTrace();
+			}
+		} catch (IOException e) {
+			res=false;
+			logger.error("fail to sync file! the file_name : "+slaveLogFile.getAbsolutePath()+",the exception is : {} ",e.getMessage());
+		}finally{
+			try {
+				br.close();
+			} catch (IOException e) {
+			}
+			try {
+				fr.close();
+			} catch (IOException e) {
 			}
 		}
-		logWriter.write(LogDataFormat.transformLogDataToMeta(list.toArray(new LogData[list.size()])),true);
-		
-		list.removeAll(list);
-		list=null;
+		return res;
+	}
+	private boolean rename(File file){
+		return file.renameTo(new File(file.getAbsolutePath()+Constants.LOG_SYNC_FINISHED_SUFFIX));
 	}
 }

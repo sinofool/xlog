@@ -158,6 +158,35 @@
   <artifactId>slf4j-log4j12</artifactId>
   <version>1.5.8</version>
 </dependency>
+<dependency>
+  <groupId>jetty</groupId>
+  <artifactId>jetty</artifactId>
+  <version>6.0.2</version>
+</dependency>
+<dependency>
+  <groupId>jetty</groupId>
+  <artifactId>jetty-util</artifactId>
+  <version>6.0.2</version>
+</dependency>
+<dependency>
+  <groupId>jetty</groupId>
+  <artifactId>jsp</artifactId>
+  <version>2.1-6.0.2</version>
+</dependency>
+<dependency>
+  <groupId>jetty</groupId>
+  <artifactId>jsp-api</artifactId>
+  <version>2.1-6.0.2</version>
+</dependency>
+<dependency>
+  <groupId>jetty</groupId>
+  <artifactId>servlet-api</artifactId>
+  <version>2.5-6.0.2</version>
+</dependency>
+<dependency>
+  <groupId>ant</groupId>
+  <artifactId>ant</artifactId>
+  <version>1.6.5</version>
+</dependency>
 </dependencies>
-  
 </project>

@@ -16,7 +16,7 @@
 	</natures>
 	<linkedResources>
 		<link>
-			<name>build-generated</name>
+			<name>generated</name>
 			<type>2</type>
 			<location>/home/xianquanzhang/xlog/build/generated</location>
 		</link>

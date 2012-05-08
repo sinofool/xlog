@@ -48,7 +48,7 @@ build/generated/xlog.cpp build/generated/xlog.h: interface/xlog.ice interface/xl
 	cd interface && $(PROTOBUF_HOME)/bin/protoc xlog.proto --cpp_out=../build/generated/
 	cd interface && $(PROTOBUF_HOME)/bin/protoc xlog.proto --java_out=../build/generated/
 
-build/include/head: build/generated/xlog.h src/client/client.h src/client/tcp_client.h src/client/udp_client.h src/common/common.h
+build/include/head: build/generated/xlog.h src/client/client.h src/common/common.h
 	mkdir -p build/include/src/client
 	mkdir -p build/include/src/common
 	cp build/generated/xlog.h build/include
@@ -64,9 +64,9 @@ build/agent.binary: src/agent/agent.cpp build/generated/xlog.o build/agent/Agent
 build/config.bootstrap: src/config/config_bootstrap.cpp build/generated/xlog.pb.o build/common/zk_conn.o
 	$(CC) -o $@ $(INCLUDE_PATH) $^ $(LINK_LIBRARY)
 
-#build/client.example: src/example/c++/client_example.cpp build/generated/xlog.o build/adapter/agent_adapter.o build/client/client.o  build/client/tcp_client.o
+#build/client.example: src/example/c++/client_example.cpp build/generated/xlog.o build/adapter/agent_adapter.o build/client/client.o
 #	$(CC) -o $@ $(INCLUDE_PATH) $^ $(LINK_LIBRARY)
 
-build/lib/libClient.a: build/generated/xlog.o build/adapter/agent_adapter.o build/client/client.o build/client/tcp_client.o build/client/udp_client.o
+build/lib/libClient.a: build/generated/xlog.o build/adapter/agent_adapter.o build/client/client.o
 	$(AR) cr $@ $^
 

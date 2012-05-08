@@ -7,7 +7,8 @@ namespace xlog
 {
 
 bool AgentAdapter::init(const std::string& prxStr, const ::Ice::StringSeq& defaultAgents,bool is_udp_protocol)
-{   
+{  
+    std::cout << "it's come in.is_udp_protoclol = "<< is_udp_protocol << std::endl; 
     if (defaultAgents.empty())
     {
         std::cerr << "AgentAdapter::init defaultAgent is empty!" << std::endl;

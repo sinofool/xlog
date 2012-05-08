@@ -70,7 +70,7 @@ protected:
      * 发送数据的接口
      * 不同的worker会调用dispatcher的不同接口
      */
-    virtual bool send(const slice::LogDataSeq& data) = 0;
+    virtual bool send(const slice::LogData& data) = 0;
 
 private:
     slice::LogDataSeq _data;
@@ -85,7 +85,7 @@ public:
     {
     }
 protected:
-    virtual bool send(const slice::LogDataSeq& data);
+    virtual bool send(const slice::LogData& data);
 private:
     DispatcherAdapterPtr _adapter_dispatcher;
 };

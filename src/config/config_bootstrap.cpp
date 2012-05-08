@@ -10,7 +10,7 @@ int main(int argc, char **argv)
 {   
     if(argc==1)
     {
-      cout << "Usage:host:port/rootpath slot_count"<<endl;
+      cout << "Usage:zk_host:zk_port/xlog_path slot_count"<<endl;
       return 0;
     }
     ZKConnectionPtr conn = ZKConnectionPtr(new ZKConnection);

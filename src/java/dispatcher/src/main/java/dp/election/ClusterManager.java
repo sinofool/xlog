@@ -60,5 +60,5 @@ public abstract class ClusterManager<K, V> {
     return valueBuilder.cast(config);
   }
   
-  public abstract void addWatchers() throws KeeperException, InterruptedException, IOException;
+  public abstract void addWatchers(long delayTime) throws KeeperException, InterruptedException, IOException;
 }

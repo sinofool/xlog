@@ -18,7 +18,7 @@ import org.apache.zookeeper.Watcher.Event.EventType;
 
 import xlog.proto.Xlog.ItemInfo;
 import dp.zk.ZkConn;
-
+//@deprecate
 public class HABalancer implements Watcher {
     public static final String WAIT_LOOP = "__hacluster_waiting_loop__";
 

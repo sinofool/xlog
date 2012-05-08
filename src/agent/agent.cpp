@@ -19,7 +19,7 @@ public:
     {
         if(argc==1)
         {
-            cout << "Usage:zk_host:zk_port/rootpath agent_host:agent_port"<<endl;
+            cout << "Usage:zk_host:zk_port/xlog_path [-udp|-tcp] agent_host:agent_port"<<endl;
             return 0;
         }
         *argv++;
@@ -33,32 +33,41 @@ public:
             return 0;
         }
         std::cout << "ZooKeeper inited. Now initializing ICE. " << std::endl;
-
         std::vector < std::string > parts;
+        std::string udp("-udp");
+        bool is_udp=udp.compare(*argv++)==0?true:false;
+
         boost::algorithm::split(parts, *argv, boost::algorithm::is_any_of(":"));
         if (parts.size() != 2)
         {
             std::cerr << "agent host:port is " << *argv 
                     << ",does not match the format : <host>:<port>!" << std::endl;
-            return NULL;
+            return 0;
         }
-        std::string host = parts[0];
-        std::string port = parts[1];
         std::ostringstream os;
-        os << "default -h " << host << " -p " << port;
-
-        Ice::ObjectAdapterPtr adapter = communicator()->createObjectAdapterWithEndpoints(appName(),
+        Ice::PropertiesPtr props=Ice::createProperties();
+        if(is_udp)
+        {
+	    props->setProperty("Ice.UDP.RcvSize",ICE_UDP_RCVSIZE);
+	    os << "udp -h " << parts[0] << " -p " << parts[1];
+        }else
+        {
+	    os << "tcp -h " << parts[0] << " -p " << parts[1];
+        }
+        props->setProperty("Ice.MessageSizeMax",ICE_MESSAGE_SIZE_MAX);
+	Ice::InitializationData id;
+        id.properties=props;
+        Ice::CommunicatorPtr ic=Ice::initialize(id);
+        Ice::ObjectAdapterPtr adapter = ic->createObjectAdapterWithEndpoints(appName(),
                 os.str());
         std::cout << "new AgentI. ";
         AgentIPtr agent = new AgentI;
-        agent->init(communicator(), conn);
+        agent->init(ic, conn);
         std::cout << "done." << endl;
-        Ice::ObjectPrx prx = adapter->add(agent, communicator()->stringToIdentity("A"));
-
+        Ice::ObjectPrx prx = adapter->add(agent, ic->stringToIdentity("A"));
         std::cout << "Activating ";
         adapter->activate();
         std::cout << "done." << endl;
-
         communicator()->waitForShutdown();
         if (interrupted())
         {

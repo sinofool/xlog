@@ -22,7 +22,7 @@ public class DispatcherClientManager<K, V> extends ClusterManager<K, V> {
   }
   
   @Override
-  public void addWatchers() throws KeeperException, InterruptedException, IOException {
+  public void addWatchers(long delayTime) throws KeeperException, InterruptedException, IOException {
     watcherManager.setClientWatcher(this.slots.length,this);
   }
   

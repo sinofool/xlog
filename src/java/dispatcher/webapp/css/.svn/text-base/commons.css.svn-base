@@ -1,0 +1,62 @@
+body {
+	font-size: 12px;
+	color: #000;
+	overflow: auto;
+}
+
+.btn1 {
+	color: #000;
+	size: 12px;
+	padding: 0 3px;
+	line-height: 18px;
+	background: url(btn_bg.gif);
+	border: 1px solid #8C8A85;
+}
+
+.title1 {
+	font-size: 12px;
+	border-bottom: 2px solid #78bcea;
+	text-align: left;
+	width: 100%;
+	line-height: 21px;
+	margin: 0;
+	padding: 0;
+}
+
+.selectli1 {
+	font-size: 12px;
+	text-decoration: none;
+	color: #000;
+	display: block;
+	width: auto;
+	cursor: default;
+	padding: 0px 15px 0px 15px;
+	border-right: 0px solid #ccc;
+	margin-right: 2px;
+}
+
+.title1 a {
+	font-size: 12px;
+	line-height: 21px;
+	text-decoration: none;
+	color: #000;
+	display: block;
+	width: auto;
+	cursor: default;
+	padding: 0px 15px 0px 15px;
+	margin-right: 2px;
+	border-right: 0px solid #ccc;
+}
+
+.tabinfo1 th {
+	font-size: 12px;
+	padding: 5px;
+	text-align: left;
+}
+
+.tabinfo1 td {
+	font-size: 12px;
+	padding: 5px;
+	table-layout: fixed;
+	line-height: 19px;
+}

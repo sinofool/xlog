@@ -35,7 +35,7 @@ bool DispatcherConfig::init()
 
 void DispatcherConfig::process(ZKWatchedEvent event)
 {
-    std::cout << __FILE__ << ":" << __LINE__ << std::endl;
+    std::cout << __FILE__ <<":" << __LINE__ << " eventType=" << event.eventType << std::endl;
     if (event.keeperState != SyncConnected)
     {
         std::cerr << __FILE__ <<":" << __LINE__ << " keeperState=" << event.keeperState
@@ -47,6 +47,14 @@ void DispatcherConfig::process(ZKWatchedEvent event)
         std::cerr << __FILE__ <<":" << __LINE__ << " eventType=" << event.eventType
                 << " is not NodeChildrenChanged. It is only watching this event." << std::endl;
         //TODO re-watch
+        for(int i=0;i<slots;i++)
+        {
+           std::string path(DISPATCHERS_PATH);
+           path.append("/");
+           path.append(boost::lexical_cast<std::string>(i));
+
+           _conn->getChildren(path, this);
+        }
         return;
     }
     std::string event_path=event.path;
@@ -79,12 +87,12 @@ void DispatcherConfig::updateSlot(int slot_id)
     _config[slot_id]=dispatcher_nodes;
     _version++;
 
-    for(int i=0;i<slots;i++){
-        std::vector<std::string> vect=_config[i];
-        for(std::vector<std::string>::iterator it=vect.begin();it!=vect.end();it++){
-           std::cout << "address:" << *it <<std::endl;
-        }
+    /*
+    std::vector<std::string> vect=_config[slot_id];
+    for(std::vector<std::string>::iterator it=vect.begin();it!=vect.end();it++){
+        std::cout << "address:" << *it <<std::endl;
     }
+    */
 }
 /*
 std::vector<std::string> DispatcherConfig::get(){

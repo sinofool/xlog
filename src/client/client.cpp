@@ -5,11 +5,22 @@ namespace xlog
 {
 
 Client::Client(const std::string& prxStr, const ::Ice::StringSeq& defaultAgents,
-        const int maxQueueSize) :
-        _prxStr(prxStr), _defaultAgents(defaultAgents), _maxQueueSize(maxQueueSize)
+        const bool is_udp_protocol, const int maxQueueSize) :
+        _prxStr(prxStr), _defaultAgents(defaultAgents), _is_udp_protocol(is_udp_protocol), _maxQueueSize(maxQueueSize)
 {
-}
+   _agentAdapter = new AgentAdapter;
 
+   bool flag=_agentAdapter->init(_prxStr, _defaultAgents,_is_udp_protocol);
+   if (flag)
+   { 
+      std::cout << "success to init agent adapter!" << std::endl;
+      start().detach(); 
+   } else
+   {
+      std::cerr << "failt to init agent adapter!" << std::endl;
+   }
+}
+/*
 void Client::init(bool is_udp_protocol)
 {
      _agentAdapter = new AgentAdapter;
@@ -24,7 +35,7 @@ void Client::init(bool is_udp_protocol)
         std::cerr << "failt to init agent adapter!" << std::endl;
      }
 }
-
+*/
 bool Client::append(const slice::LogDataSeq& data)
 {
     ::IceUtil::Monitor<IceUtil::Mutex>::Lock lock(_dataMutex);

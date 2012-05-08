@@ -2,15 +2,16 @@ package com.renren.dp.xlog.client.impl;
 
 import com.renren.dp.xlog.agent.ProtocolType;
 import com.renren.dp.xlog.client.Client;
+import com.renren.dp.xlog.exception.XlogClientException;
 
 public class TcpClient extends Client{
 
-  public TcpClient(String[] agents,int queueSize){
-    super(agents,queueSize);
+  public TcpClient(String[] agents,int queueSize,boolean isSync) throws XlogClientException{
+    super(agents,queueSize,isSync);
   }
   
-  public TcpClient(String[] agents){
-    super(agents);
+  public TcpClient(String[] agents,boolean isSync) throws XlogClientException{
+    super(agents,isSync);
   }
   
   @Override

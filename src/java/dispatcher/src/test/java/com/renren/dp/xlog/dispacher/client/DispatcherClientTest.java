@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import junit.framework.TestCase;
 
+import com.renren.dp.xlog.config.Configuration;
 import com.renren.dp.xlog.dispatcher.adapter.DispatcherAdapter;
 
 import xlog.slice.DispatcherPrx;
@@ -16,7 +17,9 @@ public class DispatcherClientTest extends TestCase{
 
     private DispatcherPrx prx =null;
     public void setUp(){
-      ZkConn conn = new ZkConn();
+      ZkConn conn = new ZkConn(Configuration.getString("zookeeper.connstr"),
+    		  Configuration.getInt("zk.session.timeout",5),null);
+        
       Ice.Communicator ic = Ice.Util.initialize();
       DispatcherAdapter<DispatcherPrx> cfg=null;
       try {

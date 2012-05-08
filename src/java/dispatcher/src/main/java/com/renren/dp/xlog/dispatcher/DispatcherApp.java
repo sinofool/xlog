@@ -1,45 +1,72 @@
 package com.renren.dp.xlog.dispatcher;
 
+import java.util.Date;
+
 import org.apache.log4j.PropertyConfigurator;
 
 import com.renren.dp.xlog.config.Configuration;
+import com.renren.dp.xlog.storage.StorageRepositoryFactory;
 
-import dp.zk.ZkConn;
+public class DispatcherApp {
 
-public class DispatcherApp extends Ice.Application {
+	private Ice.Communicator ic = null;
+	private DispatcherI dispatcher = null;
+	private int status = 0;
+	private Date startDate;
 
-  @Override
-  public int run(String[] args) {
-    initLog4j();
-    initParams(args);
-    
-    shutdownOnInterrupt();
+	private static DispatcherApp da = null;
 
-    Ice.ObjectAdapter adapter = communicator().createObjectAdapterWithEndpoints("XlogDispatcher", "default");
-    ZkConn conn = new ZkConn();
-    DispatcherI obj = new DispatcherI();
-    obj.initialize(adapter, conn);
-    adapter.activate();
-    communicator().waitForShutdown();
-    return 0;
-  }
+	private DispatcherApp() {
+	}
 
-  public static void main(String[] args) {
-    DispatcherApp app = new DispatcherApp();
-    System.exit(app.main("Dispatcher", args));
-  }
+	public static DispatcherApp getInstance() {
+		if (da == null) {
+			da = new DispatcherApp();
+		}
+		return da;
+	}
 
-  private void initLog4j() {
-    ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-    PropertyConfigurator.configure(classLoader.getResource("conf/log4j.properties"));
-  }
-  
-  private void initParams(String[] args){
-    //处理参数，输入的参数以K=V形式输入
-    String[] param=null;
-    for(String arg:args){
-      param=arg.split("=");
-      Configuration.setString(param[0],param[1]);
-    }
-  }
+	public int getStatus() {
+		return status;
+	}
+
+	public Date getStartDate() {
+		return startDate;
+	}
+	
+	public void start() {
+		if(status==1){
+			return ;
+		}
+		startDate = new Date();
+		status = 1;
+		initLog4j();
+		Ice.Properties prop = Ice.Util.createProperties();
+		prop.setProperty("Ice.MessageSizeMax",
+				Configuration.getString("ice.message.size.max"));
+		Ice.InitializationData initData = new Ice.InitializationData();
+		initData.properties = prop;
+		ic = Ice.Util.initialize(initData);
+
+		Ice.ObjectAdapter adapter = ic.createObjectAdapterWithEndpoints(
+				"XlogDispatcher", "default");
+		dispatcher = new DispatcherI();
+		dispatcher.initialize(adapter);
+		adapter.activate();
+	}
+
+	public void stop() {
+		status = 0;
+		dispatcher.close();
+		StorageRepositoryFactory.getInstance().close();
+		ic.shutdown();
+		System.exit(0);
+	}
+
+	private void initLog4j() {
+		ClassLoader classLoader = Thread.currentThread()
+				.getContextClassLoader();
+		PropertyConfigurator.configure(classLoader
+				.getResource("conf/log4j.properties"));
+	}
 }

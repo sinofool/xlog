@@ -25,11 +25,11 @@ void AgentI::init(const Ice::CommunicatorPtr& ic, const ZKConnectionPtr& conn)
     _normalSendWorker = new NormalSendWorker(_adapter_dispatcher);
     std::cout << "AgentI::init step " << __LINE__ << std::endl;
     _normalSendWorker->start().detach();
-    std::cout << "AgentI::init step " << __LINE__ << std::endl;
-    _failedSendWorker = new FailedSendWorker;
-    std::cout << "AgentI::init step " << __LINE__ << std::endl;
-    _failedSendWorker->start().detach();
-    std::cout << "AgentI::init step " << __LINE__ << std::endl;
+   // std::cout << "AgentI::init step " << __LINE__ << std::endl;
+   // _failedSendWorker = new FailedSendWorker;
+   // std::cout << "AgentI::init step " << __LINE__ << std::endl;
+   // _failedSendWorker->start().detach();
+   // std::cout << "AgentI::init step " << __LINE__ << std::endl;
 }
 
 void AgentI::add(const slice::LogDataSeq& data, const ::Ice::Current& current)
@@ -77,32 +77,38 @@ void AgentI::addFailedLogData(const slice::LogDataSeq& data, const ::Ice::Curren
 void SendWorker::add(const slice::LogDataSeq& data)
 {
     ::IceUtil::Monitor<IceUtil::Mutex>::Lock lock(_dataMutex);
+     if(_data.size() == 2000)
+     {
+        std::cout << " cache data count : 2000 over memory limit! " << std::endl;
+     }
+
     _data.insert(_data.end(), data.begin(), data.end());
     _dataMutex.notify();
 }
 
 void SendWorker::run()
 {
+    std::vector<slice::LogData>::iterator it;
     for (;;)
     {
-        slice::LogDataSeq data;
+        ::IceUtil::Monitor<IceUtil::Mutex>::Lock lock(_dataMutex);
+        if (_data.empty())
         {
-            ::IceUtil::Monitor<IceUtil::Mutex>::Lock lock(_dataMutex);
-            if (_data.empty())
-            {
-                _dataMutex.wait();
-            }
-            data.swap(_data);
+          _dataMutex.wait();
         }
-
-        send(data);
+            
+        it=_data.begin(); 
+        while(!send(*it))
+        {
+           std::cout << " fail to send data !" << std::endl;
+        }
+        _data.erase(it);
     }
 }
 
-bool NormalSendWorker::send(const slice::LogDataSeq& data)
+bool NormalSendWorker::send(const slice::LogData& data)
 {
-    _adapter_dispatcher->sendNormal(data);
-    return true;
+    return _adapter_dispatcher->sendNormal(data);
 }
 
 bool FailedSendWorker::send(const slice::LogDataSeq& data)

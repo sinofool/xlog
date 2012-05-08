@@ -31,7 +31,7 @@ public:
     {
     }
     void init();
-    bool sendNormal(const slice::LogDataSeq& data);
+    bool sendNormal(const slice::LogData& data);
     bool sendFailed(const slice::LogDataSeq& data);
     /* 
     struct DispatcherNode
@@ -51,7 +51,7 @@ private:
     std::map< int , std::vector<DispatcherNode> > _prx;
     NodeChooseAlgorithm *nca;
     long _prx_version;
-    void rebuild_prx();
+    bool rebuild_prx();
 };
 
 class LRUChooseAlgorithm : public NodeChooseAlgorithm
@@ -60,6 +60,17 @@ public :
    slice::DispatcherPrx doChoose(const Ice::StringSeq& categories , std::map< int , std::vector<DispatcherNode> >& _prx );
 
 private:
+    DispatcherHashKey dispatcher_hash;
+};
+
+class RoundRobinAlgorithm : public NodeChooseAlgorithm
+{
+public :
+   RoundRobinAlgorithm(){ current_dn_num = 0;};
+   slice::DispatcherPrx doChoose(const Ice::StringSeq& categories , std::map< int , std::vector<DispatcherNode> >& _prx );
+
+private:
+    int current_dn_num;
     DispatcherHashKey dispatcher_hash;
 };
 

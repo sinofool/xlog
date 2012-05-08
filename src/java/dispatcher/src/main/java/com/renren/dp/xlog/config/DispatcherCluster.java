@@ -75,7 +75,7 @@ public class DispatcherCluster<T> {
     }
   }
 
-  public void addWatcher() throws KeeperException, InterruptedException, IOException {
-    haCluster.addWatchers();
+  public void addWatcher(long delayTime) throws KeeperException, InterruptedException, IOException {
+    haCluster.addWatchers(delayTime);
   }
 }
